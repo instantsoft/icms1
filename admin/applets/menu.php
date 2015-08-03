@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-
 function iconList(){
 	global $_LANG;
 	if ($handle = opendir(PATH.'/images/menuicons')) {
@@ -150,7 +148,7 @@ function applet_menu(){
 			if ($id >= 0){ dbShow('cms_menu', $id);  }
 			echo '1'; exit;
 		} else {
-			dbShowList('cms_menu', $_REQUEST['item']);
+			dbShowList('cms_menu', cmsCore::request('item', 'array_int', array()));
             cmsCore::addSessionMessage($_LANG['AD_DO_SUCCESS'] , 'success');
 			cmsCore::redirectBack();
 		}

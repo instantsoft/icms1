@@ -95,7 +95,7 @@ class cmsgeo {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 2);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
-        curl_setopt($ch, CURLOPT_USERAGENT, 'InstantCMS');
+        curl_setopt($ch, CURLOPT_USERAGENT, 'InstantCMS/'.CORE_VERSION.' +'.HOST);
         $out = simplexml_load_string(curl_exec($ch));
 
         foreach ($out->ip[0] as $key=>$value) {
@@ -107,4 +107,3 @@ class cmsgeo {
     }
 
 }
-?>

@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
-
 class cmsAdmin extends cmsCore {
 
     protected function __construct($install_mode=false) {
@@ -633,7 +631,7 @@ class cmsAdmin extends cmsCore {
     public function getUpdatedModules() {
 
         $upd_modules = array();
-        $all_modules = cmsDatabase::getInstance()->get_table('cms_modules', 'user=0');
+        $all_modules = cmsDatabase::getInstance()->get_table('cms_modules', 'user=0 AND original = 1');
 
         if (!$all_modules) { return false; }
 
@@ -730,7 +728,7 @@ class cmsAdmin extends cmsCore {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static function getModuleTemplates() {
 
-        $tpl_dir = is_dir(TEMPLATE_DIR.'modules') ? TEMPLATE_DIR.'modules' : PATH.'/templates/_default_/modules';
+        $tpl_dir = is_dir(TEMPLATE_DIR.'modules') ? TEMPLATE_DIR.'modules' : DEFAULT_TEMPLATE_DIR.'modules';
         $pdir    = opendir($tpl_dir);
 
         $templates  = array();

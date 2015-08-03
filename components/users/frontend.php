@@ -10,7 +10,6 @@
 //                        LICENSED BY GNU/GPL v2                              //
 //                                                                            //
 /******************************************************************************/
-if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
 
 function users(){
 

@@ -12,6 +12,4 @@ if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
 //                                                                            //
 /******************************************************************************/
 
-    header('Location:/admin/index.php?view=arhive');
-		
-?>
+header('Location:/admin/index.php?view=arhive');

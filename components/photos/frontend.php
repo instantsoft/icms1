@@ -374,7 +374,7 @@ if ($do=='delphoto'){
 
 	if (!$inUser->id) { cmsCore::halt(); }
 
-	if(!cmsCore::validateForm()) { cmsCore::halt(); }
+	if(!cmsUser::checkCsrfToken()) { cmsCore::halt(); }
 
 	$photo = cmsCore::callEvent('GET_PHOTO', $inPhoto->getPhoto($id));
 	if (!$photo) { cmsCore::halt(); }

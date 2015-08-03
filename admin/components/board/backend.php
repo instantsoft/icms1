@@ -114,10 +114,10 @@ cpToolMenu($toolmenu);
 
 if ($opt == 'show_item'){
     if (!isset($_REQUEST['item'])){
-        if (isset($_REQUEST['item_id'])){ dbShow('cms_board_items', (int)$_REQUEST['item_id']);  }
+        if (isset($_REQUEST['item_id'])){ dbShow('cms_board_items', cmsCore::request('item_id', 'int', 0));  }
         echo '1'; exit;
     } else {
-        dbShowList('cms_board_items', $_REQUEST['item']);
+        dbShowList('cms_board_items', cmsCore::request('item', 'array_int', array()));
         cmsCore::redirectBack();
     }
 }
@@ -127,7 +127,7 @@ if ($opt == 'hide_item'){
         dbHide('cms_board_items', cmsCore::request('item_id', 'int', 0));
         echo '1'; exit;
     } else {
-        dbHideList('cms_board_items', $_REQUEST['item']);
+        dbHideList('cms_board_items', cmsCore::request('item', 'array_int', array()));
         cmsCore::redirectBack();
     }
 }
@@ -698,4 +698,4 @@ if ($opt == 'add_cat' || $opt == 'edit_cat'){
       ?>
     </p>
 </form>
-<?php } ?>
+<?php }

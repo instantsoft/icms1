@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-defined('VALID_CMS_ADMIN') or die();
-
 function printLangPanel($target, $target_id, $field) {
 
     if(!$target_id){
@@ -1149,4 +1147,3 @@ function files_remove_directory($directory, $is_clear=false){
     return true;
 
 }
-?>

@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-
 function createMenuItem($menu, $id, $title){
 
     $inCore = cmsCore::getInstance();
@@ -145,7 +143,7 @@ function applet_cats(){
         }
 
         if (!cmsCore::request('is_access', 'int', 0)){
-            $showfor = $_REQUEST['showfor'];
+            $showfor = cmsCore::request('showfor', 'array_int', array());
             cmsCore::setAccess($category['id'], $showfor, 'category');
         } else {
             cmsCore::clearAccess($category['id'], 'category');
@@ -214,7 +212,7 @@ function applet_cats(){
 			$inDB->update('cms_category', $category, $category['id']);
 
 			if (!cmsCore::request('is_access', 'int', 0)){
-				$showfor = $_REQUEST['showfor'];
+				$showfor = cmsCore::request('showfor', 'array_int', array());
 				cmsCore::setAccess($category['id'], $showfor, 'category');
 			} else {
 				cmsCore::clearAccess($category['id'], 'category');
@@ -257,7 +255,7 @@ function applet_cats(){
 		} else {
 			if(isset($_REQUEST['multiple'])){
 				if (isset($_REQUEST['item'])){
-					$_SESSION['editlist'] = $_REQUEST['item'];
+					$_SESSION['editlist'] = cmsCore::request('item', 'array_int', array());
 				} else {
 					echo '<p class="error">'.$_LANG['AD_NO_SELECT_OBJECTS'].'</p>';
 					return;
@@ -654,4 +652,3 @@ function choosePhotoAlbum(){
 <?php
    }
 }
-?>

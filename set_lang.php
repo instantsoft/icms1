@@ -23,6 +23,8 @@ include(PATH.'/core/cms.php');
 
 cmsCore::getInstance();
 
+cmsCore::loadClass('user');
+
 if(!cmsConfig::getConfig('is_change_lang')){
     cmsCore::error404();
 }
@@ -31,7 +33,7 @@ $set_lang = cmsCore::request('lang', 'str', 'ru');
 
 $langs = cmsCore::getDirsList('/languages');
 
-if(!in_array($set_lang, $langs)){
+if(!$set_lang || !in_array($set_lang, $langs)){
     cmsCore::error404();
 }
 

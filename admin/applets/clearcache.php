@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-
 function applet_clearcache() {
 
   global $adminAccess;
@@ -27,4 +25,3 @@ function applet_clearcache() {
   cmsCore::redirectBack();
 
 }
-?>

@@ -13,11 +13,14 @@
 
 session_start();
 
-$captcha_id = trim(@$_GET['id']);
+if (!isset($_SESSION['p_kcaptcha'])) { $_SESSION['p_kcaptcha'] = array(); }
+
+if (!isset($_GET['id'])){ die; }
+$captcha_id = trim($_GET['id']);
+
 if (!preg_match('/^[0-9a-f]{32}$/i', $captcha_id)){ die; }
 
 include('kcaptcha.php');
 $captcha = new KCAPTCHA();
 
-$_SESSION['captcha'][$captcha_id] = $captcha->getKeyString();
-
+$_SESSION['p_kcaptcha'][$captcha_id] = $captcha->getKeyString();

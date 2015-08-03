@@ -76,7 +76,7 @@ $model = new cms_model_faq();
 
 if ($opt=='saveconfig'){
 
-    if (!cmsCore::validateForm()) { cmsCore::error404(); }
+    if (!cmsUser::checkCsrfToken()) { cmsCore::error404(); }
 
     $cfg = array();
     $cfg['guest_enabled'] = cmsCore::request('guest_enabled', 'int', 0);
@@ -147,40 +147,39 @@ if ($opt=='config') {
 
 if ($opt == 'show_item'){
     if (!isset($_REQUEST['item'])){
-        if (isset($_REQUEST['item_id'])){ dbShow('cms_faq_quests', (int)$_REQUEST['item_id']);  }
+        if (isset($_REQUEST['item_id'])){ dbShow('cms_faq_quests', cmsCore::request('item_id', 'int', 0));  }
         echo '1'; exit;
     } else {
-        dbShowList('cms_faq_quests', $_REQUEST['item']);
+        dbShowList('cms_faq_quests', cmsCore::request('item', 'array_int', array()));
         cmsCore::redirectBack();
     }
 }
 
 if ($opt == 'hide_item'){
     if (!isset($_REQUEST['item'])){
-        if (isset($_REQUEST['item_id'])){ dbHide('cms_faq_quests', (int)$_REQUEST['item_id']);  }
+        if (isset($_REQUEST['item_id'])){ dbHide('cms_faq_quests', cmsCore::request('item_id', 'int', 0));  }
         echo '1'; exit;
     } else {
-        dbHideList('cms_faq_quests', $_REQUEST['item']);
+        dbHideList('cms_faq_quests', cmsCore::request('item', 'array_int', array()));
         cmsCore::redirectBack();
     }
 }
 
 if ($opt == 'submit_item'){
-    if (!cmsCore::validateForm()) { cmsCore::error404(); }
-    $category_id = (int)$_REQUEST['category_id'];
-    $published = (int)$_REQUEST['published'];
-    $quest = $_REQUEST['quest'];
-    $answer = $_REQUEST['answer'];
-    $answeruser_id = $_SESSION['user']['id'];
-    $user_id = (int)$_REQUEST['user_id'];
 
-    $pubdate = $_REQUEST['pubdate'];
-    $answerdate = $_REQUEST['answerdate'];
+    if (!cmsUser::checkCsrfToken()) { cmsCore::error404(); }
 
-    $date = explode('.', $pubdate);
-    $pubdate = $date[2] . '-' . $date[1] . '-' . $date[0];
-    $date = explode('.', $answerdate);
-    $answerdate = $date[2] . '-' . $date[1] . '-' . $date[0];
+    $category_id   = cmsCore::request('category_id', 'int', 0);
+    $published     = cmsCore::request('published', 'int', 0);
+    $quest         = $inDB->escape_string(cmsCore::request('quest', 'html', ''));
+    $answer        = $inDB->escape_string(cmsCore::request('answer', 'html', ''));
+    $answeruser_id = (int) $_SESSION['user']['id'];
+    $user_id       = cmsCore::request('user_id', 'int', 0);
+
+    $date       = explode('.', $_REQUEST['pubdate']);
+    $pubdate    = (int) $date[2] . '-' . (int) $date[1] . '-' . (int) $date[0];
+    $date       = explode('.', $_REQUEST['answerdate']);
+    $answerdate = (int) $date[2] . '-' . (int) $date[1] . '-' . (int) $date[0];
 
     $sql = "INSERT INTO cms_faq_quests (category_id, pubdate, published, quest, answer, user_id, answeruser_id, answerdate)
             VALUES ('$category_id', '$pubdate', $published, '$quest', '$answer', $user_id, $answeruser_id, '$answerdate')";
@@ -192,121 +191,118 @@ if ($opt == 'submit_item'){
 }
 
 if ($opt == 'update_item'){
-    if (!cmsCore::validateForm()) { cmsCore::error404(); }
-    if (isset($_REQUEST['item_id'])) {
-        $id = (int)$_REQUEST['item_id'];
 
-        $category_id = (int)$_REQUEST['category_id'];
-        $published = (int)$_REQUEST['published'];
-        $quest = $_REQUEST['quest'];
-        $answer = $_REQUEST['answer'];
-        $answeruser_id = $_SESSION['user']['id'];
-        $user_id = (int)$_REQUEST['user_id'];
+    if (!cmsUser::checkCsrfToken()) { cmsCore::error404(); }
 
-        $pubdate = $_REQUEST['pubdate'];
-        $answerdate = $_REQUEST['answerdate'];
+    $id            = cmsCore::request('item_id', 'int', 0);
+    $category_id   = cmsCore::request('category_id', 'int', 0);
+    $published     = cmsCore::request('published', 'int', 0);
+    $quest         = $inDB->escape_string(cmsCore::request('quest', 'html', ''));
+    $answer        = $inDB->escape_string(cmsCore::request('answer', 'html', ''));
+    $answeruser_id = (int) $_SESSION['user']['id'];
+    $user_id       = cmsCore::request('user_id', 'int', 0);
 
-        $date = explode('.', $pubdate);
-        $pubdate = $date[2] . '-' . $date[1] . '-' . $date[0];
-        $date = explode('.', $answerdate);
-        $answerdate = $date[2] . '-' . $date[1] . '-' . $date[0];
+    $date       = explode('.', $_REQUEST['pubdate']);
+    $pubdate    = (int) $date[2] . '-' . (int) $date[1] . '-' . (int) $date[0];
+    $date       = explode('.', $_REQUEST['answerdate']);
+    $answerdate = (int) $date[2] . '-' . (int) $date[1] . '-' . (int) $date[0];
 
-        $sql = "UPDATE cms_faq_quests
-                SET category_id = $category_id,
-                    quest='$quest',
-                    answer='$answer',
-                    user_id='$user_id',
-                    published=$published,
-                    answeruser_id=$answeruser_id,
-                    pubdate='$pubdate',
-                    answerdate='$answerdate'
-                WHERE id = $id
-                LIMIT 1";
-        $inDB->query($sql);
-    }
+    $sql = "UPDATE cms_faq_quests
+            SET category_id = $category_id,
+                quest='$quest',
+                answer='$answer',
+                user_id='$user_id',
+                published=$published,
+                answeruser_id=$answeruser_id,
+                pubdate='$pubdate',
+                answerdate='$answerdate'
+            WHERE id = $id
+            LIMIT 1";
+
+    $inDB->query($sql);
+
 
     if (!isset($_SESSION['editlist']) || @sizeof($_SESSION['editlist'])==0){
         cmsCore::redirect('?view=components&do=config&opt=list_items&id='.(int)$_REQUEST['id']);
     } else {
         cmsCore::redirect('?view=components&do=config&opt=edit_item&id='.(int)$_REQUEST['id']);
     }
+
 }
 
 if($opt == 'delete_item'){
     if (!isset($_REQUEST['item'])){
-        if (isset($_REQUEST['item_id'])){ $model->deleteQuest((int)$_REQUEST['item_id']); }
+        if (isset($_REQUEST['item_id'])){ $model->deleteQuest(cmsCore::request('item_id', 'int', 0)); }
     } else {
-        $model->deleteQuests($_REQUEST['item']);
+        $model->deleteQuests(cmsCore::request('item', 'array_int', 0));
     }
     cmsCore::redirect('?view=components&do=config&opt=list_items&id='.$id);
 }
 
 if ($opt == 'show_cat'){
-    if(isset($_REQUEST['item_id'])) {
-        $id = (int)$_REQUEST['item_id'];
-        $sql = "UPDATE cms_faq_cats SET published = 1 WHERE id = $id";
-        $inDB->query($sql) ;
-        echo '1'; exit;
-    }
+    $id = cmsCore::request('item_id', 'int', 0);
+    $sql = "UPDATE cms_faq_cats SET published = 1 WHERE id = $id";
+    $inDB->query($sql) ;
+    echo '1'; exit;
 }
 
 if ($opt == 'hide_cat'){
-    if(isset($_REQUEST['item_id'])) {
-        $id = (int)$_REQUEST['item_id'];
-        $sql = "UPDATE cms_faq_cats SET published = 0 WHERE id = $id";
-        $inDB->query($sql) ;
-        echo '1'; exit;
-    }
+    $id = cmsCore::request('item_id', 'int', 0);
+    $sql = "UPDATE cms_faq_cats SET published = 0 WHERE id = $id";
+    $inDB->query($sql);
+    echo '1'; exit;
 }
 
 if ($opt == 'submit_cat'){
-    if (!cmsCore::validateForm()) { cmsCore::error404(); }
-    $parent_id = (int)$_REQUEST['parent_id'];
-    $title = $_REQUEST['title'];
-    $published = (int)$_REQUEST['published'];
-    $description = $_REQUEST['description'];
+
+    if (!cmsUser::checkCsrfToken()) { cmsCore::error404(); }
+
+    $parent_id   = cmsCore::request('parent_id', 'int', 0);
+    $title       = cmsCore::request('title', 'str', '');
+    $published   = cmsCore::request('published', 'int', 0);
+    $description = $inDB->escape_string(cmsCore::request('description', 'html', ''));
 
     $sql = "INSERT INTO cms_faq_cats (parent_id, title, published, description)
             VALUES ($parent_id, '$title', $published, '$description')";
     $inDB->query($sql);
     cmsCore::redirect('?view=components&do=config&opt=list_cats&id='.(int)$_REQUEST['id']);
+
 }
 
 if($opt == 'delete_cat'){
-    if(isset($_REQUEST['item_id'])) {
-        $id = (int)$_REQUEST['item_id'];
-        //DELETE ITEMS
-        $sql = "DELETE FROM cms_faq_quests WHERE category_id = $id";
-        $inDB->query($sql) ;
-        //DELETE CATEGORY
-        $sql = "DELETE FROM cms_faq_cats WHERE id = $id LIMIT 1";
-        $inDB->query($sql) ;
-    }
+
+    $id = cmsCore::request('item_id', 'int', 0);
+    //DELETE ITEMS
+    $sql = "DELETE FROM cms_faq_quests WHERE category_id = $id";
+    $inDB->query($sql) ;
+    //DELETE CATEGORY
+    $sql = "DELETE FROM cms_faq_cats WHERE id = $id LIMIT 1";
+    $inDB->query($sql) ;
+
     cmsCore::redirect('?view=components&do=config&opt=list_cats&id='.(int)$_REQUEST['id']);
 }
 
 if ($opt == 'update_cat'){
-    if (!cmsCore::validateForm()) { cmsCore::error404(); }
-    if (isset($_REQUEST['item_id'])) {
-        $id = (int)$_REQUEST['item_id'];
 
-        $parent_id = (int)$_REQUEST['parent_id'];
-        $title = $_REQUEST['title'];
-        $published = (int)$_REQUEST['published'];
-        $description = $_REQUEST['description'];
+    if (!cmsUser::checkCsrfToken()) { cmsCore::error404(); }
 
-        $sql = "UPDATE cms_faq_cats
-                SET title='$title',
-                    parent_id = $parent_id,
-                    description='$description',
-                    published=$published
-                WHERE id = $id
-                LIMIT 1";
-        $inDB->query($sql) ;
+    $id          = cmsCore::request('item_id', 'int', 0);
+    $parent_id   = cmsCore::request('parent_id', 'int', 0);
+    $title       = cmsCore::request('title', 'str', '');
+    $published   = cmsCore::request('published', 'int', 0);
+    $description = $inDB->escape_string(cmsCore::request('description', 'html', ''));
 
-        cmsCore::redirect('?view=components&do=config&opt=list_cats&id='.(int)$_REQUEST['id']);
+    $sql = "UPDATE cms_faq_cats
+            SET title='$title',
+                parent_id = $parent_id,
+                description='$description',
+                published=$published
+            WHERE id = $id
+            LIMIT 1";
+    $inDB->query($sql) ;
 
-    }
+    cmsCore::redirect('?view=components&do=config&opt=list_cats&id='.(int)$_REQUEST['id']);
+
 }
 
 if ($opt == 'list_cats'){
@@ -385,7 +381,7 @@ if ($opt == 'add_item' || $opt == 'edit_item'){
     } else {
         if(isset($_REQUEST['multiple'])){
            if (isset($_REQUEST['item'])){
-               $_SESSION['editlist'] = $_REQUEST['item'];
+               $_SESSION['editlist'] = cmsCore::request('item', 'array_int', 0);
            } else {
                echo '<p class="error">'.$_LANG['AD_NO_SELECT_OBJECTS'].'</p>';
                return;
@@ -402,7 +398,7 @@ if ($opt == 'add_item' || $opt == 'edit_item'){
                    $ostatok = '('.$_LANG['AD_NEXT_IN'].' '.sizeof($_SESSION['editlist']).')';
            }
         } else {
-            $id = (int)$_REQUEST['item_id'];
+            $id = cmsCore::request('item_id', 'int', 0);
         }
 
 
@@ -430,7 +426,7 @@ if ($opt == 'add_item' || $opt == 'edit_item'){
                     echo $inCore->getListItems('cms_faq_cats', $mod['category_id']);
                 } else {
                     if (isset($_REQUEST['addto'])){
-                        echo $inCore->getListItems('cms_faq_cats', $_REQUEST['addto']);
+                        echo $inCore->getListItems('cms_faq_cats', cmsCore::request('addto', 'int', 0));
                     } else {
                         echo $inCore->getListItems('cms_faq_cats');
                     }
@@ -491,7 +487,7 @@ if ($opt == 'add_item' || $opt == 'edit_item'){
     </table>
     <p>
       <input name="add_mod" type="submit" id="add_mod" value="<?php echo $_LANG['SAVE']; ?>" />
-      <input name="back2" type="button" id="back2" value="<?php echo $_LANG['CANCEL']; ?>" onclick="window.location.href='index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>';"/>
+      <input name="back2" type="button" id="back2" value="<?php echo $_LANG['CANCEL']; ?>" onclick="window.location.href='index.php?view=components&do=config&id=<?php echo (int)$_REQUEST['id']; ?>';"/>
       <input name="opt" type="hidden" id="do" <?php if ($opt=='add_item') { echo 'value="submit_item"'; } else { echo 'value="update_item"'; } ?> />
       <?php
         if ($opt=='edit_item'){
@@ -509,7 +505,7 @@ if ($opt == 'add_cat' || $opt == 'edit_cat'){
         cpAddPathway($_LANG['AD_CREATE_CATEGORY']);
     } else {
         if(isset($_REQUEST['item_id'])){
-            $id = (int)$_REQUEST['item_id'];
+            $id  = cmsCore::request('item_id', 'int', 0);
             $sql = "SELECT * FROM cms_faq_cats WHERE id = $id LIMIT 1";
             $result = $inDB->query($sql) ;
             if ($inDB->num_rows($result)){
@@ -564,7 +560,7 @@ if ($opt == 'add_cat' || $opt == 'edit_cat'){
         </table>
         <p>
           <input name="add_mod" type="submit" id="add_mod" value="<?php echo $_LANG['SAVE']; ?>" />
-          <input name="back3" type="button" id="back3" value="<?php echo $_LANG['CANCEL']; ?>" onclick="window.location.href='index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>';"/>
+          <input name="back3" type="button" id="back3" value="<?php echo $_LANG['CANCEL']; ?>" onclick="window.location.href='index.php?view=components&do=config&id=<?php echo (int)$_REQUEST['id']; ?>';"/>
           <input name="opt" type="hidden" id="do" <?php if ($opt=='add_cat') { echo 'value="submit_cat"'; } else { echo 'value="update_cat"'; } ?> />
           <?php
             if ($opt=='edit_cat'){
@@ -573,7 +569,4 @@ if ($opt == 'add_cat' || $opt == 'edit_cat'){
           ?>
         </p>
 </form>
-     <?php
-}
-
-?>
+<?php }

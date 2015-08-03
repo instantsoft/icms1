@@ -342,4 +342,4 @@ if ($opt=='edit_blog'){
     <input name="back" type="button" id="back" value="<?php echo $_LANG['CANCEL']; ?>" onclick="window.location.href='index.php?view=components&do=config&link=blogs&opt=list_blogs';"/>
 </p>
 </form>
-<?php } ?>
+<?php }

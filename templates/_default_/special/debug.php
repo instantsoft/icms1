@@ -18,7 +18,7 @@
                 <div class="query_time"><?php echo $_LANG['DEBUG_QUERY_TIME']; ?> <span class="<?php echo (($sql['time']>=0.1) ? 'red_query' : 'green_query'); ?>"><?php echo number_format($sql['time'], 5).'</span> '.$_LANG['DEBUG_SEC'] ?></div>
             </div>
         <?php } ?>
-        <div>
+        </div>
     </div>
 </div>
 <script>

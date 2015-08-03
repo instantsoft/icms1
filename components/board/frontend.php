@@ -54,7 +54,12 @@ if ($do=='view'){
 		}
 
 	} else {
-        $category['title'] = $pagetitle = $inCore->menuTitle();
+        
+        $menu_title = $inCore->menuTitle();
+        
+        $pagetitle = $menu_title ? $menu_title : $pagetitle;
+        
+        $category['title'] = $pagetitle;
         $category['description'] = $model->config['root_description'];
         $pagekeys = $model->config['meta_keys'];
         $pagedesc = $model->config['meta_desc'];

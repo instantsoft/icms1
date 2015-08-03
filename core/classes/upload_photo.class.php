@@ -60,11 +60,11 @@ class cmsUploadPhoto {
             $input_name = preg_replace('/[^a-zA-Zа-яёЁА-Я0-9\.\-_ ]/ui', '',
                                     mb_substr(basename(strval($_FILES[$this->input_name]['name'])), 0, 160));
             // расширение
-            $ext = mb_strtolower(pathinfo($input_name, PATHINFO_EXTENSION));
+            $ext = strtolower(pathinfo($input_name, PATHINFO_EXTENSION));
             // имя файла без расширения
             $realfile = str_replace('.'.$ext, '', $input_name);
 
-			if (!in_array($ext, array('jpg','jpeg','gif','png','bmp'))) { return false; }
+			if (!$ext || !in_array($ext, array('jpg','jpeg','gif','png','bmp'), true)) { return false; }
 
 			$this->filename 	   = $this->filename ? $this->filename : md5(time().$realfile).'.'.$ext;
 
@@ -157,4 +157,3 @@ class cmsUploadPhoto {
 // ============================================================================ //
 
 }
-?>

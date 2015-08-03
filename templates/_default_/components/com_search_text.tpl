@@ -46,7 +46,6 @@
 </div>
 
 {if $results}
-	{$num="1"}
 	<p class="usr_photos_notice"><strong>{$LANG.FOUND} {$total|spellcount:$LANG.1_MATERIALS:$LANG.2_MATERIALS:$LANG.10_MATERIALS}</strong></p>
     {foreach key=tid item=item from=$results}
 	<div class="search_block">
@@ -54,7 +53,7 @@
             	<div class="search_date">{$item.pubdate}</div>
             {/if}
             <div class="search_result_title">
-                <span>{$num}</span>
+                <span>{$res_count}</span>
                 <a href="{$item.link}" target="_blank">{$item.s_title}</a>
             </div>
             <div class="search_result_desc">
@@ -67,12 +66,12 @@
                 <div class="search_result_link"><a href="{$item.placelink}">{$item.place}</a> &mdash; <span style="color:green">{$host}{$item.link}</span></div>
             </div>
      </div>
-     {$num=$num+1}
+     {$res_count=$res_count+1}
     {/foreach}
     {$pagebar}
 {else}
 	{if $query}
-		<p class="usr_photos_notice">{$LANG.BY_QUERY} <strong>"{$query}"</strong> {$LANG.NOTHING_FOUND}. <a href="{$external_link}" target="_blank">{$LANG.FIND_EXTERNAL}</a></p>
+		<p class="not_found">{$LANG.BY_QUERY} <strong>"{$query}"</strong> {$LANG.NOTHING_FOUND}. <a href="{$external_link}" target="_blank">{$LANG.FIND_EXTERNAL}</a></p>
     {/if}
 {/if}
 <script type="text/javascript">

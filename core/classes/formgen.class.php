@@ -280,7 +280,7 @@ class cmsFormGen {
                        FROM {$param['src']}
                        {$where}
                        ORDER BY {$order_by}
-                       LIMIT 100";
+                       LIMIT 1000";
 
         $result = $inDB->query($sql);
 

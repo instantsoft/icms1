@@ -1,7 +1,7 @@
 <?php
 /******************************************************************************/
 //                                                                            //
-//                           InstantCMS v1.10.6                               //
+//                           InstantCMS v1.10.7                               //
 //                        http://www.instantcms.ru/                           //
 //                                                                            //
 //                   written by InstantCMS Team, 2007-2015                    //
@@ -33,6 +33,7 @@
     $this->addHeadJS('includes/jquery/colorbox/init_colorbox.js');
     // LANG фразы для colorbox
     $this->addHeadJsLang(array('CBOX_IMAGE','CBOX_FROM','CBOX_PREVIOUS','CBOX_NEXT','CBOX_CLOSE','CBOX_XHR_ERROR','CBOX_IMG_ERROR', 'CBOX_SLIDESHOWSTOP', 'CBOX_SLIDESHOWSTART'));
+    $this->addHead('<script type="text/javascript">var TEMPLATE = "'.TEMPLATE.'";</script>');
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -137,7 +138,7 @@
             </div>
             <div class="grid_4 foot_right">
                 <a href="http://www.instantcms.ru/" title="<?php echo $_LANG['POWERED_BY_INSTANTCMS']; ?>" target="_blank">
-                    <img src="/templates/<?php echo TEMPLATE; ?>/images/b88x31.gif" border="0"/>
+                    <img src="/templates/<?php echo TEMPLATE; ?>/images/b88x31.gif" />
                 </a>
             </div>
         </div>

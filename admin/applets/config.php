@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-
 function applet_config(){
 
     // получаем оригинальный конфиг
@@ -32,7 +30,7 @@ function applet_config(){
 
 	if ($do == 'save'){
 
-        if (!cmsCore::validateForm()) { cmsCore::error404(); }
+        if (!cmsUser::checkCsrfToken()) { cmsCore::error404(); }
 
 		$newCFG = array();
 		$newCFG['sitename'] 	= stripslashes(cmsCore::request('sitename', 'str', ''));
@@ -295,9 +293,9 @@ function applet_config(){
 			</table>
         </div>
 		<div id="design">
-			<table width="720" border="0" cellpadding="5">
+			<table width="100%" cellpadding="5">
 				<tr>
-					<td valign="top">
+					<td valign="top" width="300">
                         <div style="margin-top:2px">
                             <strong><?php echo $_LANG['TEMPLATE']; ?>:</strong><br />
                             <span class="hinttext"><?php echo $_LANG['AD_TEMPLATE_FOLDER'] ; ?> </span>

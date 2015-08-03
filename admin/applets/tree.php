@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-
 function applet_tree(){
 
     $inCore = cmsCore::getInstance();
@@ -102,4 +100,4 @@ function applet_tree(){
 
 	}
 
-} ?>
+}

@@ -23,7 +23,7 @@ if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
 
 	if($opt=='saveconfig'){
 
-        if (!cmsCore::validateForm()) { cmsCore::error404(); }
+        if (!cmsUser::checkCsrfToken()) { cmsCore::error404(); }
 
 		$cfg = array();
 		$cfg['addsite']  = cmsCore::request('addsite', 'int');

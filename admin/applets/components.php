@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-
 function cpComponentHasConfig($item){
 	return file_exists('components/'.$item['link'].'/backend.php');
 }
@@ -26,8 +24,8 @@ function cpComponentCanRemove($item){
 function applet_components(){
 
     $inCore = cmsCore::getInstance();
-    $inDB   = cmsDatabase::getInstance();
 	$inUser = cmsUser::getInstance();
+	$inDB   = cmsDatabase::getInstance();
 
     global $_LANG;
 	global $adminAccess;
@@ -115,5 +113,3 @@ function applet_components(){
 	}
 
 }
-
-?>

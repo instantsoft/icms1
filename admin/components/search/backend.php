@@ -37,7 +37,7 @@ if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
 
     if ($opt=='save'){
 
-        if (!cmsCore::validateForm()) { cmsCore::error404(); }
+        if (!cmsUser::checkCsrfToken()) { cmsCore::error404(); }
 
 		$cfg = array();
 		$cfg['perpage'] = cmsCore::request('perpage', 'int', 15);

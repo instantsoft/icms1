@@ -76,10 +76,10 @@ class p_kcaptcha extends cmsPlugin {
         $captcha_code = cmsCore::request('captcha_code', 'str', '');
         $captcha_id   = cmsCore::request('captcha_id', 'str', '');
 
-        if(!$captcha_id || empty($_SESSION['captcha'][$captcha_id]) || !$captcha_code) { return false; }
+        if(!$captcha_id || empty($_SESSION['p_kcaptcha'][$captcha_id]) || !$captcha_code) { return false; }
 
-        $real_code = $_SESSION['captcha'][$captcha_id];
-        unset($_SESSION['captcha'][$captcha_id]);
+        $real_code = $_SESSION['p_kcaptcha'][$captcha_id];
+        unset($_SESSION['p_kcaptcha'][$captcha_id]);
 
         return ($real_code === $captcha_code);
 

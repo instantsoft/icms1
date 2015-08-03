@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-
 function newContent($table, $where=''){
 	$inDB   = cmsDatabase::getInstance();
     if ($where) { $where = ' AND '.$where; }
@@ -280,4 +278,3 @@ function applet_main(){
 <?php
 	return true;
 }
-?>

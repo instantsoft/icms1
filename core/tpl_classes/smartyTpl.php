@@ -30,7 +30,7 @@ class smartyTpl{
 
         $this->smarty->setTemplateDir($template_dir.'/'.$tpl_folder);
 
-        $this->smarty->compile_id = $is_exists_tpl_file ? TEMPLATE : '_default_';
+        $this->smarty->compile_id = $is_exists_tpl_file ? TEMPLATE : pathinfo(DEFAULT_TEMPLATE_DIR, PATHINFO_BASENAME);
         $this->smarty->assign('LANG', $_LANG);
 
     }

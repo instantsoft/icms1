@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-
 function applet_help(){
 
     $topic = cmsCore::request('topic', 'str', '');
@@ -32,5 +30,3 @@ function applet_help(){
 	cmsCore::redirect('http://www.instantcms.ru/wiki');
 
 }
-
-?>

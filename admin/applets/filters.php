@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-
 function applet_filters(){
 
 	global $_LANG;
@@ -51,5 +49,3 @@ function applet_filters(){
 	}
 
 }
-
-?>

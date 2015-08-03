@@ -15,7 +15,7 @@ Error_Reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 
 header('Content-Type: text/html; charset=utf-8');
 header('X-Powered-By: InstantCMS');
-define('PATH', dirname(__FILE__));
+define('PATH', $_SERVER['DOCUMENT_ROOT']);
 define('VALID_CMS', 1);
 
 // Проверяем, что система установлена

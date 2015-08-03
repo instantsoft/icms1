@@ -238,7 +238,6 @@ class cms_model_content{
         }
 
         $sql = "SELECT con.*,
-                       con.pubdate as fpubdate,
 					   cat.title as cat_title, cat.seolink as catseolink,
 					   cat.showdesc,
                        u.nickname as author,
@@ -264,7 +263,8 @@ class cms_model_content{
         if (!$this->inDB->num_rows($result)) { return false; }
 
         while($article = $this->inDB->fetch_assoc($result)){
-			$article['fpubdate'] = cmsCore::dateFormat($article['fpubdate']);
+			$article['fpubdate'] = cmsCore::dateFormat($article['pubdate']);
+            $article['ffpubdate'] = date('c',strtotime($article['pubdate']));
 			$article['tagline']  = cmsTagLine('content', $article['id'], true);
 			$article['comments'] = cmsCore::getCommentsCount('article', $article['id']);
             $article['url']      = $this->getArticleURL(null, $article['seolink']);

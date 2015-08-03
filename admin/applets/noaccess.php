@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-
 function applet_noaccess(){
 
     global $_LANG;
@@ -25,5 +23,3 @@ function applet_noaccess(){
     echo '<p><a href="javascript:void(0)" onclick="window.history.go(-1)">'.$_LANG['BACK'].'</a></p>';
 
 }
-
-?>

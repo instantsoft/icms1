@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
-
 function clubs(){
 
     $inCore = cmsCore::getInstance();
@@ -39,6 +37,11 @@ function clubs(){
 	$id   = cmsCore::request('id', 'int', 0);
 	$do   = $inCore->do;
 	$page = cmsCore::request('page', 'int', 1);
+
+    $menutitle = $inCore->menuTitle();
+    if($menutitle && $do == 'view'){
+        $pagetitle = $menutitle;
+    }
 
 	$inPage->setTitle($pagetitle);
 	$inPage->setDescription($model->config['meta_desc'] ? $model->config['meta_desc'] : $pagetitle);

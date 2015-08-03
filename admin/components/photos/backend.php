@@ -338,12 +338,12 @@ if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
         }
 
         //DEFAULT VALUES
-        if (!isset($mod['thumb1'])) { $mod['thumb1'] = 96; }
-        if (!isset($mod['thumb2'])) { $mod['thumb2'] = 450; }
+        if (!isset($mod['thumb1'])) { $mod['thumb1'] = 180; }
+        if (!isset($mod['thumb2'])) { $mod['thumb2'] = 650; }
         if (!isset($mod['thumbsqr'])) { $mod['thumbsqr'] = 1; }
         if (!isset($mod['is_comments'])) { $mod['is_comments'] = 0; }
         if (!isset($mod['maxcols'])) { $mod['maxcols'] = 4; }
-        if (!isset($mod['showtype'])) { $mod['showtype'] = 'lightbox'; }
+        if (!isset($mod['showtype'])) { $mod['showtype'] = 'thumb'; }
         if (!isset($mod['perpage'])) { $mod['perpage'] = '20'; }
         if (!isset($mod['uplimit'])) { $mod['uplimit'] = 20; }
         if (!isset($mod['published'])) { $mod['published'] = 1; }

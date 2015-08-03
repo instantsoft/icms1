@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-
 function createMenuItem($menu, $id, $title){
     $inCore = cmsCore::getInstance();
 	$inDB 	= cmsDatabase::getInstance();
@@ -185,7 +183,7 @@ function applet_content(){
 			$article['tpl'] 		= cmsCore::request('tpl', 'str', 'com_content_read.tpl');
 
             $date = explode('.', $pubdate);
-            $article['pubdate'] = $date[2] . '-' . $date[1] . '-' . $date[0] . ' ' .date('H:i');
+            $article['pubdate'] = (int)$date[2].'-'.sprintf("%02d", (int)$date[1]).'-'.sprintf("%02d", (int)$date[0]).' '.date('H:i');
 
             $autokeys               = cmsCore::request('autokeys', 'int');
 
@@ -206,7 +204,7 @@ function applet_content(){
 			$model->updateArticle($id, $article);
 
 			if (!cmsCore::request('is_public', 'int', 0)){
-				$showfor = $_REQUEST['showfor'];
+				$showfor = cmsCore::request('showfor', 'array_int', array());
 				cmsCore::setAccess($id, $showfor, 'material');
 			} else {
 				cmsCore::clearAccess($id, 'material');
@@ -273,7 +271,7 @@ function applet_content(){
 
         $article['pubdate']     = $_REQUEST['pubdate'];
         $date                   = explode('.', $article['pubdate']);
-		$article['pubdate']     = $date[2] . '-' . $date[1] . '-' . $date[0] . ' ' .date('H:i');
+		$article['pubdate']     = (int)$date[2].'-' .sprintf("%02d", (int)$date[1]).'-'.sprintf("%02d", (int)$date[0]).' '.date('H:i');
 
 		$article['user_id']     = cmsCore::request('user_id', 'int', $inUser->id);
 
@@ -298,7 +296,7 @@ function applet_content(){
         $article['id'] = $model->addArticle($article);
 
 		if (!cmsCore::request('is_public', 'int', 0)){
-			$showfor = $_REQUEST['showfor'];
+			$showfor = cmsCore::request('showfor', 'array_int', array());
 			if (sizeof($showfor)>0  && !cmsCore::request('is_public', 'int', 0)){
 				cmsCore::setAccess($article['id'], $showfor, 'material');
             }
@@ -355,7 +353,7 @@ function applet_content(){
 			 $mod['tpl'] = 'com_content_read.tpl';
 		} else {
 			if (isset($_REQUEST['item'])){
-				$_SESSION['editlist'] = $_REQUEST['item'];
+				$_SESSION['editlist'] = cmsCore::request('item', 'array_int', array());
 			}
 
 			 $ostatok = '';

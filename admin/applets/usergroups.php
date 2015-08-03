@@ -11,9 +11,7 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-
- function getCountUsers($id) {
+function getCountUsers($id) {
 
      $inDB = cmsDatabase::getInstance();
      $count = $inDB->rows_count('cms_users', "group_id = '$id'");

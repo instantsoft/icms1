@@ -51,27 +51,27 @@ cpToolMenu($toolmenu);
 
 if ($opt == 'show_banner'){
     if (!isset($_REQUEST['item'])){
-        if (isset($_REQUEST['item_id'])){ dbShow('cms_banners', $_REQUEST['item_id']);  }
+        if (isset($_REQUEST['item_id'])){ dbShow('cms_banners', cmsCore::request('item_id', 'int', 0));  }
         echo '1'; exit;
     } else {
-        dbShowList('cms_banners', $_REQUEST['item']);
+        dbShowList('cms_banners', cmsCore::request('item', 'array_int', array()));
         cmsCore::redirectBack();
     }
 }
 
 if ($opt == 'hide_banner'){
     if (!isset($_REQUEST['item'])){
-        if (isset($_REQUEST['item_id'])){ dbHide('cms_banners', $_REQUEST['item_id']);  }
+        if (isset($_REQUEST['item_id'])){ dbHide('cms_banners', cmsCore::request('item_id', 'int', 0));  }
         echo '1'; exit;
     } else {
-        dbHideList('cms_banners', $_REQUEST['item']);
+        dbHideList('cms_banners', cmsCore::request('item', 'array_int', array()));
         cmsCore::redirectBack();
     }
 }
 
 if ($opt == 'submit' || $opt == 'update'){
 
-    if(!cmsCore::validateForm()) { cmsCore::error404(); }
+    if(!cmsUser::checkCsrfToken()) { cmsCore::error404(); }
 
     $item_id = cmsCore::request('item_id', 'int', 0);
 
@@ -285,8 +285,5 @@ if ($opt == 'add' || $opt == 'edit'){
       ?>
     </p>
 </form>
- <?php
-}
 
-
-?>
+<?php }

@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-
 function cpModuleHasConfig($item){
     if (file_exists('modules/'.$item['content'].'/backend.php')){ return true; }
     if (file_exists('modules/'.$item['content'].'/backend.xml')){ return true; }
@@ -98,6 +96,11 @@ function applet_modules(){
             if(cmsCore::inRequest('content')){
                 $content = $inDB->escape_string(cmsCore::request('content', 'html'));
                 $inDB->query("UPDATE cms_modules SET content='{$content}' WHERE id={$id}");
+            }
+			// Добавим возможность изменять css_префикс с фронта
+			if(cmsCore::inRequest('css_prefix')){// На шаблонах не не отдающих параметра затирать класс не будем
+                $css_prefix = cmsCore::request('css_prefix', 'str', '');
+				$inDB->query("UPDATE cms_modules SET css_prefix='{$css_prefix}' WHERE id='{$id}'");
             }
         }
 
@@ -205,7 +208,7 @@ function applet_modules(){
                         $ord = 1;
                     }
                 }
-				$inDB->query("UPDATE cms_modules SET ordering = ".$ord." WHERE id=".$item['id']) ;
+				$inDB->query("UPDATE cms_modules SET ordering = {$ord} WHERE id='{$item['id']}'");
 				$ord += 1;
                 $latest_pos = $item['position'];
 			}
@@ -236,7 +239,7 @@ function applet_modules(){
 			$ids = $_REQUEST['ids'];
 
 			foreach ($ord as $id=>$ordering){
-				$inDB->query("UPDATE cms_modules SET ordering = ".(int)$ordering." WHERE id = ".(int)$ids[$id]);
+				$inDB->query("UPDATE cms_modules SET ordering = '".(int)$ordering."' WHERE id = '".(int)$ids[$id]."'");
 			}
 			cmsCore::redirect('index.php?view=modules');
 		}
@@ -250,7 +253,7 @@ function applet_modules(){
 			if ($id >= 0){ dbShow('cms_modules', $id);  }
 			echo '1'; exit;
 		} else {
-			dbShowList('cms_modules', $_REQUEST['item']);
+			dbShowList('cms_modules', cmsCore::request('item', 'array_int', array()));
 			cmsCore::redirectBack();
 		}
 
@@ -261,7 +264,7 @@ function applet_modules(){
 			if ($id >= 0){ dbHide('cms_modules', $id);  }
 			echo '1'; exit;
 		} else {
-			dbHideList('cms_modules', $_REQUEST['item']);
+			dbHideList('cms_modules', cmsCore::request('item', 'array_int', array()));
 			cmsCore::redirectBack();
 		}
 	}
@@ -447,7 +450,7 @@ function applet_modules(){
                             )";
 			$inDB->query($sql);
 
-			if (cmsCore::request('del_orig', 'int', 0)){
+			if ($is_original){
 				$sql = "DELETE FROM cms_modules WHERE id = $mod_id";
 				$inDB->query($sql) ;
 			}

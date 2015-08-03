@@ -64,7 +64,7 @@ if ($pdo=='uploadphotos'){
         session_start();
 	}
 
-    $user_id = $_SESSION['user']['id'];
+    $user_id = (int)$_SESSION['user']['id'];
 
     if (!$user_id) { header("HTTP/1.1 500 Internal Server Error"); exit(0); }
 	if (($model->config['photosize']>0) && ($model->getUserPhotoCount($user_id) >= $model->config['photosize']) && !$inUser->is_admin) {
@@ -591,5 +591,3 @@ if ($pdo=='delalbum'){
     cmsCore::redirect(cmsUser::getProfileURL($user['login']));
 
 }
-
-?>

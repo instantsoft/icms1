@@ -80,20 +80,20 @@ if ($opt=='saveconfig'){
 
 if ($opt == 'show_club'){
     if (!isset($_REQUEST['item'])){
-        if (isset($_REQUEST['item_id'])){ dbShow('cms_clubs', $_REQUEST['item_id']);  }
+        if (isset($_REQUEST['item_id'])){ dbShow('cms_clubs', cmsCore::request('item_id', 'int', 0));  }
         echo '1'; exit;
     } else {
-        dbShowList('cms_clubs', $_REQUEST['item']);
+        dbShowList('cms_clubs', cmsCore::request('item', 'array_int', array()));
         cmsCore::redirectBack();
     }
 }
 
 if ($opt == 'hide_club'){
     if (!isset($_REQUEST['item'])){
-        if (isset($_REQUEST['item_id'])){ dbHide('cms_clubs', $_REQUEST['item_id']);  }
+        if (isset($_REQUEST['item_id'])){ dbHide('cms_clubs', cmsCore::request('item_id', 'int', 0));  }
         echo '1'; exit;
     } else {
-        dbHideList('cms_clubs', $_REQUEST['item']);
+        dbHideList('cms_clubs', cmsCore::request('item', 'array_int', array()));
         cmsCore::redirectBack();
     }
 }

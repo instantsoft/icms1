@@ -41,9 +41,6 @@ if (!$inUser->update()) { cmsCore::error404(); }
 // проверяем доступ по Ip
 if(!cmsCore::checkAccessByIp($inConf->allow_ip)) { cmsCore::error404(); }
 
-define('TEMPLATE_DIR', PATH.'/templates/'.$inConf->template.'/');
-define('DEFAULT_TEMPLATE_DIR', PATH.'/templates/_default_/');
-
 cmsCore::loadLanguage('admin/lang');
 
 //-------CHECK AUTHENTICATION--------------------------------------//

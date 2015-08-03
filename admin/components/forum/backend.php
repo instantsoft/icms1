@@ -132,20 +132,20 @@ if ($opt=='saveranks'){
 
 if ($opt == 'show_forum'){
     if (!isset($_REQUEST['item'])){
-        if (isset($_REQUEST['item_id'])){ dbShow('cms_forums', $_REQUEST['item_id']);  }
+        if (isset($_REQUEST['item_id'])){ dbShow('cms_forums', cmsCore::request('item_id', 'int', 0));  }
         echo '1'; exit;
     } else {
-        dbShowList('cms_forums', $_REQUEST['item']);
+        dbShowList('cms_forums', cmsCore::request('item', 'array_int', 0));
         cmsCore::redirectBack();
     }
 }
 
 if ($opt == 'hide_forum'){
     if (!isset($_REQUEST['item'])){
-        if (isset($_REQUEST['item_id'])){ dbHide('cms_forums', $_REQUEST['item_id']);  }
+        if (isset($_REQUEST['item_id'])){ dbHide('cms_forums', cmsCore::request('item_id', 'int', 0));  }
         echo '1'; exit;
     } else {
-        dbHideList('cms_forums', $_REQUEST['item']);
+        dbHideList('cms_forums', cmsCore::request('item', 'array_int', 0));
         cmsCore::redirectBack();
     }
 }
@@ -567,22 +567,18 @@ if ($opt == 'list_ranks') {
 
 
 if ($opt == 'show_cat'){
-    if(isset($_REQUEST['item_id'])) {
-        $item_id = $_REQUEST['item_id'];
+    $item_id = cmsCore::request('item_id', 'int', 0);
         $sql = "UPDATE cms_forum_cats SET published = 1 WHERE id = $item_id";
         $inDB->query($sql) ;
         echo '1'; exit;
     }
-}
 
 if ($opt == 'hide_cat'){
-    if(isset($_REQUEST['item_id'])) {
-        $item_id = $_REQUEST['item_id'];
+    $item_id = cmsCore::request('item_id', 'int', 0);
         $sql = "UPDATE cms_forum_cats SET published = 0 WHERE id = $item_id";
         $inDB->query($sql) ;
         echo '1'; exit;
     }
-}
 
 if ($opt == 'submit_cat'){
 
@@ -818,7 +814,7 @@ if ($opt == 'add_forum' || $opt == 'edit_forum'){
                             echo $inCore->getListItems('cms_forum_cats', $mod['category_id'], 'ordering');
                         } else {
                             if (isset($_REQUEST['addto'])){
-                                echo $inCore->getListItems('cms_forum_cats', $_REQUEST['addto'], 'ordering');
+                                echo $inCore->getListItems('cms_forum_cats', cmsCore::request('addto', 'int', 0), 'ordering');
                             } else {
                                echo $inCore->getListItems('cms_forum_cats', 0, 'ordering');
                             }

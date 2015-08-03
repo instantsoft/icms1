@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-
 function applet_userbanlist(){
 
     $inCore = cmsCore::getInstance();
@@ -63,14 +61,14 @@ function applet_userbanlist(){
         if (!isset($_REQUEST['item'])){
             if ($id >= 0){ dbDelete('cms_banlist', $id);  }
         } else {
-            dbDeleteList('cms_banlist', $_REQUEST['item']);
+            dbDeleteList('cms_banlist', cmsCore::request('item', 'array_int', array()));
         }
         cmsCore::redirect('?view=userbanlist');
     }
 
 	if ($do == 'submit' || $do == 'update'){
 
-        if (!cmsCore::validateForm()) { cmsCore::error404(); }
+        if (!cmsUser::checkCsrfToken()) { cmsCore::error404(); }
 
         $types = array('user_id'=>array('user_id', 'int', 0),
                        'ip'=>array('ip', 'str', ''),
@@ -235,5 +233,3 @@ function applet_userbanlist(){
 	<?php
    }
 }
-
-?>

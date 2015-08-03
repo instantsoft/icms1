@@ -343,7 +343,7 @@ class cmsDatabase {
         if(is_array($value)){
 
             foreach ($value as $key=>$string) {
-                $value[$key] = $this->escape_string($string);
+                $value[$this->escape_string((string)$key)] = $this->escape_string($string);
             }
 
             return $value;
@@ -442,7 +442,7 @@ class cmsDatabase {
 		$set = '';
 		// формируем запрос на вставку в базу
 		foreach($insert_array as $field=>$value){
-			$set .= "{$field} = '{$value}',";
+			$set .= "`{$field}` = '{$value}',";
 		}
 		// убираем последнюю запятую
 		$set = rtrim($set, ',');
@@ -482,7 +482,7 @@ class cmsDatabase {
 		$set = '';
 		// формируем запрос на вставку в базу
 		foreach($update_array as $field=>$value){
-			$set .= "{$field} = '{$value}',";
+			$set .= "`{$field}` = '{$value}',";
 		}
 		// убираем последнюю запятую
 		$set = rtrim($set, ',');

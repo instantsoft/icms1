@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-
 function applet_arhive(){
 
     $inCore = cmsCore::getInstance();
@@ -35,7 +33,7 @@ function applet_arhive(){
 
     if ($do=='saveconfig'){
 
-        if (!cmsCore::validateForm()) { cmsCore::error404(); }
+        if (!cmsUser::checkCsrfToken()) { cmsCore::error404(); }
 		$cfg['source'] = cmsCore::request('source', 'str', '');
 		$inCore->saveComponentConfig('arhive', $cfg);
         cmsCore::addSessionMessage($_LANG['AD_CONFIG_SAVE_SUCCESS'] , 'success');
@@ -113,7 +111,7 @@ function applet_arhive(){
 	}
 
 	if ($do == 'arhive_off'){
-		if(isset($_REQUEST['id'])) {
+		if($id) {
 			$sql = "UPDATE cms_content SET is_arhive = 0 WHERE id = '$id'";
 			$inDB->query($sql) ;
             cmsCore::redirect('?view=arhive');
@@ -122,15 +120,13 @@ function applet_arhive(){
 
 	if ($do == 'delete'){
 		if (!isset($_REQUEST['item'])){
-			if ($id >= 0){
+			if ($id){
 				$model->deleteArticle($id, $cfg['af_delete']);
 			}
 		} else {
-			$model->deleteArticles($_REQUEST['item'], $cfg['af_delete']);
+			$model->deleteArticles(cmsCore::request('item', 'array_int', array()), $cfg['af_delete']);
 		}
         cmsCore::redirect('?view=arhive');
 	}
 
 }
-
-?>

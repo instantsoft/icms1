@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
-
 function search(){
 
     $inCore = cmsCore::getInstance();
@@ -88,6 +86,7 @@ function search(){
                 assign('from_component', $model->from_component)->
                 assign('external_link', str_replace('%q%', urlencode($model->query), $_LANG['FIND_EXTERNAL_URL']))->
                 assign('host', HOST)->
+                assign('res_count', (($model->page-1)*$model->config['perpage']+1))->
                 assign('pagebar', cmsPage::getPagebar($total, $model->page, $model->config['perpage'], 'javascript:paginator(%page%)'))->
                 display('com_search_text.tpl');
 
@@ -127,4 +126,3 @@ function search(){
 	return true;
 
 }
-?>

@@ -180,14 +180,15 @@ if ($opt=='saveprices'){
 if ($opt == 'show_item'){
     if (!isset($_REQUEST['item'])){
         if (isset($_REQUEST['item_id'])){
-            dbShow('cms_uc_items', $_REQUEST['item_id']);
-            $inDB->query('UPDATE cms_uc_items SET on_moderate = 0 WHERE id='.(int)$_REQUEST['item_id']);
+            dbShow('cms_uc_items', cmsCore::request('item_id', 'int', 0));
+            $inDB->query('UPDATE cms_uc_items SET on_moderate = 0 WHERE id='.cmsCore::request('item_id', 'int', 0));
         }
         echo '1'; exit;
     } else {
-        dbShowList('cms_uc_items', $_REQUEST['item']);
-        foreach($_REQUEST['item'] as $k=>$id){
-            $inDB->query('UPDATE cms_uc_items SET on_moderate = 0 WHERE id='.(int)$id);
+        $i=cmsCore::request('item', 'array_int', array());
+        dbShowList('cms_uc_items', $i);
+        foreach($i as $k=>$id){
+            $inDB->query('UPDATE cms_uc_items SET on_moderate = 0 WHERE id='.$id);
         }
         cmsCore::addSessionMessage($_LANG['AD_DO_SUCCESS'], 'success');
         cmsCore::redirectBack();
@@ -199,10 +200,10 @@ if ($opt == 'show_item'){
 
 if ($opt == 'hide_item'){
     if (!isset($_REQUEST['item'])){
-        if (isset($_REQUEST['item_id'])){ dbHide('cms_uc_items', $_REQUEST['item_id']);  }
+        if (isset($_REQUEST['item_id'])){ dbHide('cms_uc_items', cmsCore::request('item_id', 'int', 0));  }
         echo '1'; exit;
     } else {
-        dbHideList('cms_uc_items', $_REQUEST['item']);
+        dbHideList('cms_uc_items', cmsCore::request('item', 'array_int', array()));
         cmsCore::addSessionMessage($_LANG['AD_DO_SUCCESS'], 'success');
         cmsCore::redirectBack();
     }

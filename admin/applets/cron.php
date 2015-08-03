@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-
 function applet_cron(){
 
     cmsCore::loadClass('cron');
@@ -30,10 +28,10 @@ function applet_cron(){
     $id = cmsCore::request('id', 'int', '0');
 
 	if ($do == 'list'){
-		$toolmenu = array();
-		$toolmenu[0]['icon'] = 'new.gif';
-		$toolmenu[0]['title'] = $_LANG['AD_CREATE_CRON_MISSION'];
-		$toolmenu[0]['link'] = "?view=cron&do=add";
+
+		$toolmenu = array(
+            array('icon'=>'new.gif', 'title'=>$_LANG['AD_CREATE_CRON_MISSION'], 'link'=>'?view=cron&do=add')
+        );
 
 		cpToolMenu($toolmenu);
 
@@ -43,6 +41,7 @@ function applet_cron(){
         $tpl_dir    = file_exists(TEMPLATE_DIR.$tpl_file) ? TEMPLATE_DIR : DEFAULT_TEMPLATE_DIR;
 
         include($tpl_dir.$tpl_file);
+
 	}
 
     if ($do == 'show'){
@@ -83,7 +82,7 @@ function applet_cron(){
 
 	if ($do == 'submit'){
 
-        if (!cmsCore::validateForm()) { cmsCore::error404(); }
+        if (!cmsUser::checkCsrfToken()) { cmsCore::error404(); }
 
         $job_name       = cmsCore::request('job_name', 'str');
         $comment        = cmsCore::request('comment', 'str');
@@ -92,7 +91,7 @@ function applet_cron(){
         $component      = cmsCore::request('component', 'str');
         $model_method   = cmsCore::request('model_method', 'str');
         $custom_file    = cmsCore::request('custom_file', 'str');
-        $custom_file    = (mb_stripos($custom_file, 'image') || mb_stripos($custom_file, 'upload') || mb_stripos($custom_file, 'cache')) ? '' : $custom_file;
+        $custom_file    = (mb_stripos($custom_file, 'image/') || mb_stripos($custom_file, 'upload/') || mb_stripos($custom_file, 'cache/')) ? '' : $custom_file;
         $custom_file    = preg_replace('/\.+\//', '', $custom_file);
         $class_name     = cmsCore::request('class_name', 'str');
         $class_method   = cmsCore::request('class_method', 'str');
@@ -114,7 +113,7 @@ function applet_cron(){
 
 	if ($do == 'update'){
 
-        if (!cmsCore::validateForm()) { cmsCore::error404(); }
+        if (!cmsUser::checkCsrfToken()) { cmsCore::error404(); }
 
         if (!$id) { cmsCore::halt(); }
 
@@ -125,7 +124,7 @@ function applet_cron(){
         $component      = cmsCore::request('component', 'str');
         $model_method   = cmsCore::request('model_method', 'str');
         $custom_file    = cmsCore::request('custom_file', 'str');
-        $custom_file    = (mb_stripos($custom_file, 'image') || mb_stripos($custom_file, 'upload') || mb_stripos($custom_file, 'cache')) ? '' : $custom_file;
+        $custom_file    = (mb_stripos($custom_file, 'image/') || mb_stripos($custom_file, 'upload/') || mb_stripos($custom_file, 'cache/')) ? '' : $custom_file;
         $custom_file    = preg_replace('/\.+\//', '', $custom_file);
         $class_name     = cmsCore::request('class_name', 'str');
         $class_method   = cmsCore::request('class_method', 'str');
@@ -146,16 +145,12 @@ function applet_cron(){
 
 	}
 
-   if ($do == 'edit' || $do== 'add'){
+    if ($do == 'edit' || $do== 'add'){
 
- 		$toolmenu = array();
-		$toolmenu[0]['icon'] = 'save.gif';
-		$toolmenu[0]['title'] = $_LANG['SAVE'];
-		$toolmenu[0]['link'] = 'javascript:document.addform.submit();';
-
-		$toolmenu[1]['icon'] = 'cancel.gif';
-		$toolmenu[1]['title'] = $_LANG['CANCEL'];
-		$toolmenu[1]['link'] = 'javascript:history.go(-1);';
+        $toolmenu = array(
+            array('icon'=>'save.gif', 'title'=>$_LANG['SAVE'], 'link'=>'javascript:document.addform.submit();'),
+            array('icon'=>'cancel.gif', 'title'=>$_LANG['CANCEL'], 'link'=>'javascript:history.go(-1);')
+        );
 
 		cpToolMenu($toolmenu);
 
@@ -283,5 +278,3 @@ function applet_cron(){
 	<?php
    }
 }
-
-?>

@@ -100,8 +100,8 @@ a:hover{
 	color:#333333;
 }
 .lt_input{
-	border: solid 1px gray;
 	text-align:center;
+    width: 46px;
 }
 
 .pathway{

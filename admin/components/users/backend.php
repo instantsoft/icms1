@@ -24,7 +24,7 @@ cpToolMenu($toolmenu);
 
 if ($opt=='saveconfig'){
 
-    if (!cmsCore::validateForm()) { cmsCore::error404(); }
+    if (!cmsUser::checkCsrfToken()) { cmsCore::error404(); }
 
 	$cfg = array();
     $cfg['sw_comm']   = cmsCore::request('sw_comm', 'int', 0);

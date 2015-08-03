@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-
 function pluginsList($new_plugins, $action_name, $action){
 
     $inCore = cmsCore::getInstance();

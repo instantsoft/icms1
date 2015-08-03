@@ -23,7 +23,7 @@ $cfg = $inCore->loadComponentConfig('registration');
 
 if ($opt=='saveconfig'){
 
-    if (!cmsCore::validateForm()) { cmsCore::error404(); }
+    if (!cmsUser::checkCsrfToken()) { cmsCore::error404(); }
 
     $cfg['reg_type']    = cmsCore::request('reg_type', 'str', '');
     $cfg['inv_count']   = cmsCore::request('inv_count', 'int', 0);

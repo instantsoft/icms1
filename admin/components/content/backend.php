@@ -20,7 +20,7 @@ if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
 
 	if($opt=='saveconfig'){
 
-		if(!cmsCore::validateForm()) { cmsCore::error404(); }
+		if(!cmsUser::checkCsrfToken()) { cmsCore::error404(); }
 
 		$cfg = array();
         $cfg['readdesc']    = cmsCore::request('readdesc', 'int', 0);
