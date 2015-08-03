@@ -10,13 +10,9 @@
 //                        LICENSED BY GNU/GPL v2                              //
 //                                                                            //
 /******************************************************************************/
-function smarty_modifier_rating($rating, $with_icon=false){
-	if ($rating==0) {
-		$html = '<span class="color_gray">0</span>';
-	} elseif ($rating>0){
-		$html = '<span class="color_green">'.($with_icon ? '<i class="fa fa-thumbs-up fa-lg"></i> ' : '').'+'.$rating.'</span>';
-	} else {
-		$html = '<span class="color_red">'.($with_icon ? '<i class="fa fa-thumbs-down fa-lg"></i> ' : '').$rating.'</span>';
-	}
-	return $html;
-}
+
+$_LANG['AD_FILES_CHECK_LINK']      = 'Проверять ссылки';
+$_LANG['AD_FILES_WHITE_LIST']      = 'Белый лист ссылок';
+$_LANG['AD_FILES_WHITE_LIST_HINT'] = 'Имена доменов через запятую. Должна быть включена опция "Проверять ссылки"';
+$_LANG['AD_FILES_REDIRECT_TIME']   = 'Таймер перехода для внешних ссылок';
+$_LANG['AD_FILES_FILE_TIME']       = 'Таймер перехода для скачивания внешних файлов';

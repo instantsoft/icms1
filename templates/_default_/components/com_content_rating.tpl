@@ -23,7 +23,7 @@
                 {if $article.showcomm || $article.showdate || $article.tagline}
                     <div class="con_details">
                         {if $article.showdate}
-                            {$article.fpubdate} - <a href="{profile_url login=$article.user_login}" style="color:#666">{$article.author}</a>
+                            <time datetime="{$article.ffpubdate}">{$article.fpubdate}</time> - <a href="{profile_url login=$article.user_login}" style="color:#666">{$article.author}</a>
                         {/if}
                         {if $article.showcomm}
                             {if $article.showdate} | {/if}

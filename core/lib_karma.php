@@ -11,9 +11,7 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
-
-function cmsKarma($target, $item_id){ //returns array with total votes and total points of karma
+function cmsKarma($target, $item_id){
 
     if (!preg_match('/^([a-zA-Z0-9\_]+)$/ui', $target)) { return; }
 
@@ -30,13 +28,11 @@ function cmsKarma($target, $item_id){ //returns array with total votes and total
 }
 
 function cmsAlreadyKarmed($target, $item_id, $user_id){
-    $inDB = cmsDatabase::getInstance();
-	return $inDB->rows_count('cms_ratings', "target='$target' AND item_id = $item_id AND user_id = '$user_id'");
+	return cmsDatabase::getInstance()->rows_count('cms_ratings', "target='$target' AND item_id = '$item_id' AND user_id = '$user_id'");
 }
 
 function cmsAlreadyKarmedIP($target, $item_id, $ip){
-    $inDB = cmsDatabase::getInstance();
-	return $inDB->rows_count('cms_ratings', "target='$target' AND item_id = $item_id AND ip = '$ip'");
+	return cmsDatabase::getInstance()->rows_count('cms_ratings', "target='$target' AND item_id = '$item_id' AND ip = '$ip'");
 }
 
 function cmsSubmitKarma($target, $item_id, $points){
@@ -112,22 +108,22 @@ function cmsSubmitKarma($target, $item_id, $points){
 
 function cmsKarmaFormat($points){
 	if ($points==0) {
-		$html = '<span style="color:silver;">0</span>';
+		$html = '<span class="color_gray">0</span>';
 	} elseif ($points>0){
-		$html = '<span style="color:green;">+'.$points.'<span style="color:silver">&uarr;</span></span>';
+		$html = '<span class="color_green color_transition"><i class="fa fa-thumbs-up fa-lg"></i> +'.$points.'</span>';
 	} else {
-		$html = '<span style="color:red;">'.$points.'<span style="color:silver">&darr;</span></span>';
+		$html = '<span class="color_red color_transition"><i class="fa fa-thumbs-down fa-lg"></i> '.$points.'</span>';
 	}
 	return $html;
 }
 
 function cmsKarmaFormatSmall($points){
 	if ($points==0) {
-		$html = '<span style="color:gray;">0</span>';
+		$html = '<span class="color_gray">0</span>';
 	} elseif ($points>0){
-		$html = '<span style="color:green">+'.$points.'</span>';
+		$html = '<span class="color_green">+'.$points.'</span>';
 	} else {
-		$html = '<span style="color:red">'.$points.'</span>';
+		$html = '<span class="color_red">'.$points.'</span>';
 	}
 	return $html;
 }
@@ -136,7 +132,6 @@ function cmsKarmaForm($target, $target_id, $points, $is_author = false){
 
     $inUser = cmsUser::getInstance();
     $inPage = cmsPage::getInstance();
-	$html   = '';
 
     global $_LANG;
 
@@ -146,22 +141,26 @@ function cmsKarmaForm($target, $target_id, $points, $is_author = false){
 
 	$control = '';
 
-	//PREPARE RATING FORM
 	if ($inUser->id && !$is_author){
+
 		if(!cmsAlreadyKarmed($target, $target_id, $inUser->id)){
+
 			$inPage->addHeadJS('core/js/karma.js');
-			$control .= '<div style="text-align:center;margin-top:10px;">';
-				$control .= '<a href="javascript:void(0);" onclick="plusKarma(\''.$target.'\', \''.$target_id.'\')" title="'.$_LANG['LIKE'].'"><img src="/templates/'.TEMPLATE.'/images/icons/karma_up.png" border="0" alt="Карма+"/></a> ';
-				$control .= '<a href="javascript:void(0);" onclick="minusKarma(\''.$target.'\', \''.$target_id.'\')" title="'.$_LANG['UNLIKE'].'"><img src="/templates/'.TEMPLATE.'/images/icons/karma_down.png" border="0" alt="Карма-"/></a>';
+
+			$control .= '<div class="ratings_control">';
+            $control .= '<a class="color_green color_transition" href="#" onclick="return plusKarma(\''.$target.'\', \''.$target_id.'\')" title="'.$_LANG['LIKE'].'"><i class="fa fa-thumbs-up fa-lg"></i></a> ';
+            $control .= '<a class="color_red color_transition" href="#" onclick="return minusKarma(\''.$target.'\', \''.$target_id.'\')" title="'.$_LANG['UNLIKE'].'"><i class="fa fa-thumbs-down fa-lg"></i></a>';
 			$control .= '</div>';
+
 		}
+
 	}
-	$html .= '<div class="karma_form">';
-		$html .= '<div id="karmapoints" style="font-size:24px">'.$points.'</div>';
-		$html .= '<div id="karmavotes">Голосов: '.$postkarma['votes'].'</div>';
-		$html .= '<div id="karmactrl">'.$control.'</div>';
-	$html .= '</div>';
-	return $html;
+
+	return '<div class="karma_form">'.
+           '<div id="karmapoints">'.$points.'</div>'.
+		   '<div id="karmavotes">'.$_LANG['RATING_VOTES_COUNT'].': '.$postkarma['votes'].'</div>'.
+		   '<div id="karmactrl">'.$control.'</div></div>';
+
 }
 
 function cmsKarmaButtons($target, $target_id, $points = 0, $is_author = false){
@@ -169,35 +168,24 @@ function cmsKarmaButtons($target, $target_id, $points = 0, $is_author = false){
     $inUser = cmsUser::getInstance();
     $inPage = cmsPage::getInstance();
 	$html    = '';
-    $control = '';
+
     global $_LANG;
 
-	if (!$points) {
-        $postkarma = cmsKarma($target, $target_id);
-        $points    = cmsKarmaFormat($postkarma['points']);
-	} else {
-		$points = $points;
-	}
-
-	//PREPARE RATING FORM
 	if ($inUser->id && !$is_author){
+
 		if(!cmsAlreadyKarmed($target, $target_id, $inUser->id)){
+
 			$inPage->addHeadJS('core/js/karma.js');
 
-			$control .= '<div style="text-align:center">';
-				$control .= '<a href="javascript:void(0);" onclick="plusKarma(\''.$target.'\', '.$target_id.');" title="'.$_LANG['LIKE'].'"><img src="/templates/'.TEMPLATE.'/images/icons/karma_up.png" border="0" alt="Карма+"/></a> ';
-				$control .= '<a href="javascript:void(0);" onclick="minusKarma(\''.$target.'\', '.$target_id.');" title="'.$_LANG['UNLIKE'].'"><img src="/templates/'.TEMPLATE.'/images/icons/karma_down.png" border="0" alt="Карма-"/></a>';
-			$control .= '</div>';
+            return '<div class="karma_buttons"><div id="karmactrl">'.
+                   '<div class="ratings_control"><a class="color_green color_transition" href="#" onclick="return plusKarma(\''.$target.'\', \''.$target_id.'\')" title="'.$_LANG['LIKE'].'"><i class="fa fa-thumbs-up fa-lg"></i></a> <a class="color_red color_transition" href="#" onclick="return minusKarma(\''.$target.'\', \''.$target_id.'\')" title="'.$_LANG['UNLIKE'].'"><i class="fa fa-thumbs-down fa-lg"></i></a></div>'.
+                   '</div></div>';
+
 		}
+
 	}
 
-    if ($control){
-        $html .= '<div class="karma_buttons">';
-            $html .= '<div id="karmactrl">'.$control.'</div>';
-        $html .= '</div>';
-    }
-
-	return $html;
+	return '';
 
 }
 function cmsKarmaButtonsText($target, $target_id, $points = 0, $is_author = false){
@@ -206,26 +194,25 @@ function cmsKarmaButtonsText($target, $target_id, $points = 0, $is_author = fals
     $inPage = cmsPage::getInstance();
 	$html = '';
 
-	if (!$points) {
-	$postkarma = cmsKarma($target, $target_id);
-	$points = cmsKarmaFormat($postkarma['points']);
-	} else {
-		$points    = $points;
+	if ($inUser->id && !$is_author){
+
+		if(!cmsAlreadyKarmed($target, $target_id, $inUser->id)){
+
+            global $_LANG;
+
+			$inPage->addHeadJS('core/js/karma.js');
+
+            $control  = ' <span><a class="color_green color_transition" href="#" onclick="return plusKarma(\''.$target.'\', '.$target_id.');"><i class="fa fa-thumbs-up fa-lg"></i> '.$_LANG['LIKE'].'</a> ';
+            $control .= '<a class="color_red color_transition" href="#" onclick="return minusKarma(\''.$target.'\', '.$target_id.');"><i class="fa fa-thumbs-down fa-lg"></i> '.$_LANG['UNLIKE'].'</a></span>';
+
+			$html .= '<span class="karma_buttons">';
+            $html .= '<span id="karmactrl">'.$control.'</span>';
+            $html .= '</span>';
+
+		}
+
 	}
 
-	$control = '';
-	//PREPARE RATING FORM
-	if ($inUser->id && !$is_author){
-		if(!cmsAlreadyKarmed($target, $target_id, $inUser->id)){
-			$inPage->addHeadJS('core/js/karma.js');
-			$control .= '<span>';
-				$control .= '<a href="javascript:void(0);" onclick="plusKarma(\''.$target.'\', '.$target_id.');" style="color:green">Нравится</a> &uarr; ';
-				$control .= '<a href="javascript:void(0);" onclick="minusKarma(\''.$target.'\', '.$target_id.');" style="color:red">Не нравится</a> &darr;';
-			$control .= '</span>';
-			$html .= '<span class="karma_buttons">';
-					$html .= '<span id="karmactrl">'.$control.'</span>';
-				$html .= '</span>';
-		}
-	}
 	return $html;
+
 }

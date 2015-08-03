@@ -1,7 +1,7 @@
 <?php
 /******************************************************************************/
 //                                                                            //
-//                           InstantCMS v1.10.6                               //
+//                           InstantCMS v1.10.7                               //
 //                        http://www.instantcms.ru/                           //
 //                                                                            //
 //                   written by InstantCMS Team, 2007-2015                    //
@@ -15,7 +15,7 @@
 // задача для CRON выглядит примерно так: php -f /path_to_site/cron.php site.ru
 // где site.ru - имя вашего домена
 // Если планируете запускать задачи CRON через curl или иные http запросы, закомментируйте строку ниже
-if(PHP_SAPI != 'cli') die('Access denied');
+if(PHP_SAPI != 'cli') { die('Access denied'); }
 
 Error_Reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 

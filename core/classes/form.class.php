@@ -316,6 +316,8 @@ class cmsForm {
 			while($form_field = $inDB->fetch_assoc($res)){
 
                 $form_field['config'] = cmsCore::yamlToArray($form_field['config']);
+                $form_field['show_for_group'] = cmsCore::yamlToArray($form_field['show_for_group']);
+                if (!cmsCore::checkContentAccess($form_field['show_for_group'])) { continue; }
 				$form_fields[] = $form_field;
 
             }

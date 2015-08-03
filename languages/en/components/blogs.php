@@ -39,7 +39,9 @@ $_LANG['HAVE_ONLY']              = 'but you have only';
 $_LANG['WANT_SEE']               = 'Do you want to see';
 $_LANG['HISTORY_YOUR_KARMA']     = 'your karma history';
 $_LANG['KARMS']                  = 'karma';
-
+$_LANG['POSTS_1']                = 'post';
+$_LANG['POSTS_2']                = 'posts';
+$_LANG['POSTS_10']               = 'posts';
 $_LANG['NEW_POST']           = 'New post';
 $_LANG['EDIT_POST']          = 'Edit post';
 $_LANG['POST_ERR_TITLE']     = 'Specify post title! The title should be no shorter than 2 characters.';

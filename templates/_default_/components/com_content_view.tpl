@@ -77,7 +77,7 @@
                     {if $cat.showcomm || $showdate || ($cat.showtags && $article.tagline)}
                         <div class="con_details">
                             {if $showdate}
-                                {$article.fpubdate} - <a href="{profile_url login=$article.user_login}" style="color:#666">{$article.author}</a>
+                                <time datetime="{$article.ffpubdate}">{$article.fpubdate}</time> - <a href="{profile_url login=$article.user_login}" style="color:#666">{$article.author}</a>
                             {/if}
                             {if $cat.showcomm}
                                 {if $showdate} | {/if}

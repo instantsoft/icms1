@@ -8,7 +8,7 @@
         {if $item.showdesc && $item.description}
             {if $item.image}
                 <div class="con_image">
-                    <img src="/images/photos/small/{$item.image}" border="0" alt="{$item.title|escape:'html'}"/>
+                    <img src="/images/photos/small/{$item.image}" alt="{$item.title|escape:'html'}"/>
                 </div>
             {/if}
             {$item.description}
@@ -16,5 +16,5 @@
         </div>
     {/foreach}
 {else}
-    <p>{$LANG.ARHIVE_NO_MATERIALS}</p>
+    <p class="not_found">{$LANG.ARHIVE_NO_MATERIALS}</p>
 {/if}

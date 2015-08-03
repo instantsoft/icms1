@@ -15,7 +15,7 @@
 	<div class="mod_latest_entry">
         {if $article.image}
             <div class="mod_latest_image">
-                <img src="/images/photos/small/{$article.image}" border="0" width="32" height="32" alt="{$article.title|escape:'html'}"/>
+                <img src="/images/photos/small/{$article.image}" width="32" height="32" alt="{$article.title|escape:'html'}"/>
             </div>
         {/if}
 	    <a class="mod_latest_title" href="{$article.url}">{$article.title}</a>

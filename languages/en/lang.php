@@ -96,6 +96,8 @@ $_LANG['NOT_FOUND']             ='not found';
 $_LANG['USER_IS_DELETE']        ='User deleted';
 $_LANG['INSERT_WYSIWYG_ERROR']  ='<p>WYSIWYG editor not found or not enable.<br/>If editor is installed, enable it in the admin panel (menu <em>Addons</em> &rarr; <em>Plugins</em>).</p>';
 $_LANG['INSERT_CAPTCHA_ERROR']  = '<p>Captcha not found or not enable.<br/>If captcha is installed, enable it in the admin panel (menu <em>Addons</em> &rarr; <em>Plugins</em>).</p>';
+$_LANG['HITS']                  = 'Views';
+$_LANG['RATING']                = 'Rating';
 
 // For All Modules
 $_LANG['CONFIG_MODULE']         ='Configure module';
@@ -168,6 +170,7 @@ $_LANG['COMMENT2']              ='comments';
 $_LANG['COMMENT10']             ='comments';
 $_LANG['LIKE']                  = 'Like';
 $_LANG['UNLIKE']                = 'Not like';
+$_LANG['RATING_VOTES_COUNT']    = 'Votes count';
 $_LANG['OR']                    ='or';
 $_LANG['WROTE']                 ='wrote';
 $_LANG['MODULE_NOT_CONFIGURED'] ='Module not configured';

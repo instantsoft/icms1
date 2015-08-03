@@ -1,6 +1,6 @@
 <?php
 if (!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-/* * **************************************************************************/
+//****************************************************************************//
 //                                                                            //
 //                           InstantCMS v1.10.6                               //
 //                        http://www.instantcms.ru/                           //
@@ -10,7 +10,7 @@ if (!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
 //                                                                            //
 //                        LICENSED BY GNU/GPL v2                              //
 //                                                                            //
-/* * **************************************************************************/
+//****************************************************************************//
 function autoOrder($form_id) {
 
     $inDB = cmsDatabase::getInstance();
@@ -180,6 +180,12 @@ if (in_array($opt, array('add_field', 'update_field'))) {
     }
 
     $item['config'] = $inDB->escape_string(cmsCore::arrayToYaml($item['config']));
+
+    if (!cmsCore::request('is_public', 'int', 0)){
+        $item['show_for_group'] = cmsCore::arrayToYaml(cmsCore::request('show_for_group', 'array_int'));
+    } else {
+        $item['show_for_group'] = '';
+    }
 
     if($opt == 'add_field'){
 
@@ -408,7 +414,7 @@ if (in_array($opt, array('add', 'edit'))) {
         <table width="761" cellpadding="8" cellspacing="5">
             <tr>
                 <td width="300" valign="top" class="proptable">
-                    <h4 style="border-bottom:solid 1px black; font-size: 14px; margin-bottom: 10px"><b><?php if(!@$field){ ?><?php echo $_LANG['AD_FIELD_ADD']; ?><?php } else { ?><?php echo $_LANG['AD_FIELD_EDIT']; ?><?php } ?></b></h4>
+                    <h4 style="border-bottom:solid 1px #CCC; font-size: 14px; margin-bottom: 10px"><b><?php if(!@$field){ ?><?php echo $_LANG['AD_FIELD_ADD']; ?><?php } else { ?><?php echo $_LANG['AD_FIELD_EDIT']; ?><?php } ?></b></h4>
                     <form id="fieldform" name="fieldform" method="post" action="index.php?view=components&do=config&id=<?php echo $id; ?>">
                         <input type="hidden" name="csrf_token" value="<?php echo cmsUser::getCsrfToken(); ?>" />
                         <input type="hidden" name="opt" value="<?php if(!@$field){ ?>add_field<?php } else { ?>update_field<?php } ?>"/>
@@ -562,6 +568,58 @@ if (in_array($opt, array('add', 'edit'))) {
                             </table>
                         </div>
 
+                    <?php
+
+                        $groups = cmsUser::getGroups();
+
+                        $style  = 'disabled="disabled"';
+                        $public = 'checked="checked"';
+
+                        if (@$field){
+
+                            if ($field['show_for_group']){
+                                $public = '';
+                                $style  = '';
+
+                                $show_for_group = cmsCore::yamlToArray($field['show_for_group']);
+
+                            }
+                        }
+                    ?>
+
+                    <label><input name="is_public" type="checkbox" id="is_public" onclick="checkGroupList()" value="1" <?php echo $public?> /> Показывать всем группам</label>
+
+                    <div style="margin-top:10px;padding:5px;padding-right:0px;">
+                        <div>
+                            <?php echo $_LANG['AD_GROUPS_VIEW']; ?><br />
+                            <span class="hinttext">
+                                <?php echo $_LANG['AD_SELECT_MULTIPLE_CTRL']; ?>
+                            </span>
+                        </div>
+                        <div>
+                            <?php
+                                echo '<select style="width: 99%" name="show_for_group[]" id="showin" size="6" multiple="multiple" '.$style.'>';
+
+                                if ($groups){
+									foreach($groups as $group){
+                                        echo '<option value="'.$group['id'].'"';
+                                        if (@$field && $field['show_for_group']){
+                                            if (inArray($show_for_group, $group['id'])){
+                                                echo 'selected="selected"';
+                                            }
+                                        }
+
+                                        echo '>';
+                                        echo $group['title'].'</option>';
+									}
+
+                                }
+
+                                echo '</select>';
+                            ?>
+                        </div>
+                    </div>
+
                         <p>
                             <input type="submit" name="Submit" value="<?php if(!@$field){  echo $_LANG['AD_FIELD_ADD']; } else { echo $_LANG['AD_FIELD_SAVE']; } ?>" />
                         </p>
@@ -576,6 +634,7 @@ if (in_array($opt, array('add', 'edit'))) {
         <script type="text/javascript">
             $(document).ready(function(){
                 show();
+                checkGroupList();
             });
         </script>
 

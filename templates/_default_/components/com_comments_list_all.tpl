@@ -31,5 +31,5 @@
 	{/foreach}
 {$pagebar}
 {else}
-	<p>{$LANG.NOT_COMMENT_TEXT}</p>
+	<p class="not_found">{$LANG.NOT_COMMENT_TEXT}</p>
 {/if}

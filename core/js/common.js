@@ -37,7 +37,7 @@
       var html = "<div id='popup_container'>" +
             "<div class='popup_body'>" +
               "<div class='popup_title_wrap'><div class='popup_x_button'/><div id='popup_title'/></div>" +
-              "<div id='popup_progress'><img src='/images/progress.gif' alt="+LANG_LOADING+"'...' /></div>" +
+              "<div id='popup_progress'><i class='fa fa-spinner fa-spin fa-2x'></i><img src='/images/progress.gif' alt="+LANG_LOADING+"'...' /></div>" +
               "<div id='popup_content'/>" +
               "<div id='popup_message'/>" +
               "<div id='popup_panel'>" +

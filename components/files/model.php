@@ -10,12 +10,22 @@
 //                        LICENSED BY GNU/GPL v2                              //
 //                                                                            //
 /******************************************************************************/
-if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
 
 class cms_model_files {
 
 	public function __construct(){
-        $this->inDB = cmsDatabase::getInstance();
+        $this->inDB   = cmsDatabase::getInstance();
+        $this->config = cmsCore::getInstance()->loadComponentConfig('files');
+        $this->config['white_list'] = explode(',', $this->config['white_list']);
+    }
+
+    public static function getDefaultConfig() {
+        return array (
+            'check_link' => 1,
+            'redirect_time' => 10,
+            'file_time' => 0,
+            'white_list' => ''
+        );
     }
 
     public function increaseDownloadCount($fileurl) {

@@ -1,4 +1,4 @@
-<div class="con_heading">{$pagetitle}</div>
+<h1 class="con_heading">{$pagetitle}</h1>
 
 <div class="blog_type_menu">
 
@@ -69,5 +69,5 @@
 
 	{$pagination}
 {else}
-	<p style="clear:both">{$LANG.NOT_POSTS}</p>
+    <p class="not_found">{$LANG.NOT_POSTS}</p>
 {/if}

@@ -104,6 +104,10 @@ $version_next = '1.10.6';
 
         // ========================================================================== //
         // ========================================================================== //
+        if (!$inDB->isFieldExists('cms_form_fields', 'show_for_group')){
+            $inDB->query("ALTER TABLE `cms_form_fields` ADD `show_for_group` TINYTEXT NOT NULL AFTER `config`");
+            echo '<p>Поле show_for_group добавлено в таблицу cms_form_fields.</p>';
+        }
         if (!$inDB->isFieldExists('cms_menu', 'titles')){
             $inDB->query("ALTER TABLE `cms_menu` ADD `titles` TINYTEXT NOT NULL DEFAULT '' AFTER `title`");
             echo '<p>Поле titles добавлено в таблицу cms_menu.</p>';

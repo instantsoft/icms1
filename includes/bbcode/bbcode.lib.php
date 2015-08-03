@@ -921,7 +921,7 @@ class bbcode {
           '#<a href="/go/url=([^"]+)"#',
           create_function(
               '$matches',
-              'if (!strstr($matches[1], $_SERVER[\'HTTP_HOST\'])){ return "<a target=\"_blank\" title=\"".htmlspecialchars($matches[1])."\" href=\"/go/url=-".base64_encode($matches[1])."\""; } else { return "<a href=\"".htmlspecialchars($matches[1])."\""; }'
+              'if (!strstr($matches[1], $_SERVER[\'HTTP_HOST\'])){ return "<a rel=\"nofollow\" title=\"".htmlspecialchars($matches[1])."\" href=\"/go/url=-".base64_encode($matches[1])."\""; } else { return "<a href=\"".htmlspecialchars($matches[1])."\""; }'
           ),
           $text
         );
@@ -1082,13 +1082,7 @@ class bbcode {
 
             if ('item'==$item['type']) { continue; }
 
-			$my_domen_regexp = str_replace('.', '\.', HOST);
-			$my_domen_regexp = str_replace('/', '\/', $my_domen_regexp);
-
-            $iframe_regexp      = '/<iframe.*?src=(?!"\/\/www\.youtube\.com\/embed\/|"http:\/\/vk\.com\/video_ext\.php\?|"'.$my_domen_regexp.').*?><\/iframe>/iu';
-            $iframe_regexp2     = '/<iframe.*>.+<\/iframe>/iu';
-            $item['str']        = preg_replace($iframe_regexp, '', $item['str']);
-            $item['str']        = preg_replace($iframe_regexp2, '', $item['str']);
+            $item['str'] = preg_replace('/<iframe.*>.+<\/iframe>/iu', '', $item['str']);
 
             $str .= strip_tags($item['str'], '<iframe><object><param><embed>');
 

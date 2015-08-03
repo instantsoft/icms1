@@ -659,6 +659,7 @@ CREATE TABLE `#__form_fields` (
   `kind` varchar(30) NOT NULL,
   `mustbe` int(11) NOT NULL,
   `config` text NOT NULL,
+  `show_for_group` tinytext NOT NULL,
   PRIMARY KEY (`id`),
   KEY `form_id` (`form_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -1031,10 +1032,10 @@ CREATE TABLE `#__photo_albums` (
   `public` tinyint(1) NOT NULL,
   `perpage` int(11) NOT NULL DEFAULT '15',
   `cssprefix` varchar(20) NOT NULL,
-  `thumb1` int(11) NOT NULL DEFAULT '96',
-  `thumb2` int(11) NOT NULL DEFAULT '480',
+  `thumb1` int(11) NOT NULL DEFAULT '180',
+  `thumb2` int(11) NOT NULL DEFAULT '650',
   `thumbsqr` tinyint(1) NOT NULL DEFAULT '1',
-  `showtype` varchar(10) NOT NULL DEFAULT 'lightbox',
+  `showtype` varchar(10) NOT NULL DEFAULT 'thumb',
   `nav` tinyint(1) NOT NULL DEFAULT '1',
   `uplimit` int(11) NOT NULL,
   `maxcols` int(11) NOT NULL DEFAULT '4',

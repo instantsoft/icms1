@@ -31,5 +31,5 @@
 </div>
 {$pagebar}
 {else}
-<p>{$LANG.NOT_PHOTOS_IN_ALBUM}</p>
+<p class="not_found">{$LANG.NOT_PHOTOS_IN_ALBUM}</p>
 {/if}

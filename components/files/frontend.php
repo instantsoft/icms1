@@ -10,11 +10,10 @@
 //                        LICENSED BY GNU/GPL v2                              //
 //                                                                            //
 /******************************************************************************/
-if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
 
 function files(){
-
-    $inDB = cmsDatabase::getInstance();
+    
+    header('X-Frame-Options: DENY');
 
     global $_LANG;
 
@@ -40,9 +39,9 @@ function files(){
 
             $model->increaseDownloadCount($fileurl);
 
-            cmsCore::redirect($fileurl);
+            display_link_template($fileurl, $model, $model->config['file_time']);
 
-        } elseif(file_exists(PATH.$fileurl)){
+        } elseif(is_file(PATH.$fileurl)){
 
             $model->increaseDownloadCount($fileurl);
 
@@ -73,6 +72,7 @@ function files(){
 
         // кириллические домены
         $url_host = parse_url($url, PHP_URL_HOST);
+
         if(preg_match('/^[а-яё]+/iu', $url_host)){
 
             cmsCore::loadClass('idna_convert');
@@ -84,10 +84,60 @@ function files(){
             $url = str_ireplace($url_host, $host, $url);
 
         }
-        cmsCore::redirect($url);
+
+        display_link_template($url, $model, $model->config['redirect_time']);
 
     }
 
 //============================================================================//
+
+}
+
+function display_link_template($link, $model, $time=10) {
+
+    global $_LANG;
+
+    $inPage = cmsPage::getInstance();
+
+    $is_domain_banned = false;
+
+    // проверяем ссылку
+    if(function_exists('curl_init') && $model->config['check_link']){
+
+        $link_domain = parse_url($link, PHP_URL_HOST);
+
+        if(($model->config['white_list'] && $link_domain && !in_array($link_domain, $model->config['white_list'])) || !$model->config['white_list']){
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, 'https://api.vk.com/method/utils.checkLink?url='.$link);
+            curl_setopt($ch, CURLOPT_HEADER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 2);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_USERAGENT, 'InstantCMS/'.CORE_VERSION.' +'.HOST);
+
+            $data = json_decode(curl_exec($ch), true);
+
+            if(!isset($data['error']) && isset($data['response'])){
+                $is_domain_banned = ($data['response']['status'] == 'banned');
+                $link = $data['response']['link'];
+            }
+
+        }
+
+    }
+
+
+    $inPage->setTitle($_LANG['FILE_EXTERNAL_LINK']);
+    $inPage->setDescription($_LANG['FILE_EXTERNAL_LINK']);
+
+    cmsPage::initTemplate('components', 'com_files_redirect')->
+            assign('url', htmlspecialchars($link))->
+            assign('time', $time)->
+            assign('sitename', cmsConfig::getConfig('sitename'))->
+            assign('is_domain_banned', $is_domain_banned)->
+            display('com_files_redirect.tpl');
 
 }

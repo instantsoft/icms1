@@ -67,5 +67,5 @@ $(document).ready(function(){
 });
 </script>
 {else}
-	<p>{$LANG.NO_YOUR_ARTICL_ON_SITE}</p>
+    <p class="not_found">{$LANG.NO_YOUR_ARTICL_ON_SITE}</p>
 {/if}

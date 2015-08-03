@@ -89,7 +89,7 @@
       {/foreach}
       {else}
       <tr>
-        <td><p>{$LANG.USERS_NOT_FOUND}.</p></td>
+          <td><p class="not_found">{$LANG.USERS_NOT_FOUND}.</p></td>
       </tr>
       {/if}
     </table>

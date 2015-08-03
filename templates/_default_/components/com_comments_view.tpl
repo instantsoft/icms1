@@ -35,13 +35,18 @@
 <div id="cm_addentry0"></div>
 <script type="text/javascript">
     var target_author_can_delete = {$target_author_can_delete};
-{if $cfg.cmm_ajax}
     var anc = '';
     if (window.location.hash){
         anc = window.location.hash;
     }
+{if $cfg.cmm_ajax}
     $(function(){
         loadComments('{$target}', {$target_id}, anc);
     });
+{else}
+    if (anc){
+        window.location.hash = anc.substr(1, 100);
+        $('a[href='+anc+']').css('color', '#c0392b').attr('title', LANG_COMMENT_IN_LINK).fadeOut().fadeIn().fadeOut().fadeIn();
+    }
 {/if}
 </script>

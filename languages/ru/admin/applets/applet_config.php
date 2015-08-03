@@ -10,9 +10,6 @@
 //                        LICENSED BY GNU/GPL v2                              //
 //                                                                            //
 /******************************************************************************/
-
-if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
-
 $_LANG['AD_CONFIG_SITE_ERROR'] 				= 'Файл /includes/config.inc.php недоступен для записи';
 $_LANG['AD_SITE'] 							= 'Сайт';
 $_LANG['AD_DESIGN'] 						= 'Дизайн';

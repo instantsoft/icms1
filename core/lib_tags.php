@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
-
 function cmsInsertTags($tagstr, $target, $item_id){
 
     $inDB = cmsDatabase::getInstance();
@@ -71,8 +69,9 @@ function cmsTagLine($target, $item_id, $links=true, $selected=''){
 }
 
 function cmsTagBar($target, $item_id, $selected=''){
+    global $_LANG;
 	if ($tagline = cmsTagLine($target, $item_id, true, $selected)){
-		return '<div class="taglinebar"><span class="label">Теги: </span><span class="tags">'.$tagline.'</span></div>';
+		return '<div class="taglinebar"><i class="fa fa-tags fa-lg"></i> <span class="label">'.$_LANG['TAGS'].': </span><span class="tags">'.$tagline.'</span></div>';
 	} else {
 		return '';
 	}
@@ -202,4 +201,3 @@ function cmsTagsList(){
 	}
 	return $html;
 }
-?>

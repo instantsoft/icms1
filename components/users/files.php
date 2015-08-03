@@ -115,20 +115,34 @@ if ($fdo=='addfile'){
 			if ($data_array['error'] != UPLOAD_ERR_OK) { continue; }
 
 			$upload_dir = PATH.'/upload/userfiles/'.$usr['id'];
-			@mkdir($upload_dir);
+
+			if(!@mkdir($upload_dir)){
+                continue;
+            }
 
 			$name       = $data_array["name"];
 			$size       = cmsCore::strClear($data_array["size"]);
 			$size_mb    += round(($size/1024)/1024, 2);
 
 			// проверяем тип файла
-			$maytypes 	= explode(',', str_replace(' ', '', $model->config['filestype']));
-			$path_parts = pathinfo($name);
-			// расширение файла
-			$ext        = mb_strtolower($path_parts['extension']);
+			$maytypes = explode(',', str_replace(' ', '', strtolower($model->config['filestype'])));
+			$ext      = strtolower(pathinfo($name, PATHINFO_EXTENSION));
 
-			if(in_array($ext, array('php','htm','html','htaccess'))) { cmsCore::addSessionMessage($_LANG['ERROR_TYPE_FILE'].': '.$model->config['filestype'], 'error'); cmsCore::redirectBack(); }
-			if(!in_array($ext, $maytypes)) { cmsCore::addSessionMessage($_LANG['ERROR_TYPE_FILE'].': '.$model->config['filestype'], 'error'); cmsCore::redirectBack(); }
+            if(!$ext){ continue; }
+
+			if(in_array($ext, array('php','htm','html','htaccess'), true)) {
+
+                cmsCore::addSessionMessage($_LANG['ERROR_TYPE_FILE'].': '.$model->config['filestype'], 'error');
+                cmsCore::redirectBack();
+
+            }
+
+			if(!in_array($ext, $maytypes, true)) {
+
+                cmsCore::addSessionMessage($_LANG['ERROR_TYPE_FILE'].': '.$model->config['filestype'], 'error');
+                cmsCore::redirectBack();
+
+            }
 
 			// Переводим имя файла в транслит
 			// отделяем имя файла от расширения
@@ -144,7 +158,18 @@ if ($fdo=='addfile'){
 			if ($size_mb > $free_mb && $model->config['filessize']){ cmsCore::addSessionMessage($_LANG['YOUR_FILE_LIMIT'].' ('.$max_mb.' '.$_LANG['MBITE'].') '.$_LANG['IS_OVER_LIMIT'].'<br>'.$_LANG['FOR_NEW_FILE_DEL_OLD'], 'error'); cmsCore::redirectBack(); }
 
 			// Загружаем файл
-			if ($inCore->moveUploadedFile($data_array["tmp_name"], PATH."/upload/userfiles/{$usr['id']}/$name", $data_array['error'])) {
+			if ($inCore->moveUploadedFile($data_array['tmp_name'], PATH.'/upload/userfiles/'.$usr['id'].'/'.$name, $data_array['error'])) {
+
+                // если загрузили фото, проверяем его
+                if(in_array($ext, array('jpg','jpeg','gif','png','bmp'), true)) {
+
+                    $size = getimagesize(PATH.'/upload/userfiles/'.$usr['id'].'/'.$name);
+                    if ($size === false){
+                        @unlink(PATH.'/upload/userfiles/'.$usr['id'].'/'.$name);
+                        continue;
+                    }
+
+                }
 
 				$loaded_files[] = $name;
 
@@ -275,5 +300,3 @@ if ($fdo=='pubfilelist'){
 	cmsCore::redirect('/users/'.$id.'/files.html');
 
 }
-
-?>

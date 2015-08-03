@@ -11,9 +11,9 @@
 //                                                                            //
 /******************************************************************************/
 
-$_LANG['MOD_SHOWNUM']       = 'Number of comments';
+$_LANG['MOD_SHOWNUM']       = 'Comments count';
 $_LANG['MOD_SHOWNUM_UNITS'] = 'pcs.';
-$_LANG['MOD_MINRATE']       = 'Restriction by the rating';
+$_LANG['MOD_MINRATE']       = 'Restriction by rating';
 $_LANG['MOD_MINRATE_HINT']  = 'Show comments with rating higher than the indicated one';
 $_LANG['MOD_SHOWGUEST']     = 'Show guests comments';
 $_LANG['MOD_SHOWRSS']       = 'Link to RSS';

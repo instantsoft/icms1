@@ -125,7 +125,7 @@ function loadComments(target, target_id, anchor){
                 $('td.loading').html('');
                 if (anchor){
                     window.location.hash = anchor.substr(1, 100);
-                    $('a[href='+anchor+']').css('color', 'red').attr('title', LANG_COMMENT_IN_LINK);
+                    $('a[href='+anchor+']').css('color', '#c0392b').attr('title', LANG_COMMENT_IN_LINK);
                 }
 				$('div.component').css({opacity:1.0, filter:'alpha(opacity=100)'});
                 afterLoad();
@@ -166,5 +166,5 @@ function voteComment(comment_id, vote){
 				$('span#votes'+comment_id).html(data);
 			}
     });
-
+    return false;
 }
