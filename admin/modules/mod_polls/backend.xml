@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_polls</id>
+    </info>
+    <params>
+        <param type="flag" name="shownum" default="off" />
+        <param type="list_db" name="poll_id" src="cms_polls">
+            <option value="0" />
+        </param>
+        <param type="string" name="tpl" default="mod_polls.tpl" />
+    </params>
+</backend>

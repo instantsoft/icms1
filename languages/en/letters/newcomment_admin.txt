@@ -1,0 +1,13 @@
+[subject:New comment added]
+{date} on the site «{sitename}» user <strong>{from}</strong> left a comment for «{subjtitle}».
+
+Comment is available here: <a href="{targetlink}">{targetlink}</a>.
+
+-------------------------------------------------------
+The text of the comment
+-------------------------------------------------------
+{content}
+
+--
+<small>E-mail was sent automatically. Please do not reply.</small>
+

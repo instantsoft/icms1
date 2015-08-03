@@ -1,0 +1,126 @@
+#hmenu {
+	float				: left;
+	background			: url(hmenubg.jpg) #0C94C9 repeat-x;
+	width				: 100%;
+	padding-left		: 0px;
+}
+
+#hmenu p {
+	padding				: 0;
+	margin				: 0;
+}
+
+#hmenu ul, #hmenu ul li{
+	list-style			: none;
+	margin				: 0;
+    margin-top          : 1px;
+	padding				: 0;
+	display				: inline;
+}
+
+#hmenu ul {
+	cursor				: pointer;
+	z-index				: 9999;
+}
+#hmenu ul li.hilite {
+	background: #3498db;
+	border:	none;
+}
+
+#hmenu ul li.hilite a{
+    color: #FFF;
+/*    font-weight:bold; */
+}
+
+#hmenu ul li.hilite li a{
+    color: #000;
+    font-weight:normal;
+}
+
+#hmenu ul li.hilite .hilite a{
+    color: #FFF;
+/*    font-weight:bold; */
+}
+
+#hmenu ul li.hilite .hilite li a{
+    color:				#000;
+/*    font-weight:normal; */
+}
+
+#hmenu ul li.hilite .hilite .hilite a{
+    color:				#000;
+/*    font-weight:bold; */
+}
+
+#hmenu ul li {
+	float				: left;
+	position			:relative;
+	padding				: 2px;
+}
+#hmenu ul li ul li {
+    display				:block;
+    border-top			:0px;
+	width				:206px;
+	border				: 0;
+}
+#hmenu ul li a, #hmenu ul li div {
+	display				: block;
+	padding				: 3px 10px 3px 24px;
+	background-position	: 0 center !important;
+	background-repeat	: no-repeat !important;
+	text-decoration		: none;
+	margin				: 1px;
+	white-space			: nowrap;
+	color				: #000;
+}
+#hmenu ul li ul a{
+    padding-left:28px;
+}
+#hmenu ul li a:HOVER{
+}
+#hmenu ul li ul {
+    display				: none;
+    position			: absolute;
+	left				: 0;
+    top					: 25px;
+	width				: 210px;
+	background			: url(item.jpg) repeat-y left top #FFF;
+	border				: #999 1px solid;
+	color				: #000;
+    box-shadow          : 1px 2px 2px #333;
+    -moz-box-shadow     : 1px 2px 2px #333;
+}
+ul.fleft {
+    top					: 0px !important;
+    left				: 175px !important;
+}
+
+#hmenu li a.menu{ margin-left:5px; background:url(/admin/images/icons/hmenu/menu.png) no-repeat 6px 6px; }
+#hmenu li a.modules{ margin-left:5px; background:url(/admin/images/icons/hmenu/modules.png) no-repeat 6px 6px; }
+#hmenu li a.cats{ margin-left:5px; background:url(/admin/images/icons/hmenu/cats.png) no-repeat 6px 6px; }
+#hmenu li a.content{ margin-left:5px; background:url(/admin/images/icons/hmenu/content.png) no-repeat 6px 6px; }
+#hmenu li a.arhive{ margin-left:5px; background:url(/admin/images/icons/hmenu/arhive.png) no-repeat 6px 6px; }
+#hmenu li a.components{ margin-left:5px; background:url(/admin/images/icons/hmenu/components.png) no-repeat 6px 6px; }
+#hmenu li a.filters{ margin-left:5px; background:url(/admin/images/icons/hmenu/filters.png) no-repeat 6px 6px; }
+#hmenu li a.plugins{ margin-left:5px; background:url(/admin/images/icons/hmenu/plugins.png) no-repeat 6px 6px; }
+#hmenu li a.users{ margin-left:5px; background:url(/admin/images/icons/hmenu/users.png) no-repeat 6px 6px; }
+#hmenu li a.banlist{ margin-left:5px; background:url(/admin/images/icons/hmenu/banlist.png) no-repeat 6px 6px; }
+#hmenu li a.user{ margin-left:5px; background:url(/admin/images/icons/hmenu/user.png) no-repeat 6px 6px; }
+#hmenu li a.config{ margin-left:5px; background:url(/admin/images/icons/hmenu/config.png) no-repeat 6px 6px; }
+#hmenu li a.help{ margin-left:5px; background:url(/admin/images/icons/hmenu/help.png) no-repeat 6px 6px; }
+#hmenu li a.site{ margin-left:5px; background:url(/admin/images/icons/hmenu/site.png) no-repeat 6px 6px; }
+#hmenu li a.backup{ margin-left:5px; background:url(/admin/images/icons/hmenu/backup.png) no-repeat 6px 6px; }
+#hmenu li a.repair{ margin-left:5px; background:url(/admin/images/icons/hmenu/repair.png) no-repeat 6px 6px; }
+#hmenu li a.repairnested{ margin-left:5px; background:url(/admin/images/icons/hmenu/repairnested.png) no-repeat 6px 6px; }
+#hmenu li a.cron{ margin-left:5px; background:url(/admin/images/icons/hmenu/cron.png) no-repeat 6px 6px; }
+#hmenu li a.phpinfo{ margin-left:5px; background:url(/admin/images/icons/hmenu/php.png) no-repeat 6px 6px; }
+#hmenu li a.install{ margin-left:5px; background:url(/admin/images/icons/hmenu/install.png) no-repeat 6px 6px; }
+
+#hmenu li a.add{ margin-left:5px; background:url(/admin/images/icons/hmenu/add.png) no-repeat 6px 6px; }
+#hmenu li a.list{ margin-left:5px; background:url(/admin/images/icons/hmenu/list.png) no-repeat 6px 6px; }
+
+#hmenu li a.com_rss{ margin-left:5px; background:url(/admin/images/icons/hmenu/com/com_rss.png) no-repeat 6px 6px; }
+#hmenu li a.com_arhive{ margin-left:5px; background:url(/admin/images/icons/hmenu/com/com_arhive.png) no-repeat 6px 6px; }
+#hmenu li a.com_banners{ margin-left:5px; background:url(/admin/images/icons/hmenu/com/com_banners.png) no-repeat 6px 6px; }
+
+#hmenu li a.clearcache{ margin-left:5px; background:url(/admin/images/icons/hmenu/clearcache.png) no-repeat 6px 6px; }

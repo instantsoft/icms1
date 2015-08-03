@@ -1,0 +1,15 @@
+Hello {nickname}!
+
+Thank you for registration on «{sitename}».
+
+------------------------------------------------
+Your login and password on the site are:
+------------------------------------------------
+
+Login: {login}
+Password: {password}
+
+Regards, the administrator.
+
+--
+ <small>E-mail was sent automatically. Please do not reply.</small>

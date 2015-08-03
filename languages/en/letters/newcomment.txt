@@ -1,0 +1,14 @@
+﻿[subject:New comment]
+On the site «{sitename}» for the page «{pagetitle}» a new comment was added!
+
+	Author of the comment: {author}
+	Date: {date}
+
+To read the comment or reply to it
+go to the link: <a href="{answerlink}">{answerlink}</a>
+
+Regards, the site administration "{sitename}".
+
+--
+<small>E-mail was sent automatically. Please do not reply.</small>
+

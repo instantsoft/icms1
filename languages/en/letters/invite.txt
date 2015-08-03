@@ -1,0 +1,25 @@
+﻿Hello!
+
+{username} invites you to register on the site «{sitename}».
+
+After registration you will have access to all the site's features.
+You can start a blog, upload photos, and chat with friends.
+
+
+    Address of our site: {site_url}
+
+    Invitation code: {invite_code}
+
+    Registration: <a href="{site_url}/registration/{invite_code}">{site_url}/registration/{invite_code}</a>
+
+
+Regards, {username} and site administration «{sitename}».
+
+
+--
+<small>E-mail was sent automatically. Please do not reply.</small>
+
+
+
+
+

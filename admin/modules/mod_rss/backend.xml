@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_rss</id>
+    </info>
+    <params>
+        <param type="string" name="rssurl" default="http://www.lenta.ru/rss" />
+        <param type="flag" name="showdesc" default="on" />
+        <param type="number" name="itemslimit" default="5" />
+        <param type="number" name="cachetime" default="1" />
+        <param type="number" name="cols" default="2" />
+        <param type="flag" name="showicon" default="on" />
+        <param type="string" name="tpl" default="mod_rss.tpl" />
+    </params>
+</backend>

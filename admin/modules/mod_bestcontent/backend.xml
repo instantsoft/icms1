@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_bestcontent</id>
+    </info>
+    <params>
+        <param type="number" name="shownum" default="5" />
+        <param type="flag" name="showlink" default="on" />
+        <param type="flag" name="showdesc" default="on" />
+        <param type="list_db" name="cat_id" src="cms_category" src_title="title" src_value="id" src_where="published='1' AND NSLevel>0" tree="1" >
+			<option value="0" />
+		</param>
+        <param type="flag" name="subs" default="off" />
+        <param type="string" name="tpl" default="mod_bestcontent.tpl" />
+    </params>
+</backend>

@@ -1,0 +1,105 @@
+/*
+// JoomlaWorks "Tabs & Slides" Plugin for Joomla! 1.0.x - Version 2.3
+// License: http://www.gnu.org/copyleft/gpl.html
+// Authors: Fotis Evangelou - George Chouliaras
+// Copyright (c) 2006 - 2007 JoomlaWorks.gr - http://www.joomlaworks.gr
+// Project page at http://www.joomlaworks.gr - Demos at http://demo.joomlaworks.gr
+// Support forum at http://forum.joomlaworks.gr
+// ***Last update: August 30th, 2007***
+*/
+
+/* --- Generic --- */
+a:active,a:focus {outline:0;}
+.jwts_clr {clear:both;height:0;line-height:0;}
+
+/* --- Tabs --- */
+.jwts_tabberlive {margin:0px;padding:0px;}
+.jwts_tabberlive .jwts_tabbertab {margin:0px;padding:6px;/*height:300px;overflow:auto;*/}
+.jwts_tabberlive .jwts_tabbertab h2,
+.jwts_tabberlive .jwts_tabbertab h3,
+.jwts_tabberlive .jwts_tabbertabhide {display:none;}
+ul.jwts_tabbernav {margin:0px;padding:0;list-style:none;list-style-image:none;background:none;line-height:normal;height:auto;margin-bottom:10px;}
+ul.jwts_tabbernav li {margin:0px;padding:0px;list-style:none;list-style-image:none;background:none;display:block;float: left;}
+ul.jwts_tabbernav li a,
+ul.jwts_tabbernav li a:link {font-size:14px;margin:0px 1px;padding:8px;display: block; color:#FFF;background:#bdc3c7; text-decoration:none;}
+ul.jwts_tabbernav li a:visited {color:#333;}
+ul.jwts_tabbernav li a:hover {color:#e67e22;background:#ecf0f1;text-decoration:none;}
+ul.jwts_tabbernav li a:active,ul.jwts_tabbernav li a:focus {outline:0; color:#000; }
+ul.jwts_tabbernav li.jwts_tabberactive a {background:#fff; color:#2c3e50;padding-top: 6px;}
+ul.jwts_tabbernav li.jwts_tabberactive a:hover {background:#fff;text-decoration:none;}
+ul.jwts_tabbernav li.jwts_tabberactive,
+ul.jwts_tabbernav li.jwts_tabberinactive {background:none;padding:0px;margin:0px; border-top:solid 2px #f1c40f; }
+.jwts_tabberlive .jwts_tabbertab,ul.jwts_tabbernav {text-align:left; overflow:hidden;} /* force content orientation */
+
+/* --- Slides --- */
+.jwts_slider {
+	margin:0px 0px;
+	padding:0px;
+}
+.jwts_slidewrapper {
+	border:none;
+	width:100%;
+	visibility:hidden;
+	height:0px;
+	overflow:hidden;
+	position:relative;
+	margin:0px;
+	padding:0px;
+}
+
+/* DEFAULT STYLING
+.jwts_title {margin:0 0 1px 0;padding:0px;overflow:hidden;background:0;cursor:pointer;}
+.jwts_title_left {background:0;margin:0 4px 0 0;}
+a.jwts_title_text,
+a.jwts_title_text:link {display:block;background:0;padding:0 0px 0 0px;margin:0 0 0 8px;line-height:22px;font-size:12px;font-weight:bold;text-decoration:none;color:#444;}
+a.jwts_title_text:visited {color:#444;}
+a.jwts_title_text:hover {display:block;background:transparent url(star.png) no-repeat;background-position:0px 2px;padding:0 2px 0 20px;margin:0 0 0 8px;line-height:22px;font-size:12px;font-weight:bold;text-decoration:none;color:#c64934;}
+.jwts_slidecontent {padding:4px 12px 8px 12px;margin:0px;position:relative;background:none;border:none;}
+.jwts_title_left,.jwts_slidecontent {text-align:left;} /* force content orientation */
+
+
+.jwts_title {
+	padding:0px;
+	overflow:hidden;
+	margin-top: 10px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	text-decoration: none;
+}
+.jwts_title_left {
+	font-weight: normal;
+}
+a.jwts_title_text, a.jwts_title_text:hover {
+	display: block;
+	padding: 0px;
+	padding-bottom:5px;
+	margin: 0;
+	text-decoration: none;
+	color: #006699;
+}
+a.jwts_title_text, a.jwts_title_text:link {
+	color:Navy;
+	background:0;
+	border-bottom:1px solid gray;
+	font-weight: normal;
+}
+a.jwts_title_text:visited {
+	color:Navy;
+	font-weight: bold;
+}
+a.jwts_title_text:hover {
+	color:gray;
+	background:0;
+	border-bottom:1px solid black;
+	font-weight: bold;
+}
+.jwts_slidecontent {
+	padding:10px;
+	margin:0px;
+	position:relative;
+	background:#fbfbfb;
+	border:1px solid #aaa;
+	border-top:none;
+	overflow:hidden;
+}

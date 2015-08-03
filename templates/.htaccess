@@ -1,0 +1,4 @@
+<Files ~ "\.tpl|php|txt$">
+    Order allow,deny
+    Deny from all
+</Files>

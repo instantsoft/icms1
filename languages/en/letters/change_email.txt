@@ -1,0 +1,10 @@
+[subject:Changing the registration email]
+Hello {nickname}!
+
+To complete the change of email follow these steps:
+
+1. sign in to the site;
+2. click on the following link - <a href="{codelink}">{codelink}</a>.
+
+--
+<small>E-mail was sent automatically. Please do not reply.</small>

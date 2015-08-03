@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_user_friend</id>
+    </info>
+    <params>
+        <param type="number" name="limit" default="5" />
+        <param type="list" name="view_type">
+            <option value="table" />
+            <option value="list" />
+        </param>
+        <param type="string" name="tpl" default="mod_user_friend.tpl" />
+    </params>
+</backend>

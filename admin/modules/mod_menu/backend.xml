@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_menu</id>
+    </info>
+    <params>
+        <param type="list_function" name="menu" function="cpGetList" key_title="title" key_value="id" param="menu" />
+        <param type="flag" name="show_home" default="on" />
+        <param type="string" name="tpl" default="mod_menu.tpl" />
+		<param type="flag" name="is_sub_menu" default="off" />
+    </params>
+</backend>

@@ -1,0 +1,60 @@
+#mc_module_title{
+    border-radius:4px;
+    background-color:#E0EAEF;
+    padding:10px;
+}
+#mc_module_title .title{
+    font-size:14px;
+    color:#375E93;
+    text-shadow:0 2px 0 #FFFFFF;
+}
+#mc_module_title .value input{
+    border:1px solid #4DA4CF;
+    padding:4px;
+    font-size:14px;
+    width:350px;
+}
+#mc_module_cfg .params-form .param-name .hinttext{
+    color:gray;
+}
+#mc_module_cfg .params-form .param-name{
+    width:250px;
+    color:#375E93;
+    font-size:12px;
+    vertical-align: top;
+}
+#mc_module_cfg .params-form .param-links{
+    margin-top: 5px;
+    font-size:11px;
+}
+#mc_module_cfg .params-form .param-links a{
+    text-decoration: none;
+    border-bottom:dashed 1px #0099CC;
+}
+#mc_module_cfg .params-form .param-value{
+    vertical-align: top;
+}
+#mc_module_cfg .params-form{
+    padding:10px;
+    border-radius:4px;
+    border:1px solid #C3D6DF;
+    margin: 5px 0px 10px 0px;
+}
+#mc_module_cfg .params-form .param-number,
+#mc_module_cfg .params-form .param-string{
+    border:1px solid #4DA4CF;
+    padding:4px;
+}
+#mc_module_cfg .params-form .param-number{
+    width:50px;
+}
+#mc_module_cfg .params-buttons {
+    text-align:center;
+    margin: 10px 0 0;
+}
+#mc_module_cfg .params-buttons input{
+    font-size: 15px;
+}
+#mc_module_cfg {
+    margin: 5px 0 0;
+}

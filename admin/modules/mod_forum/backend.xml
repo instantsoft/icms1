@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_forum</id>
+    </info>
+    <params>
+        <param type="number" name="shownum" default="4" />
+		<param type="list_db" name="cat_id" src="cms_forum_cats" src_title="title" src_value="id" tree="0" >
+            <option value="0" />
+        </param>
+		<param type="list_db" name="forum_id" src="cms_forums" src_title="title" src_value="id" tree="1" src_where="NSLevel>0" >
+            <option value="0" />
+        </param>
+		<param type="list" name="order" default="pubdate">
+			<option value="pubdate" />
+			<option value="post_count" />
+			<option value="hits" />
+		</param>
+		<param type="flag" name="subs" default="off" />
+		<param type="flag" name="show_hidden" default="off" />
+		<param type="flag" name="show_pinned" default="off" />
+        <param type="flag" name="showtext" default="on" />
+        <param type="flag" name="showforum" default="on" />
+        <param type="string" name="tpl" default="mod_forum.tpl" />
+    </params>
+</backend>

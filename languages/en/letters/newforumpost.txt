@@ -1,0 +1,14 @@
+[subject:New message on forum]
+On the site «{sitename}» in a thread of the forum «{pagetitle}» a new message was added.
+
+	Author of the message: {author}
+	Date: {date}
+
+To read this message or reply to it
+go to the link: <a href="{answerlink}">{answerlink}</a>.
+
+Regards, the site administration «{sitename}».
+
+--
+<small>E-mail was sent automatically. Please do not reply.</small>
+

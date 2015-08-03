@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>plugin</type>
+        <id>p_related_posts</id>
+    </info>
+    <params>
+        <param type="flag" name="tags_mode" default="off" />
+        <param type="flag" name="add_mode" default="off" />
+        <param type="list" name="search_mode" >
+            <option value="0" />
+            <option value="1" />
+            <option value="2" />
+        </param>
+        <param type="number" name="limit" default="4" />
+        <param type="number" name="truncate" default="200" />
+        <param type="number" name="cash_time" default="24" />
+        <param type="string" name="blank_photo" default="no_image.png" />
+    </params>
+</backend>

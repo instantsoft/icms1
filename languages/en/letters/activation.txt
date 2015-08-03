@@ -1,0 +1,40 @@
+Hello {nickname}!
+
+You have received this email because your e-mail address 
+was used for registration on the site «{sitename}».
+
+If you  have not registered on this site, ignore 
+and delete this message.
+
+To complete your registration, follow the instructions.
+
+------------------------------------------------
+<h3>Instruction of Activation</h3>
+------------------------------------------------
+
+Thank you for registering.
+
+Account activation is required on the site to prevent spam
+and other abuse.
+
+To activate your account click on the following link:
+
+<a href="{codelink}">{codelink}</a>.
+
+If an error message received or you can not login on the site,
+perhaps your account has been blocked or deleted. 
+In such case you have to ask the administrator to solve this problem.
+
+------------------------------------------------
+<strong>Your login and password on the site:</strong>
+------------------------------------------------
+
+Login: {login}
+Password: {password}
+
+Regards, the site administration «{sitename}».
+
+--
+<small>E-mail was sent automatically. Please do not reply.</small>
+
+

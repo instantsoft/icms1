@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_uc</id>
+    </info>
+    <params>
+        <param type="number" name="num" default="5" />
+        <param type="list" name="sort">
+            <option value="rating" />
+            <option value="hits" />
+            <option value="pubdate" />
+        </param>
+        <param type="list" name="showtype">
+            <option value="thumb" />
+            <option value="list" />
+        </param>
+        <param type="number" name="showf" default="5" />
+        <param type="list_db" name="cat_id" src="cms_uc_cats" src_title="title" src_value="id" tree="1" src_where="NSLevel>0">
+            <option value="0" />
+        </param>
+        <param type="flag" name="subs" default="off" />
+        <param type="flag" name="fulllink" default="on" />
+        <param type="string" name="tpl" default="mod_uc.tpl" />
+    </params>
+</backend>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_userfiles</id>
+    </info>
+    <params>
+        <param type="flag" name="sw_latest" default="on" />
+        <param type="flag" name="sw_popular" default="on" />
+        <param type="flag" name="sw_stats" default="on" />
+        <param type="number" name="num_latest" default="5" />
+        <param type="number" name="num_popular" default="5" />
+        <param type="string" name="tpl" default="mod_userfiles.tpl" />
+    </params>
+</backend>

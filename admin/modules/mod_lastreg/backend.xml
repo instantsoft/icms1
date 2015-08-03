@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_lastreg</id>
+    </info>
+    <params>
+        <param type="number" name="newscount" default="5" />
+        <param type="list" name="view_type">
+            <option value="table" />
+			<option value="hr_table" />
+            <option value="list" />
+        </param>
+		<param type="number" name="maxcool" default="2" />
+        <param type="string" name="tpl" default="mod_lastreg.tpl" />
+    </params>
+</backend>

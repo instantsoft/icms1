@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>plugin</type>
+        <id>p_auto_forum</id>
+    </info>
+    <params>
+        <param type="flag" name="AF_DELETE_THREAD" default="on" />
+        <param type="flag" name="AF_LINK_TREAD" default="on" />
+        <param type="list_db" name="AF_ADDTREADFORUM_ID" src="cms_forums" src_title="title" src_value="id" src_where="published='1' AND NSLevel>0" tree="1" >
+			<option value="0" />
+		</param>
+        <param type="list_db" multiple="1" name="AF_NOCREATETREAD" src="cms_category" src_title="title" src_value="id" src_where="published='1' AND NSLevel>0" tree="1" />
+    </params>
+</backend>

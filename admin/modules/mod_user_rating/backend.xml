@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_user_rating</id>
+    </info>
+    <params>
+        <param type="number" name="count" default="5" />
+        <param type="list" name="view_type">
+            <option value="karma" />
+            <option value="rating" />
+        </param>
+        <param type="string" name="tpl" default="mod_user_rating.tpl" />
+    </params>
+</backend>

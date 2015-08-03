@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>plugin</type>
+        <id>p_ckeditor</id>
+    </info>
+    <params>
+        <param type="list_db" multiple="1" name="upload_for_groups" src="cms_user_groups" src_title="title" src_value="id" src_where="alias &lt;&gt; 'guest'" />
+        <param type="number" name="photo_width" default="600" units="px" />
+        <param type="number" name="photo_height" default="600" units="px" />
+        <param type="flag" name="iswatermark" default="off" />
+        <param type="flag" name="is_compatible" default="off" />
+        <param type="list" name="entermode" >
+            <option value="CKEDITOR.ENTER_P" />
+            <option value="CKEDITOR.ENTER_BR" />
+            <option value="CKEDITOR.ENTER_DIV" />
+        </param>
+        <param type="string" name="skin" default="moono" />
+    </params>
+</backend>

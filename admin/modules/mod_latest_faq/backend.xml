@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_latest_faq</id>
+    </info>
+    <params>
+        <param type="number" name="newscount" default="5" />
+        <param type="number" name="maxlen" default="120" />
+        <param type="list_db" name="cat_id" src="cms_faq_cats" src_title="title" src_value="id">
+            <option value="0" />
+        </param>
+        <param type="string" name="tpl" default="mod_latest_faq.tpl" />
+    </params>
+</backend>

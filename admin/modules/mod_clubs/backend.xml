@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_clubs</id>
+    </info>
+    <params>
+        <param type="number" name="count" default="5" />
+		<param type="list" name="type" title="" default="id">
+			<option value="id" />
+			<option value="rating" />
+			<option value="members_count" />
+		</param>
+		<param type="flag" name="vip_on_top" default="on" />
+        <param type="string" name="tpl" default="mod_clubs.tpl" />
+    </params>
+</backend>

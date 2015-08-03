@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_photo</id>
+    </info>
+    <params>
+        <param type="number" name="shownum" default="5" />
+        <param type="number" name="maxcols" default="5" />
+        <param type="flag" name="showclubs" default="off" />
+        <param type="list_db" name="album_id" src="cms_photo_albums" src_title="title" src_value="id" src_where="NSLevel>0" tree="1">
+            <option value="0" />
+        </param>
+		<param type="flag" name="is_subs" default="off" />
+        <param type="list" name="sort">
+            <option value="rating" />
+            <option value="hits" />
+			<option value="pubdate" />
+        </param>
+        <param type="list" name="whatphoto">
+            <option value="all" />
+            <option value="today" />
+			<option value="week" />
+			<option value="month" />
+        </param>
+		<param type="flag" name="is_full" default="off" />
+        <param type="flag" name="showmore" default="on" />
+        <param type="flag" name="is_lightbox" default="off" />
+        <param type="string" name="tpl" default="mod_photo.tpl" />
+    </params>
+</backend>

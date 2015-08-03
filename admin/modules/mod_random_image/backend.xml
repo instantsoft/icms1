@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_random_image</id>
+    </info>
+    <params>
+        <param type="flag" name="showtitle" default="on" />
+        <param type="list_db" name="album_id" src="cms_photo_albums" src_title="title" src_value="id" tree="1" src_where="published='1' AND NSLevel>0">
+            <option value="0" />
+        </param>
+		<param type="flag" name="subs" default="off" />
+        <param type="string" name="tpl" default="mod_random_image.tpl" />
+    </params>
+</backend>

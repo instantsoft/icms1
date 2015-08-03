@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_latestboard</id>
+    </info>
+    <params>
+        <param type="number" name="shownum" default="5" />
+        <param type="flag" name="showcity" default="on" />
+		<param type="flag" name="onlyvip" default="off" />
+		<param type="flag" name="butvip" default="off" />
+        <param type="list_db" name="cat_id" src="cms_board_cats" src_title="title" src_value="id" tree="1" src_where="published='1' AND NSLevel>0">
+            <option value="0" />
+        </param>
+        <param type="flag" name="subs" default="off" />
+        <param type="string" name="tpl" default="mod_latestboard.tpl" />
+    </params>
+</backend>

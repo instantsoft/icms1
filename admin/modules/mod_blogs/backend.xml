@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_blogs</id>
+    </info>
+    <params>
+        <param type="list" name="sort">
+            <option value="rating" />
+            <option value="comments_count" />
+			<option value="pubdate" />
+			<option value="hits" />
+        </param>
+        <param type="list" name="owner">
+            <option value="user" />
+            <option value="club" />
+        </param>
+        <param type="list_db" name="blog_id" src="cms_blogs" src_title="title" src_value="id" >
+			<option value="0" />
+		</param>
+        <param type="number" name="shownum" default="5" />
+        <param type="number" name="minrate" default="5" />
+        <param type="flag" name="showrss" default="on" />
+        <param type="string" name="tpl" default="mod_blogs.tpl" />
+    </params>
+</backend>

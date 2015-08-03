@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_tags</id>
+    </info>
+    <params>
+        <param type="list_db" multiple="1" name="targets" src="cms_tag_targets" src_title="title" src_value="target" />
+        <param type="list" name="sortby">
+            <option value="tag" />
+            <option value="num" />
+        </param>
+        <param type="flag" name="shuffle" default="off" />
+        <param type="number" name="minfreq" default="0" />
+        <param type="number" name="minlen" default="0" />
+        <param type="number" name="maxtags" default="20" />
+        <param type="number" name="start_size" default="0" />
+        <param type="number" name="step" default="4" />
+        <param type="number" name="end_size" default="50" />
+        <param type="string" name="colors" default="" />
+        <param type="string" name="tpl" default="mod_tags.tpl" />
+    </params>
+</backend>

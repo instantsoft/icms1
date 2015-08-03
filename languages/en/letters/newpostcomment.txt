@@ -1,0 +1,11 @@
+[subject:New comment]
+On «{sitename}» the user <strong>{from}</strong> left a comment for {subj} «{subjtitle}».
+Date: {date}.
+
+You can read the comment at:
+<a href="{targetlink}">{targetlink}</a>.
+
+Regards, the site administration «{sitename}».
+
+--
+<small>E-mail was sent automatically. Please do not reply.</small>

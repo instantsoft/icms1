@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_comments</id>
+    </info>
+    <params>
+        <param type="number" name="shownum" default="15" />
+        <param type="number" name="minrate" default="0" />
+        <param type="flag" name="showguest" default="on" />
+        <param type="flag" name="showrss" default="on" />
+		<param type="flag" name="showtarg" default="on" />
+        <param type="list_db" multiple="1" name="targets" src="cms_comment_targets" src_title="title" src_value="target" />
+        <param type="string" name="tpl" default="mod_comments.tpl" />
+    </params>
+</backend>

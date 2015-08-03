@@ -1,0 +1,122 @@
+<html>
+<head>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=AIzaSyC0PBI1vQBjdAcNST1_c47zOGtkIFXK5u8" type="text/javascript"></script>
+<script type="text/javascript">
+var queryString = window.location.search.substring(1)
+queryString = queryString.split('&');
+x = queryString[0].split('=');
+map_x = x[1];
+y = queryString[1].split('=');
+map_y = y[1];
+z = queryString[2].split('=');
+map_z = z[1];
+if(queryString[3] != undefined){
+	img = queryString[3].split('=');
+	img = img[1] ? '<img src="' + img[1] + '" />' : '';
+}else{
+	img = '';
+}
+
+window.onload = function(){
+	setinitialize(map_x, map_y, map_z, img);
+}
+
+function pointarrow(coor, zoom) {
+
+	var cx = "";
+	var cy = "";
+	stopx = false;
+
+	for (x = 0; x <= coor.length; x++) {
+
+		if (stopx == false) {
+			cx = cx+coor.charAt(x);
+		}
+		if (coor.charAt(x) == ",") {
+			stopx = true;
+		}
+		if (stopx == true) {
+			cy = cy+coor.charAt(x);
+		}
+
+	}
+	cx = cx.substr(0, cx.length-1);
+	cy = cy.substr(1, cy.length);
+	el = window.parent.document.getElementsByClassName('latitude')[0];
+	el.getElementsByTagName('input')[0].value = cx;
+	el = window.parent.document.getElementsByClassName('longitude')[0];
+	el.getElementsByTagName('input')[0].value = cy;
+	el = window.parent.document.getElementsByClassName('zoom')[0];
+	el.getElementsByTagName('input')[0].value = zoom;
+
+}
+</script>
+
+<script type="text/javascript">
+function setinitialize(the_x, the_y, the_z, the_img) {
+	if (GBrowserIsCompatible()) {
+		if(the_x != '' && the_y != '' && the_z != ''){
+			var map = new GMap2(document.getElementById("map_canvas"));
+			var contentString = the_img;
+			map.setCenter(new GLatLng(the_x, the_y), parseInt(the_z));
+			map.openInfoWindow(map.getCenter(), contentString);
+			map.setUIToDefault();
+
+			var point = new GLatLng(the_x, the_y);
+
+			var marker = new GMarker(point, {draggable: true});
+
+			map.openInfoWindow(map.getCenter(), contentString);
+
+			GEvent.addListener(marker, "dragstart", function() {
+			  map.closeInfoWindow();
+			});
+
+			GEvent.addListener(marker, "dragend", function() {
+			  var location = marker.getLatLng().toUrlValue(5);
+			  marker.openInfoWindowHtml(contentString);
+			  pointarrow(location, map.getZoom());
+			});
+
+			map.addOverlay(marker);
+
+			GEvent.addListener(map,"zoomend",function() {
+				var location = marker.getLatLng().toUrlValue(5);
+				pointarrow(location, map.getZoom());
+			});
+		}else{
+			var map = new GMap2(document.getElementById("map_canvas"));
+			map.setCenter(new GLatLng(14.58408, 120.99981), 13);
+			map.setUIToDefault();
+
+			var point = new GLatLng(14.58408, 120.99981);
+
+			var marker = new GMarker(point, {draggable: true});
+
+			map.openInfoWindow(map.getCenter(), document.createTextNode("Щелкните и переместите маркер в нужное место"));
+
+			GEvent.addListener(marker, "dragstart", function() {
+			  map.closeInfoWindow();
+			});
+
+			GEvent.addListener(marker, "dragend", function() {
+			  var location = marker.getLatLng().toUrlValue(5);
+			  //marker.openInfoWindowHtml("Your store location is at " + location);
+			  pointarrow(location, map.getZoom());
+			});
+
+			map.addOverlay(marker);
+
+			GEvent.addListener(map,"zoomend",function() {
+				var location = marker.getLatLng().toUrlValue(5);
+				pointarrow(location, map.getZoom());
+			});
+		}
+	}
+}
+</script>
+</head>
+<body onUnload="GUnload()">
+<div id="map_canvas" style="width:100%; height:98%; border: 2px solid #666;"></div>
+</body>
+</html>

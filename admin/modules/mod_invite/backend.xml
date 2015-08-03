@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>module</type>
+        <id>mod_invite</id>
+    </info>
+    <params>
+        <param type="string" name="tpl" default="mod_invite.tpl" />
+    </params>
+</backend>

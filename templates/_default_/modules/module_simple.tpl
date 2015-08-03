@@ -1,0 +1,3 @@
+<div>
+    {$mod.body}
+</div>

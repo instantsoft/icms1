@@ -1,0 +1,20 @@
+﻿Hello!
+
+{username} invites you to register on the site «{sitename}».
+
+After registration you will have access to all the site's features.
+You can start a blog, upload photos and chat with friends.
+
+Address of our site: {site_url}
+
+Registration page: <a href="{site_url}/registration">{site_url}/registration</a>
+
+Regards, {username} and site administration «{sitename}».
+
+--
+<small>E-mail was sent automatically. Please do not reply to it.</small>
+
+
+
+
+   

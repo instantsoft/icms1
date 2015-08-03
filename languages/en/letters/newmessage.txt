@@ -1,0 +1,12 @@
+You have a new message on «{sitename}»
+
+	Author: {from}
+	Received: {date}
+
+You can read this message and reply to it at:
+<a href="{answerlink}">{answerlink}</a>.
+
+Regards, the site administration «{sitename}».
+
+--
+<small>E-mail was sent automatically. Please do not reply.</small>

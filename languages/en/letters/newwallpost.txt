@@ -1,0 +1,12 @@
+﻿On «{sitename}» the user {from} has written something on your wall.
+
+	Author: {from}
+	Received: {date}
+
+You can read the record at:
+<a href="{profilelink}">{profilelink}</a>.
+
+Regards, the site administration «{sitename}».
+
+--
+<small>E-mail was sent automatically. Please do not reply.</small>
