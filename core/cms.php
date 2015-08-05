@@ -209,17 +209,21 @@ class cmsCore {
      * @param array $input_array
      * @return string
      */
-    public static function arrayToYaml($input_array) {
+    public static function arrayToYaml( $input_array, $indent = 2, $word_wrap = 40 ){
 
         self::includeFile('includes/spyc/spyc.php');
 
         if($input_array){
             foreach ($input_array as $key => $value) {
-                $array[str_replace(array('[',']'), '', $key)] = $value;
+                $_k = str_replace( array( '[',']' ), '', $key );
+                $array[$_k] = $value;
             }
-        } else { $array = array(); }
 
-        return Spyc::YAMLDump($array,2,40);
+        } else {
+            $array = array();
+        }
+
+        return Spyc::YAMLDump( $array, $indent, $word_wrap );
 
     }
 

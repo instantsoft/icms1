@@ -1,4 +1,4 @@
-<h1 class="con_heading">{$LANG.BLOGS}</h1>
+<h1 class="con_heading">{if $ownertype == 'all'}{$LANG.ALL_BLOGS}{elseif $ownertype == 'single'}{$LANG.PERSONALS}{elseif $ownertype == 'multi'}{$LANG.COLLECTIVES}{/if}</h1>
 
 <div class="blog_type_menu">
 
@@ -56,5 +56,5 @@
 	{/if}
 	{$pagination}
 {else}
-	<p>{$LANG.NOT_ACTIVE_BLOGS}</p>
+    <p class="not_found">{$LANG.NOT_ACTIVE_BLOGS}</p>
 {/if}

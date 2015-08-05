@@ -44,7 +44,7 @@
 						<table width="100%" cellpadding="1" cellspacing="0">
 							<tr>
 								<td width="70" height="70"  align="center" valign="top" class="cmm_avatar">
-									<a href="{profile_url login=$comment.author.login}"><img border="0" class="usr_img_small" src="{$comment.user_image}" /></a>
+									<a href="{profile_url login=$comment.author.login}"><img class="usr_img_small" src="{$comment.user_image}" /></a>
 								</td>
 								<td class="cmm_content_av" valign="top">
 				{else}

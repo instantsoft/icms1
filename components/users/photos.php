@@ -52,66 +52,6 @@ if ($pdo=='addphoto'){
 
 }
 
-if ($pdo=='uploadphotos'){
-
-    if (!$_FILES['Filedata']['name']) { cmsCore::error404(); }
-
-    // Code for Session Cookie workaround
-	if (cmsCore::inRequest("PHPSESSID")) {
-        $sess_id = cmsCore::request("PHPSESSID", 'str');
-        if ($sess_id != session_id()) { session_destroy(); }
-        session_id($sess_id);
-        session_start();
-	}
-
-    $user_id = (int)$_SESSION['user']['id'];
-
-    if (!$user_id) { header("HTTP/1.1 500 Internal Server Error"); exit(0); }
-	if (($model->config['photosize']>0) && ($model->getUserPhotoCount($user_id) >= $model->config['photosize']) && !$inUser->is_admin) {
-        header("HTTP/1.1 500 Internal Server Error"); exit(0);
-    }
-
-    cmsCore::includeGraphics();
-
-    $uploaddir 				= PATH.'/images/users/photos/';
-    $realfile 				= $inDB->escape_string($_FILES['Filedata']['name']);
-
-	$path_parts             = pathinfo($realfile);
-    $ext                    = mb_strtolower($path_parts['extension']);
-	if ($ext != 'jpg' && $ext != 'jpeg' && $ext != 'gif' && $ext != 'png' && $ext != 'bmp') {  exit(0); }
-
-    $lid 					= $inDB->get_fields('cms_user_photos', 'id>0', 'id', 'id DESC');
-    $lastid 				= $lid['id']+1;
-    $filename 				= md5($lastid.$realfile).'.jpg';
-
-    $uploadphoto 			= $uploaddir . $filename;
-    $uploadthumb['small'] 	= $uploaddir . 'small/' . $filename;
-    $uploadthumb['medium']	= $uploaddir . 'medium/' . $filename;
-
-    $source					= $_FILES['Filedata']['tmp_name'];
-    $errorCode				= $_FILES['Filedata']['error'];
-
-    if ($inCore->moveUploadedFile($source, $uploadphoto, $errorCode)) {
-
-        @img_resize($uploadphoto, $uploadthumb['small'], 96, 96, true);
-        @img_resize($uploadphoto, $uploadthumb['medium'], 600, 600, false, false);
-		if ($model->config['watermark']) { @img_add_watermark($uploadthumb['medium']); }
-		@unlink($uploadphoto);
-
-        $model->addUploadedPhoto($user_id, array('filename'=>$realfile, 'imageurl'=>$filename));
-		if (cmsCore::inRequest('upload')) { cmsCore::redirect('/users/'.$inUser->login.'/photos/submit'); }
-
-    } else {
-
-        header("HTTP/1.1 500 Internal Server Error");
-        echo cmsCore::uploadError();
-
-    }
-
-    exit(0);
-
-}
-
 if ($pdo=='submitphotos'){
 
     if (!$inUser->id) { cmsCore::error404(); }

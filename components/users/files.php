@@ -116,8 +116,10 @@ if ($fdo=='addfile'){
 
 			$upload_dir = PATH.'/upload/userfiles/'.$usr['id'];
 
-			if(!@mkdir($upload_dir)){
-                continue;
+            if(!is_dir($upload_dir)){
+                if(!@mkdir($upload_dir)){
+                    continue;
+                }
             }
 
 			$name       = $data_array["name"];

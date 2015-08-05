@@ -105,5 +105,5 @@
 </div>
 {$pagebar}
 {else}
-	{if $album.parent_id > 0}<p>{$LANG.NOT_PHOTOS_IN_ALBUM}</p>{/if}
+    {if $album.parent_id > 0}<p class="not_found">{$LANG.NOT_PHOTOS_IN_ALBUM}</p>{/if}
 {/if}

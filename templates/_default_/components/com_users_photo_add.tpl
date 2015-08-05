@@ -17,8 +17,8 @@
     window.onload = function() {
         var settings = {
             flash_url : "/includes/swfupload/swfupload.swf",
-            upload_url: "/users/photos/upload",
-            post_params: { "PHPSESSID" : "{$sess_id}" },
+            upload_url: "/components/users/ajax/upload_photo.php",
+            post_params: { "sess_id" : "{$sess_id}" },
             file_size_limit : "20 MB",
             file_types : "*.jpg;*.png;*.gif;*.jpeg;*.JPG;*.PNG;*.GIF;*.JPEG",
             file_types_description : "{$LANG.ALL_PHOTOS}",

@@ -145,5 +145,5 @@
 
 	{$pagination}
 {else}
-	<p style="clear:both">{$LANG.NOT_POSTS}</p>
+	<p class="not_found">{$LANG.NOT_POSTS}</p>
 {/if}

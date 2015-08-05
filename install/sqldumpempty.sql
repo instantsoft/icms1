@@ -195,8 +195,8 @@ CREATE TABLE `#__blog_posts` (
   `title` varchar(250) NOT NULL,
   `feel` varchar(100) NOT NULL,
   `music` varchar(100) NOT NULL,
-  `content` text NOT NULL,
-  `content_html` text NOT NULL,
+  `content` mediumtext NOT NULL,
+  `content_html` mediumtext NOT NULL,
   `allow_who` varchar(20) NOT NULL,
   `edit_times` int(11) NOT NULL default '0',
   `edit_date` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
@@ -474,7 +474,7 @@ CREATE TABLE `#__content` (
   `is_end` tinyint(1) NOT NULL,
   `title` varchar(200) NOT NULL,
   `description` text NOT NULL,
-  `content` longtext,
+  `content` mediumtext,
   `published` tinyint(1) NOT NULL DEFAULT '1',
   `hits` int(11) NOT NULL DEFAULT '0',
   `rating` int(11) NOT NULL default '0',
@@ -1054,7 +1054,7 @@ CREATE TABLE `#__photo_albums` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO `#__photo_albums` (`id`, `parent_id`, `ordering`, `NSLeft`, `NSRight`, `NSDiffer`, `NSIgnore`, `NSLevel`, `title`, `description`, `published`, `showdate`, `iconurl`, `pubdate`, `orderby`, `orderto`, `public`, `perpage`, `cssprefix`, `thumb1`, `thumb2`, `thumbsqr`, `showtype`, `nav`, `uplimit`, `maxcols`, `orderform`, `showtags`, `bbcode`, `user_id`, `is_comments`) VALUES
-(100, 0, 1, 1, 2, '', 0, 0, '-- Корневой альбом --', '', 1, 1, '', '2012-05-30 12:03:07', 'title', 'asc', 0, 15, '', 96, 480, 1, 'lightbox', 1, 0, 4, 1, 1, 1, 1, 0);
+(100, 0, 1, 1, 2, '', 0, 0, '-- Корневой альбом --', '', 1, 1, '', '2012-05-30 12:03:07', 'title', 'asc', 0, 15, '', 180, 650, 1, 'thumb', 1, 0, 4, 1, 1, 1, 1, 0);
 
 DROP TABLE IF EXISTS `#__photo_files`;
 CREATE TABLE `#__photo_files` (

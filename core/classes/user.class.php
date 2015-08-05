@@ -17,7 +17,6 @@ define('ONLINE_INTERVAL', 3); // интервал в минутах, когда 
 class cmsUser {
 
     const PROFILE_LINK_PREFIX  = 'users/';
-    const MAXIMUM_TOKENS_COUNT = 30;
 
     private static $csrf_token = '';
     private $friends = array();
@@ -30,6 +29,8 @@ class cmsUser {
     private static $cache = array();
 
     private $loads_users = array();
+    private static $maximum_tokens_count = 30;
+    private static $csrf_tokens_name     = 'security';
 
     public $id = 0;
     public $is_admin = 0;
@@ -295,9 +296,9 @@ class cmsUser {
 		if (!$file_name || !file_exists(PATH.'/images/users/avatars/'.$file_name)){
 
 			if ($size == 'small'){
-				return '/images/users/avatars/small/nopic.jpg';
+				return '/images/users/avatars/small/nopic.png';
 			} else {
-				return '/images/users/avatars/nopic.jpg';
+				return '/images/users/avatars/nopic.png';
 			}
 
 		}
@@ -305,9 +306,9 @@ class cmsUser {
 		if($usr_is_deleted){
 
 			if ($size == 'small'){
-				return '/images/users/avatars/small/noprofile.jpg';
+				return '/images/users/avatars/small/noprofile.png';
 			} else {
-				return '/images/users/avatars/noprofile.jpg';
+				return '/images/users/avatars/noprofile.png';
 			}
 
 		} else {
@@ -1518,7 +1519,7 @@ class cmsUser {
             $login      = $user['login'];
         }
 
-        return '<a href="'.cmsUser::getProfileURL($login).'" class="user_gender_'.$gender.'" style="'.$css_style.'">'.$nickname.'</a>';
+        return '<a href="'.cmsUser::getProfileURL($login).'" class="user_gender_'.$gender.'" style="'.$css_style.'"><i class="fa"></i>'.$nickname.'</a>';
 
     }
 
@@ -1601,6 +1602,12 @@ class cmsUser {
     }
 // ============================================================================ //
 // ============================================================================ //
+    public static function setMaximumTokensCount($num) {
+        self::$maximum_tokens_count = $num;
+    }
+    public static function setCsrfTokensName($name) {
+        self::$csrf_tokens_name = $name;
+    }
     /**
      * Формирует и возвращает csrf токен
      */
@@ -1610,17 +1617,18 @@ class cmsUser {
 
             $token = md5(uniqid().microtime());
 
-            $tokens = self::sessionGet('csrf_tokens', 'security');
+            $tokens = self::sessionGet('csrf_tokens', self::$csrf_tokens_name);
             if(is_array($tokens)){
                 $count_tokens = array_push($tokens, $token);
-                if($count_tokens > self::MAXIMUM_TOKENS_COUNT){
+                while ($count_tokens > self::$maximum_tokens_count) {
                     array_shift($tokens);
+                    $count_tokens = count($tokens);
                 }
             } else {
                 $tokens = array($token);
             }
 
-            self::sessionPut('csrf_tokens', $tokens, 'security');
+            self::sessionPut('csrf_tokens', $tokens, self::$csrf_tokens_name);
 
             self::$csrf_token = $token;
         }
@@ -1635,21 +1643,17 @@ class cmsUser {
      */
 	public static function checkCsrfToken(){
 
-        if(isset($_POST['csrf_token'])) {
+        $tokens = self::sessionGet('csrf_tokens', self::$csrf_tokens_name);
 
-            $tokens = self::sessionGet('csrf_tokens', 'security');
+        if(!empty($_POST['csrf_token']) && is_array($tokens)) {
 
-            if(is_array($tokens)){
-
-                $key = array_search($_POST['csrf_token'], $tokens, true);
+            $key = array_search((string)$_POST['csrf_token'], $tokens, true);
 
                 if($key !== false){
                     unset($tokens[$key]);
                     ksort($tokens);
-                    self::sessionPut('csrf_tokens', $tokens, 'security');
+                self::sessionPut('csrf_tokens', $tokens, self::$csrf_tokens_name);
                     return true;
-                }
-
             }
 
         }

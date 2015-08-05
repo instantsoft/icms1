@@ -2,7 +2,7 @@
 {if $order_form}{$order_form}{/if}
 <div class="board_gallery">
 	{if $items}
-		<table width="100%" cellpadding="3" cellspacing="0" border="0">
+		<table width="100%" cellpadding="3" cellspacing="0">
 			{$col="1"}
             {$is_moder="0"}
 			{foreach key=tid item=con from=$items}
@@ -13,7 +13,7 @@
 						<tr>
 							{if $cfg.photos}
 								<td width="30" valign="top">
-									<img class="bd_image_small" src="/images/board/small/{$con.file}" border="0" alt="{$con.title|escape:'html'}"/>
+									<img class="bd_image_small" src="/images/board/small/{$con.file}" alt="{$con.title|escape:'html'}"/>
 								</td>
 							{/if}
 							<td valign="top">

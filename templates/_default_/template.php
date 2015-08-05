@@ -41,6 +41,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
     <?php $this->printHead(); ?>
     <?php if($inUser->is_admin){ ?>
         <script src="/admin/js/modconfig.js" type="text/javascript"></script>

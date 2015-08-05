@@ -168,12 +168,6 @@
                          );
 
         $routes[] = array(
-                            '_uri'  => '/^users\/photos\/upload$/i',
-                            'do'    => 'photos',
-                            'pdo'   => 'uploadphotos'
-                         );
-
-        $routes[] = array(
                             '_uri'  => '/^users\/([a-zA-z0-9\.]+)\/photos\/submit$/i',
                             'do'    => 'photos',
                             'pdo'   => 'submitphotos',
