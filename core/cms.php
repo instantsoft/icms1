@@ -100,7 +100,7 @@ class cmsCore {
 
         define('TEMPLATE', $inConf->template);
         define('TEMPLATE_DIR', PATH.'/templates/'.$inConf->template.'/');
-        define('DEFAULT_TEMPLATE_DIR', PATH.'/templates/'.($inConf->compatibility_mode ? '_default_' : 'default').'/');
+        define('DEFAULT_TEMPLATE_DIR', PATH.'/templates/_default_/');
 
     }
 
