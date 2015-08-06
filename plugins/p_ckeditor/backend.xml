@@ -6,6 +6,8 @@
     </info>
     <params>
         <param type="list_db" multiple="1" name="upload_for_groups" src="cms_user_groups" src_title="title" src_value="id" src_where="alias &lt;&gt; 'guest'" />
+        <param type="list_db" multiple="1" name="upload_file_for_groups" src="cms_user_groups" src_title="title" src_value="id" src_where="alias &lt;&gt; 'guest'" />
+        <param type="string" name="allow_file_ext" default="" />
         <param type="number" name="photo_width" default="600" units="px" />
         <param type="number" name="photo_height" default="600" units="px" />
         <param type="flag" name="iswatermark" default="off" />

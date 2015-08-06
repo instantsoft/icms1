@@ -1,7 +1,7 @@
 <?php
 /******************************************************************************/
 //                                                                            //
-//                           InstantCMS v1.10.6                               //
+//                           InstantCMS v1.10.7                               //
 //                        http://www.instantcms.ru/                           //
 //                                                                            //
 //                   written by InstantCMS Team, 2007-2015                    //
@@ -20,6 +20,8 @@ class p_ckeditor extends cmsPlugin {
         'is_compatible'     => 1,
         'entermode'         => 'CKEDITOR.ENTER_P',
         'skin'              => 'moono',
+        'allow_file_ext'         => '',
+        'upload_file_for_groups' => array(2),
         'upload_for_groups' => array(2)
     );
 
@@ -32,7 +34,7 @@ class p_ckeditor extends cmsPlugin {
             'title'       => 'CKEditor',
             'description' => $_LANG['CK_DESCRIPTION'],
             'author'      => 'InstantCMS Team',
-            'version'     => '4.4.5',
+            'version'     => '4.4.6',
             'published'   => 1,
             'plugin_type' => 'wysiwyg'
         );
@@ -71,7 +73,8 @@ class p_ckeditor extends cmsPlugin {
                         height: "<?php echo $height; ?>",
                         forcePasteAsPlainText: true,
                         extraPlugins: "colorbutton,panelbutton",
-                        <?php echo ($this->canUpload() ? 'filebrowserUploadUrl: "/plugins/p_ckeditor/upload.php?component='.$this->inCore->component.'",' : ''); ?>
+                        <?php echo (($this->canFileUpload() && !empty($this->config['allow_file_ext'])) ? 'filebrowserUploadUrl: "/plugins/p_ckeditor/upload.php?type=file&component='.$this->inCore->component.'",' : ''); ?>
+                        <?php echo ($this->canUpload() ? 'filebrowserImageUploadUrl: "/plugins/p_ckeditor/upload.php?type=image&component='.$this->inCore->component.'",' : ''); ?>
                         locationMapPath: "<?php echo HOST; ?>/plugins/p_ckeditor/editor/plugins/locationmap/",
                         enterMode: <?php echo $this->config['entermode']; ?>,
                         language: "<?php echo cmsConfig::getConfig('lang'); ?>"
@@ -85,6 +88,10 @@ class p_ckeditor extends cmsPlugin {
 
     public function canUpload(){
         return ($this->config['upload_for_groups'] ? in_array(cmsUser::getInstance()->group_id, $this->config['upload_for_groups']) : false);
+    }
+
+    public function canFileUpload(){
+        return ($this->config['upload_file_for_groups'] ? in_array(cmsUser::getInstance()->group_id, $this->config['upload_file_for_groups']) : false);
     }
 
 }

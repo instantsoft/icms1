@@ -16,5 +16,5 @@ CKEDITOR.editorConfig = function( config ) {
     config.forcePasteAsPlainText = true;
     config.allowedContent = true;
     config.removeButtons = 'Cut,Copy,Paste,Source,CreateDiv,Iframe,Font,FontSize,Link,Unlink';
-    config.removeDialogTabs = 'link:advanced;link:upload';
+    config.removeDialogTabs = 'link:advanced';
 };
