@@ -666,6 +666,7 @@ if ($do=='newpost' || $do=='editpost'){
 			}
 
 			$mod['edit_times'] = (int)$post['edit_times']+1;
+			$mod['edit_date']  = date( 'Y-m-d H:i:s');
 
 			$new_post_seolink = $inBlog->updatePost($post['id'], $mod, $model->config['update_seo_link']);
 

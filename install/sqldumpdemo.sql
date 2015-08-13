@@ -207,7 +207,7 @@ CREATE TABLE `#__blog_posts` (
   `content_html` mediumtext NOT NULL,
   `allow_who` varchar(20) NOT NULL,
   `edit_times` int(11) NOT NULL default '0',
-  `edit_date` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `edit_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `published` tinyint(1) NOT NULL DEFAULT '1',
   `seolink` varchar(255) NOT NULL,
   `comments` tinyint(1) NOT NULL DEFAULT '1',

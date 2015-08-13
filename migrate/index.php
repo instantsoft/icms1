@@ -102,6 +102,8 @@ $version_next = '1.10.6';
 
 	if($step == 1){
 
+        // 1.10.7
+        $inDB->query("ALTER TABLE `cms_blog_posts` CHANGE `edit_date` `edit_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
         // ========================================================================== //
         // ========================================================================== //
         if (!$inDB->isFieldExists('cms_form_fields', 'show_for_group')){
