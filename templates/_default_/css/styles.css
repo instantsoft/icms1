@@ -4172,8 +4172,7 @@ span.ajax-loader {
     color: #555;
 }
 .arhive_date {
-    background: none repeat scroll 0 0 #777;
-    border-radius: 4px;
+    background: #777;
     float: right;
     font-size: 12px;
     margin: 15px 0;
@@ -4196,15 +4195,16 @@ span.ajax-loader {
 .debug_info {
     margin: 10px;
     color: #CCC;
+    overflow: hidden;
 }
-#debug_query_dump {
+#debug_query_dump, #debug_events_dump {
     display: none;
 }
-.debug_query_count a {
+.debug_query_count a, .debug_events_count a {
     color: #FFF;
     border-color: #FFF;
 }
-#debug_query_show .query {
+#debug_query_show .query, #debug_events_show .query {
     background: #FFF;
     border: 1px solid #DDD;
     border-radius: 3px;
