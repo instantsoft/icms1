@@ -56,6 +56,7 @@ $adminAccess = cmsUser::getAdminAccess();
 
 $inUser->onlineStats();
 
+$GLOBALS['component'] = '';
 $GLOBALS['applet'] = cmsCore::request('view', 'str', 'main');
 if (!preg_match('/^[a-z0-9]+$/i', $GLOBALS['applet'])) { cmsCore::error404(); }
 
