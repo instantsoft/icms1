@@ -43,8 +43,6 @@ class cmsCore {
     protected        $module_configs;
     protected        $component_configs;
 
-    public           $events = array();
-
     protected        $template;
 
     public           $single_run_plugins = array('wysiwyg','captcha');
@@ -269,24 +267,18 @@ class cmsCore {
 
     /**
      * Производит событие, вызывая все назначенные на него плагины
-     * в цикле перебирая все плагины и накладывая результат на исходный массив
-     * @param string $event Название эвента
-     * @param mixed $item Исходные данные
-     * @param bool $is_all Вернуть для каждого плагина свой результат
-     * @return mixed Данные, после их обработки всеми плагинами или массив всех результатов выполнения плагинов
+     * @param string $event
+     * @param mixed $item
+     * @return mixed
      */
-    public static function callEvent($event, $item, $is_all=false){
-
-        $start_time = microtime(true);
+    public static function callEvent($event, $item){
 
         $inCore = self::getInstance();
-
-        $plugins_list = array();
-
         //получаем все активные плагины, привязанные к указанному событию
         $plugins = $inCore->getEventPlugins($event);
 
-        if($plugins){
+        //если активных плагинов нет, возвращаем элемент $item без изменений
+        if(!$plugins){ return $item; }
 
         //перебираем плагины и вызываем каждый из них, передавая элемент $item
         foreach($plugins as $plugin_name){
@@ -295,36 +287,12 @@ class cmsCore {
 
             if($plugin !== false){
 
-                    // для отладки запоминаем названия
-                    if (cmsConfig::getConfig('debug')){
-                        $enabled_plugins[] = $plugin->info['title'];
-                    }
-
-                    $result = $plugin->execute($event, $item);
+                $item = $plugin->execute($event, $item);
 
                 if(isset($plugin->info['plugin_type'])){
                     if(in_array($plugin->info['plugin_type'], $inCore->single_run_plugins)){
-                            break;
-                        }
+                        return $item;
                     }
-
-                    // если нужно вернуть для каждого плагина свой результат
-                    if($is_all){
-
-                        if ($result !== false){
-
-                            $plugins_list[] = array(
-                                'result' => $result,
-                                'info' => $plugin->info,
-                                'config' => $plugin->config
-                            );
-
-                    }
-
-                    } else {
-
-                        $item = $result;
-
                 }
 
                 unset($plugin);
@@ -332,34 +300,8 @@ class cmsCore {
             }
         }
 
-        }
-
-        if (cmsConfig::getConfig('debug')){
-
-            $trace = debug_backtrace();
-
-            if ((isset($trace[1]['file']) || isset($trace[0]['file'])) && isset($trace[1]['function'])){
-                $src = (isset($trace[1]['file']) ? $trace[1]['file'] : $trace[0]['file']) .' => '. $trace[1]['function'] . '()';
-                $src = str_replace(PATH, '', $src);
-            } else {
-                $src = '';
-            }
-
-            $inCore->events[] = array(
-                'event'=>$event,
-                'src'=>$src,
-                'active'=>(isset($enabled_plugins) ? $enabled_plugins : array()),
-                'time'=>($plugins ? (microtime(true) - $start_time) : false )
-            );
-
-        }
-
-        return $is_all ? $plugins_list : $item;
-
-    }
-
-    public static function callAllEvent($event, $item){
-        return self::callEvent($event, $item, true);
+        //возращаем $item обратно
+        return $item;
     }
 
     /**

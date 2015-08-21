@@ -42,17 +42,13 @@ function applet_arhive(){
 	}
 
     if ($do=='config'){
+		$toolmenu = array();
+		$toolmenu[0]['icon'] = 'folders.gif';
+		$toolmenu[0]['title'] = $_LANG['AD_LIST_OF_ARTICLES'];
+		$toolmenu[0]['link'] = '?view=arhive';
 
-		cpToolMenu(array(
-            array(
-                'icon'=>'folders.gif',
-                'title'=>$_LANG['AD_LIST_OF_ARTICLES'],
-                'link'=>'?view=arhive'
-            )
-        ));
-
+		cpToolMenu($toolmenu);
 		cpAddPathway($_LANG['AD_SETTINGS'], 'index.php?view=arhive&do=config');
-
 ?>
 <form action="index.php?view=arhive&do=saveconfig" method="post" name="optform" target="_self" id="form1">
     <input type="hidden" name="csrf_token" value="<?php echo cmsUser::getCsrfToken(); ?>" />
@@ -77,73 +73,41 @@ function applet_arhive(){
 <?php }
 
 	if ($do == 'list'){
+		$toolmenu = array();
+		$toolmenu[0]['icon'] = 'config.gif';
+		$toolmenu[0]['title'] = $_LANG['AD_SETTINGS'];
+		$toolmenu[0]['link'] = '?view=arhive&do=config';
 
-		$toolmenu = array(
-            array(
-                'icon'=>'config.gif',
-                'title'=>$_LANG['AD_SETTINGS'],
-                'link'=>'?view=arhive&do=config'
-            ),
-            array(
-                'icon'=>'delete.gif',
-                'title'=>$_LANG['AD_DELETE_SELECTED'],
-                'link'=>"javascript:checkSel('?view=arhive&do=delete&multiple=1');"
-            )
-        );
+		$toolmenu[1]['icon'] = 'delete.gif';
+		$toolmenu[1]['title'] = $_LANG['AD_DELETE_SELECTED'] ;
+		$toolmenu[1]['link'] = "javascript:checkSel('?view=arhive&do=delete&multiple=1');";
 
 		cpToolMenu($toolmenu);
 
-		$fields = array(
-            array(
-                'title'=>'id',
-                'field'=>'id',
-                'width'=>'30'
-            ),
-            array(
-                'title'=>$_LANG['AD_CREATE'],
-                'field'=>'pubdate',
-                'width'=>'80',
-                'filter'=>15,
-                'fdate'=>'%d/%m/%Y'
-            ),
-            array(
-                'title'=>$_LANG['TITLE'],
-                'field'=>'title',
-                'width'=>'',
-                'filter'=>15,
-                'link'=>'?view=content&do=edit&id=%id%'
-            ),
-            array(
-                'title'=>$_LANG['AD_PARTITION'],
-                'field'=>'category_id',
-                'width'=>'100',
-                'filter'=>1,
-                'filterlist'=>cpGetList('cms_category'),
-                'prc'=>'cpCatById'
-            ),
-        );
+		//TABLE COLUMNS
+		$fields = array();
 
-		$actions = array(
-            array(
-                'title'=>$_LANG['AD_VIEW_ONLINE'],
-                'icon'=>'search.gif',
-                'link'=>'/%seolink%.html'
-            ),
-            array(
-                'title'=>$_LANG['AD_TO_ARTICLES_CATALOG'],
-                'icon'=>'arhive_off.gif',
-                'link'=>'?view=arhive&do=arhive_off&id=%id%'
-            ),
-            array(
-                'title'=>$_LANG['DELETE'],
-                'icon'=>'delete.gif',
-                'confirm'=>$_LANG['AD_DELETE_MATERIALS'],
-                'link'=>'?view=content&do=delete&id=%id%'
-            )
-        );
+		$fields[0]['title'] = 'id'; $fields[0]['field'] = 'id'; $fields[0]['width'] = '30';
+		$fields[1]['title'] = $_LANG['AD_CREATE']; $fields[1]['field'] = 'pubdate'; $fields[1]['width'] = '80'; $fields[1]['filter'] = 15;
+		$fields[1]['fdate'] = '%d/%m/%Y';
+		$fields[2]['title'] = $_LANG['TITLE']; $fields[2]['field'] = 'title'; $fields[2]['width'] = ''; $fields[2]['link'] = '?view=content&do=edit&id=%id%';
+		$fields[2]['filter'] = 15;
+		$fields[3]['title'] = $_LANG['AD_PARTITION']; $fields[3]['field'] = 'category_id'; $fields[3]['width'] = '100';	$fields[3]['filter'] = 1;
+		$fields[3]['prc'] = 'cpCatById'; $fields[3]['filterlist'] = cpGetList('cms_category');
 
+		//ACTIONS
+		$actions = array();
+		$actions[0]['title'] = $_LANG['AD_TO_ARTICLES_CATALOG'];
+		$actions[0]['icon']  = 'arhive_off.gif';
+		$actions[0]['link']  = '?view=arhive&do=arhive_off&id=%id%';
+
+		$actions[2]['title'] = $_LANG['DELETE'] ;
+		$actions[2]['icon']  = 'delete.gif';
+		$actions[2]['confirm'] = $_LANG['AD_DELETE_MATERIALS'];
+		$actions[2]['link']  = '?view=content&do=delete&id=%id%';
+
+		//Print table
 		cpListTable('cms_content', $fields, $actions, 'is_arhive=1');
-
 	}
 
 	if ($do == 'arhive_off'){

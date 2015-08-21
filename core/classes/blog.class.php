@@ -825,7 +825,7 @@ class cmsBlogs {
      */
     public function publishPost($post_id, $flag=1){
 
-        return $this->inDB->query("UPDATE cms_blog_posts SET published = $flag, pubdate = NOW() WHERE id = '$post_id'");
+        return $this->inDB->query("UPDATE cms_blog_posts SET published = $flag WHERE id = '$post_id'");
 
     }
 

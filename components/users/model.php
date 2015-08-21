@@ -459,19 +459,32 @@ class cms_model_users{
 
     public function getPluginsOutput($user){
 
-        $plugins = cmsCore::callAllEvent('USER_PROFILE', $user);
-        if(empty($plugins)){
-            return array();
-        }
+        $inCore       = cmsCore::getInstance();
 
-        foreach($plugins as $plugin_data){
+        $plugins_list = array();
 
-            $plugins_list[] = array(
-                'name'      => $plugin_data['info']['plugin'],
-                'title'     => !empty($plugin_data['info']['tab']) ? $plugin_data['info']['tab'] : $plugin_data['info']['title'],
-                'ajax_link' => !empty($plugin_data['info']['ajax_link']) ? $plugin_data['info']['ajax_link'] : '',
-                'html'      => $plugin_data['result']
-            );
+        $plugins      = $inCore->getEventPlugins('USER_PROFILE');
+
+        foreach($plugins as $plugin_name){
+
+            $html   = '';
+
+            $plugin = cmsCore::loadPlugin( $plugin_name );
+
+            if ($plugin!==false){
+                $html = $plugin->execute('USER_PROFILE', $user);
+            }
+
+            if ($html !== false){
+
+                $p['name']      = $plugin_name;
+                $p['title']     = !empty($plugin->info['tab']) ? $plugin->info['tab'] : $plugin->info['title'];
+                $p['ajax_link'] = !empty($plugin->info['ajax_link']) ? $plugin->info['ajax_link'] : '';
+                $p['html']      = $html;
+
+                $plugins_list[] = $p;
+
+            }
 
         }
 

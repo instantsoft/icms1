@@ -120,7 +120,6 @@ function cpHead(){
 }
 
 function cpMenu(){
-
     global $_LANG;
 	global $adminAccess;
 
@@ -250,14 +249,12 @@ function cpMenu(){
 		</ul>
 	</div>
 
-	<?php echo cmsCore::callEvent('CPMENU', ob_get_clean());
+	<?php echo ob_get_clean();
 
 	return;
 }
 
 function cpToolMenu($toolmenu_list){
-
-    $toolmenu_list = cmsCore::callEvent('CPTOOLMENU_'.strtoupper($GLOBALS['applet']).(!empty($GLOBALS['component']) ? '_'.strtoupper($GLOBALS['component']) : ''), $toolmenu_list);
 
 	if ($toolmenu_list){
 		echo '<table width="100%" cellpadding="2" border="0" class="toolmenu" style="margin:0px"><tr><td>';
@@ -382,10 +379,6 @@ function cpAddParam($query, $param, $value){
 }
 
 function cpListTable($table, $_fields, $_actions, $where='', $orderby='title'){
-
-    $event = 'ADMIN_CPLISTTABLE_'.strtoupper($table).'_'.strtoupper($GLOBALS['applet']).(!empty($GLOBALS['component']) ? '_'.strtoupper($GLOBALS['component']) : '');
-
-    list($table, $_fields, $_actions, $where, $orderby) = cmsCore::callEvent($event, array($table, $_fields, $_actions, $where, $orderby));
 
     global $_LANG;
     $inDB = cmsDatabase::getInstance();

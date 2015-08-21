@@ -169,4 +169,3 @@ $_LANG['AD_IF_UNKNOWN_PAGETITLE'] = 'If not specified, will use the same name';
 $_LANG['AD_LIMIT']                = 'Restrictions';
 $_LANG['AD_RETAIN_BOOT']          = 'Save original photos<br />when users loading';
 $_LANG['MOD_TPL']                 = 'Module template';
-$_LANG['AD_VIEW_ONLINE']          = 'View on site';

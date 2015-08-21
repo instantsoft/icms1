@@ -9,9 +9,6 @@
     <div class="debug_query_count">
         <a href="#debug_query_show" class="ajaxlink debug_query_dump"><?php echo $_LANG['DEBUG_QUERY_DB'].' '.$inDB->q_count; ?></a>
     </div>
-    <div class="debug_events_count">
-        <a href="#debug_events_show" class="ajaxlink debug_events_dump"><?php echo $_LANG['DEBUG_EVENTS'].' '.count($inCore->events); ?></a>
-    </div>
     <div id="debug_query_dump">
         <div id="debug_query_show">
         <?php foreach($inDB->q_dump as $sql) { ?>
@@ -23,24 +20,9 @@
         <?php } ?>
         </div>
     </div>
-    <div id="debug_events_dump">
-        <div id="debug_events_show">
-        <?php foreach($inCore->events as $event) { ?>
-            <div class="query">
-                <div class="src"><?php echo $event['src']; ?></div>
-                <?php echo $event['event'].($event['active'] ? '<br><b>'.$_LANG['DEBUG_EVENT_ENABLED'].'</b> '.implode(', ', $event['active']) : ''); ?>
-                <?php if($event['time'] !== false){ ?>
-                <div class="query_time">
-                    <?php echo $_LANG['DEBUG_EVENT_TIME']; ?> <span class="<?php echo (($event['time']>=0.1) ? 'red_query' : 'green_query'); ?>"><?php echo number_format($event['time'], 5).'</span> '.$_LANG['DEBUG_SEC'] ?>
-                </div>
-                <?php } ?>
-            </div>
-        <?php } ?>
-        </div>
-    </div>
 </div>
 <script>
     $(function(){
-        $('.debug_query_dump, .debug_events_dump').colorbox({inline:true, width:"70%", maxHeight: "100%", transition:"none"});
+        $('.debug_query_dump').colorbox({inline:true, width:"70%", maxHeight: "100%", transition:"none"});
     });
 </script>
