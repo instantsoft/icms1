@@ -843,31 +843,17 @@ class cms_model_clubs{
      */
     public function getPluginsOutput($item, $plugin_title = 'GET_SINGLE_CLUB'){
 
-        $inCore = cmsCore::getInstance();
+        $plugins = cmsCore::callAllEvent($plugin_title, $item);
+        if(empty($plugins)){
+            return array();
+        }
 
-        $plugins_list = array();
+        foreach($plugins as $plugin_data){
 
-        $plugins = $inCore->getEventPlugins($plugin_title);
-
-        foreach($plugins as $plugin_name){
-
-            $html   = '';
-            $plugin = $inCore->loadPlugin($plugin_name);
-
-            if ($plugin!==false){
-                $html = $plugin->execute($plugin_title, $item);
-            }
-
-            if ($html){
-
-                $p['name']  = $plugin_name;
-                $p['html']  = $html;
-
-                $plugins_list[] = $p;
-
-                unset($plugin);
-
-            }
+            $plugins_list[] = array(
+                'name' => $plugin_data['info']['plugin'],
+                'html' => $plugin_data['result']
+            );
 
         }
 
