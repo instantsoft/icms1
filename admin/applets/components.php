@@ -67,6 +67,7 @@ function applet_components(){
         $file = PATH.'/admin/components/'.$com['link'].'/backend.php';
 
         if (file_exists($file)){
+            $GLOBALS['component'] = $com['link'];
             cpAddPathway($com['title'].' v'.$com['version'], '?view=components&do=config&id='.$com['id']);
             cmsCore::loadLanguage('components/'.$com['link']);
             cmsCore::loadLanguage('admin/components/'.$com['link']);
