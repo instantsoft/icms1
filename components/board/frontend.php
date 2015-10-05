@@ -54,11 +54,11 @@ if ($do=='view'){
 		}
 
 	} else {
-        
+
         $menu_title = $inCore->menuTitle();
-        
+
         $pagetitle = $menu_title ? $menu_title : $pagetitle;
-        
+
         $category['title'] = $pagetitle;
         $category['description'] = $model->config['root_description'];
         $pagekeys = $model->config['meta_keys'];
@@ -226,8 +226,10 @@ if($do=='read'){
 		$info_text = $item['is_overdue'] ? $_LANG['ADV_IS_EXTEND'] : $_LANG['ADV_IS_MODER'];
 		cmsCore::addSessionMessage($info_text, 'info');
 	} else {
-		// увеличиваем кол-во просмотров
-		$inDB->setFlag('cms_board_items', $model->item_id, 'hits', $item['hits']+1);
+        if($inUser->id != $item['user_id']){
+            // увеличиваем кол-во просмотров
+            $inDB->setFlag('cms_board_items', $model->item_id, 'hits', $item['hits']+1);
+        }
 	}
 
 	// формируем заголовок и тело сообщения

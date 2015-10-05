@@ -34,7 +34,9 @@ function users(){
 
 	$pagetitle = $inCore->getComponentTitle();
 
-	$inPage->addPathway($pagetitle, '/users');
+    if($model->config['sw_search'] != 2){
+        $inPage->addPathway($pagetitle, '/users');
+    }
 	$inPage->setTitle($pagetitle);
 	$inPage->setDescription($pagetitle);
 

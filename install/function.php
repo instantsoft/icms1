@@ -1,6 +1,5 @@
 <?php
 
-////////////////////////////////////////////////////////////////////////////////
 function html_bool_span($value, $condition) {
     if ($condition) {
         return '<span class="positive">' . $value . '</span>';
@@ -8,10 +7,10 @@ function html_bool_span($value, $condition) {
         return '<span class="negative">' . $value . '</span>';
     }
 }
-////////////////////////////////////////////////////////////////////////////////
+
 function check_requirements() {
 
-    $min_php_version = '5.2.0';
+    $min_php_version = '5.3.0';
     $extensions = array('json', 'mbstring', 'simplexml', 'iconv', 'mysqli');
 
     sort($extensions);
@@ -36,7 +35,7 @@ function check_requirements() {
     return $info;
 
 }
-////////////////////////////////////////////////////////////////////////////////
+
 function check_permissions(){
 
 	$folders     = array('images','upload','includes','cache');
@@ -56,4 +55,43 @@ function check_permissions(){
     return $permissions;
 
 }
-?>
+function get_program_path($program){
+
+    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'){
+        $which = 'where';
+    } else {
+        $which = '/usr/bin/which';
+    }
+
+    $data = execute_command($which.' '.$program);
+    if(!$data){ return false; }
+
+    return !empty($data[0]) ? $data[0] : false;
+
+}
+function execute_command($command, $postfix=' 2>&1'){
+
+    if(!function_exists('exec')){
+        return false;
+    }
+
+    $buffer = array();
+    $err    = '';
+
+    $result = exec($command.$postfix, $buffer, $err);
+
+    if($err !== 127){
+        if(!isset($buffer[0])){
+            $buffer[0] = $result;
+        }
+        $b = mb_strtolower($buffer[0]);
+        if(mb_strstr($b,'error') || mb_strstr($b,' no ') || mb_strstr($b,'not found') || mb_strstr($b,'No such file or directory')){
+            return false;
+        }
+    } else {
+        return false;
+    }
+
+    return $buffer;
+
+}

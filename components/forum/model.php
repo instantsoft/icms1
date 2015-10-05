@@ -11,8 +11,6 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
-
 class cms_model_forum{
 
     private $abstract_array = array();
@@ -60,7 +58,7 @@ class cms_model_forum{
 
         if(cmsUser::isUserCan('forum/moderate')) { return true; }
 
-        if (!$moder_list) { return false; }
+        if (!$moder_list || !cmsUser::getInstance()->id) { return false; }
 
         $moder_list = cmsCore::yamlToArray($moder_list);
 
@@ -302,8 +300,8 @@ class cms_model_forum{
 ////////////////////////////////////////////////////////////////////////////////
     /**
      * Возвращает последний пост форума
-     * @param int $forum_left_key
-     * @param int $forum_right_key
+     * @param int $left_key
+     * @param int $right_key
      * @return array
      */
     public function getForumLastPost($left_key, $right_key){
