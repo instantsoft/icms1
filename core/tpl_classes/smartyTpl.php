@@ -26,13 +26,26 @@ class smartyTpl{
 
         $is_exists_tpl_file = file_exists(TEMPLATE_DIR . $tpl_folder.'/'.$tpl_file);
 
+        $this->smarty->compile_id = $is_exists_tpl_file ? TEMPLATE : pathinfo(DEFAULT_TEMPLATE_DIR, PATHINFO_BASENAME);
+
         $template_dir = $is_exists_tpl_file ? TEMPLATE_DIR : DEFAULT_TEMPLATE_DIR;
 
-        $this->smarty->setTemplateDir($template_dir.'/'.$tpl_folder);
+        $this->smarty->setTemplateDir(array(
+            $template_dir . '/admin',
+            $template_dir . '/components',
+            $template_dir . '/modules',
+            $template_dir . '/plugins',
+            $template_dir . '/special',
+        ));
 
-        $this->smarty->compile_id = $is_exists_tpl_file ? TEMPLATE : pathinfo(DEFAULT_TEMPLATE_DIR, PATHINFO_BASENAME);
-        $this->smarty->assign('LANG', $_LANG);
-
+        $this->smarty->assign(array(
+            'LANG'      => $_LANG,
+            'is_ajax'   => cmsCore::isAjax(),
+            'is_auth'   => cmsUser::getInstance()->id,
+            'is_admin'  => cmsUser::getInstance()->is_admin,
+            'do'        => cmsCore::getInstance()->do,
+            'component' => cmsCore::getInstance()->component,
+        ));
     }
 
     private function loadSmarty(){
@@ -47,8 +60,11 @@ class smartyTpl{
 
         $smarty->setCompileDir(PATH.'/cache/');
         $smarty->setCacheDir(PATH.'/cache/');
-        $smarty->assign('is_ajax', cmsCore::isAjax());
-        $smarty->assign('is_auth', cmsUser::getInstance()->id);
+
+        $smarty->addPluginsDir(array(
+            TEMPLATE_DIR . '/assets/plugins/smarty',
+            __DIR__.'/plugins/smarty'
+        ));
 
         self::$i_smarty = $smarty;
 
