@@ -11,5 +11,5 @@
 //                                                                            //
 /******************************************************************************/
     function smarty_function_printHead($params, $template) {
-        cmsPage::getInstance()->printHead();
+        cmsPage::getInstance()->printHead($params['full']);
 	}
