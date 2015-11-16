@@ -1,2 +1,6 @@
 /cache/
 /includes/config.inc.php
+/images/
+/.idea
+/upload
+

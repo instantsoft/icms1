@@ -15,7 +15,7 @@ class cmsPage {
 
     public $title     = '';
 
-    public $page_head = array();
+    public $page_head = array('custom' => array(), 'js' => array(), 'css' => array());
     public $page_keys = '';
     public $page_desc = '';
     public $page_img  = '';
@@ -115,36 +115,111 @@ public function setRequestIsAjax() {
 
 /**
  * Добавляет указанный тег в <head> страницы
- * @param string $tag
+ * @param string, array $tag
+ * @param string $type
  * @return $this
  */
-public function addHead($tag){
-	if (!in_array($tag, $this->page_head)){
-        if($this->is_ajax) { echo $tag; } else { $this->page_head[] = $tag; }
+public function addHead($tag, $type = 'custom'){
+    if (is_array($tag)){
+        foreach ($tag as $sc){
+            $key = md5($sc);
+            if (!array_key_exists($key, $this->page_head[$type])){
+                if ($this->is_ajax){
+                    echo $sc;
+                } else {
+                    $this->page_head[$type][$key] = $sc;
+                }
+            }
+        }
+    } else {
+        $key = md5($tag);
+        if (!array_key_exists($key, $this->page_head[$type])){
+            if ($this->is_ajax){
+                echo $tag;
+            } else {
+                $this->page_head[$type][$key] = $tag;
+            }
+        }
     }
+
     return $this;
 }
 
 /**
  * Добавляет тег <script> с указанным путем
- * @param string $src - Первый слеш не требуется
+ * @param string, array $src - Первый слеш не требуется
  * @return $this
  */
 public function addHeadJS($src){
-	return $this->addHead('<script type="text/javascript" src="/'.$src.'"></script>');
+    if (is_array($src)){
+        foreach ($src as $sc){
+            $this->addHead('<script type="text/javascript" src="/' . $sc . '"></script>', 'js');
+        }
+    } else {
+        $this->addHead('<script type="text/javascript" src="/' . $src . '"></script>', 'js');
+    }
+
+    return $this;
 }
+
+private function array_unshift_assoc(&$arr, $key, $val){
+    $arr = array_reverse($arr, true);
+    $arr[$key] = $val;
+
+    return array_reverse($arr, true);
+}
+
+
 public function prependHeadJS($src){
-    array_unshift($this->page_head, '<script type="text/javascript" src="/'.$src.'"></script>');
-	return $this;
+    $tag = '<script type="text/javascript" src="/' . $src . '"></script>';
+    $this->array_unshift_assoc($this->page_head['js'], md5($tag), $tag);
+
+    return $this;
+}
+
+/**
+ * Добавляет тег <script> из вставленого кода в шаблоне
+ * @param string $src - блок с js скриптом
+ * @return $this
+ */
+public function addHeadFlatJS($src){
+    if (!$src) {
+        return $this;
+    }
+
+    /* remove comments */
+    $src = preg_replace("/((?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:\/\/.*))/", "", $src);
+    /* remove tabs, spaces, newlines, etc. */
+    $src = str_replace(array("\r\n","\r","\t","\n",'  ','    ','     '), '', $src);
+    /* remove other spaces before/after ) */
+    $src = preg_replace(array('(( )+\))','(\)( )+)'), ')', $src);
+
+    if ($this->is_ajax) {
+        echo $src;
+
+        return $this;
+    }
+
+    $this->addHead($src, 'js');
+
+    return $this;
 }
 
 /**
  * Добавляет тег <link> с указанным путем к CSS-файлу
- * @param string $src - Первый слеш не требуется
+ * @param string, array $src - Первый слеш не требуется
  * @return $this
  */
 public function addHeadCSS($src){
-	return $this->addHead('<link href="/'.$src.'" rel="stylesheet" type="text/css" />');
+    if (is_array($src)) {
+        foreach ($src as $sc) {
+            $this->addHead('<link href="/'.$src.'" rel="stylesheet" type="text/css" />', 'css');
+        }
+    } else {
+        $this->addHead('<link href="/'.$src.'" rel="stylesheet" type="text/css" />', 'css');
+    }
+
+    return $this;
 }
 ////////////////////////////////////////////////////////////////////////////////
 /**
@@ -217,8 +292,9 @@ public static function printSitename(){
 ////////////////////////////////////////////////////////////////////////////////
 /**
  * Печатает головную область страницы
+ * @param bool $full - полный вывод данных в шапке
  */
-public function printHead(){
+public function printHead($full = true){
 
     $this->addHeadJsLang(array('SEND','CONTINUE','CLOSE','SAVE','CANCEL','ATTENTION','CONFIRM','LOADING','ERROR', 'ADD','SELECT_CITY','SELECT'));
 
@@ -242,11 +318,42 @@ public function printHead(){
     if($this->page_img){
         echo '<link rel="image_src" href="',htmlspecialchars($this->page_img),'" />',"\n";
     }
-    //Оставшиеся теги
-    foreach($this->page_head as $value) { echo $value,"\n"; }
-    // LANG переменные
-    echo '<script type="text/javascript">'; foreach($this->page_lang as $value) { echo $value; }; echo '</script>',"\n";
 
+    if ($full) {
+        $this->printCSS();
+        $this->printJS();
+    }
+
+    if (array_key_exists('custom', $this->page_head)) {
+        foreach ($this->page_head['custom'] as $value) {
+            echo $value . "\n";
+        }
+    }
+}
+
+/**
+ * Выводит tag style
+ */
+public function printCSS(){
+    if (array_key_exists('css', $this->page_head)) {
+        foreach ($this->page_head['css'] as $value) {
+            echo $value . "\n";
+        }
+    }
+}
+
+/**
+ * Выводит tag script
+ */
+public function printJS(){
+    if (array_key_exists('js', $this->page_head)) {
+        foreach ($this->page_head['js'] as $value) {
+            echo $value . "\n";
+        }
+    }
+    if ($this->page_lang) {
+        echo '<script type="text/javascript">'; foreach($this->page_lang as $value) { echo $value; }; echo '</script>',"\n";
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
