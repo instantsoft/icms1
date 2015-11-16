@@ -31,6 +31,7 @@ class smartyTpl{
         $template_dir = $is_exists_tpl_file ? TEMPLATE_DIR : DEFAULT_TEMPLATE_DIR;
 
         $this->smarty->setTemplateDir(array(
+            $template_dir,
             $template_dir . '/admin',
             $template_dir . '/components',
             $template_dir . '/modules',
