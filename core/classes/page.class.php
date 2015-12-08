@@ -153,10 +153,10 @@ public function addHead($tag, $type = 'custom'){
 public function addHeadJS($src){
     if (is_array($src)){
         foreach ($src as $sc){
-            $this->addHead('<script type="text/javascript" src="/' . $sc . '"></script>', 'js');
+            $this->addHead('<script type="text/javascript" src="/' . ltrim($sc,'/') . '"></script>', 'js');
         }
     } else {
-        $this->addHead('<script type="text/javascript" src="/' . $src . '"></script>', 'js');
+        $this->addHead('<script type="text/javascript" src="/' . ltrim($src,'/') . '"></script>', 'js');
     }
 
     return $this;
@@ -169,9 +169,8 @@ private function array_unshift_assoc(&$arr, $key, $val){
     return array_reverse($arr, true);
 }
 
-
 public function prependHeadJS($src){
-    $tag = '<script type="text/javascript" src="/' . $src . '"></script>';
+    $tag = '<script type="text/javascript" src="/' . ltrim($src,'/') . '"></script>';
     $this->array_unshift_assoc($this->page_head['js'], md5($tag), $tag);
 
     return $this;
@@ -213,10 +212,10 @@ public function addHeadFlatJS($src){
 public function addHeadCSS($src){
     if (is_array($src)) {
         foreach ($src as $sc) {
-            $this->addHead('<link href="/'.$src.'" rel="stylesheet" type="text/css" />', 'css');
+            $this->addHead('<link href="/'.ltrim($src,'/').'" rel="stylesheet" type="text/css" />', 'css');
         }
     } else {
-        $this->addHead('<link href="/'.$src.'" rel="stylesheet" type="text/css" />', 'css');
+        $this->addHead('<link href="/'.ltrim($src,'/').'" rel="stylesheet" type="text/css" />', 'css');
     }
 
     return $this;
