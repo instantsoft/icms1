@@ -205,6 +205,11 @@ $version_next = '1.10.6';
 
         echo '<p>Поддержка районов и метро в компоненте Геолокация выполнена</p>';
 
+
+        $inDB->query('ALTER TABLE cms_board_cats CHANGE description description TEXT');
+        echo '<p>Поддержка редактора в описании категории выполнена</p>';
+
+
 		echo '<div style="margin:15px 0px;font-weight:bold">Миграция завершена. Удалите папку /migrate/ прежде чем продолжить!</div>';
 		echo '<div class="nextlink"><a href="/">Перейти на сайт</a></div>';
 

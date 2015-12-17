@@ -386,7 +386,7 @@ if ($opt == 'submit_cat' || $opt == 'update_cat'){
     if(!cmsUser::checkCsrfToken()) { cmsCore::error404(); }
 
     $types = array('title'=>array('title', 'str', $_LANG['AD_UNTITLED_CAT']),
-                   'description'=>array('description', 'str', ''),
+                   'description'=>array('description', 'html', ''),
                    'published'=>array('published', 'int', 0),
                    'showdate'=>array('showdate', 'int', 0),
                    'parent_id'=>array('parent_id', 'int', 0),
@@ -684,7 +684,7 @@ if ($opt == 'add_cat' || $opt == 'edit_cat'){
     <table width="100%" border="0">
       <tr>
         <h3><?php echo $_LANG['AD_CAT_DESCRIPTION']; ?></h3>
-        <textarea name="description" style="width:580px" rows="4"><?php echo @$mod['description']?></textarea>
+          <?php $inCore->insertEditor('description', $mod['description'], '200', '100%'); ?>
       </tr>
     </table>
     <p>
