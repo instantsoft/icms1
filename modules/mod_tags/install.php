@@ -12,7 +12,7 @@
 //                                                                            //
 /******************************************************************************/
 
-function info_module_mod_random_tags()
+function info_module_mod_tags()
 {
     $_module['title']       = 'Облако тегов';
     $_module['name']        = 'Облако тегов';
@@ -27,12 +27,17 @@ function info_module_mod_random_tags()
 
 }
 
-function install_module_mod_random_tags()
+function install_module_mod_tags()
 {
     return true;
 }
 
-function upgrade_module_mod_random_tags()
+function upgrade_module_mod_tags()
+{
+    return true;
+}
+
+function remove_module_mod_tags()
 {
     return true;
 }

@@ -16,7 +16,7 @@ function info_module_mod_random_image()
 {
     $_module['title']       = 'Случайная картинка';
     $_module['name']        = 'Случайное изображение';
-    $_module['description'] = 'Выводит на сайте голосование';
+    $_module['description'] = 'Выводит на случайную картинку';
     $_module['link']        = 'mod_random_image';
     $_module['position']    = 'sidebar';
     $_module['author']      = 'instantCMS team';
@@ -33,6 +33,11 @@ function install_module_mod_random_image()
 }
 
 function upgrade_module_mod_random_image()
+{
+    return true;
+}
+
+function remove_module_mod_random_image()
 {
     return true;
 }

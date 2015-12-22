@@ -16,7 +16,7 @@ function info_module_mod_cart()
 {
     $_module['title']       = 'Корзина';
     $_module['name']        = 'Корзина покупателя';
-    $_module['description'] = 'Выводит на сайте корзину покупателя для Универсального каталога';
+    $_module['description'] = 'Выводит на сайте корзину пользователя для Универсального каталога';
     $_module['link']        = 'mod_cart';
     $_module['position']    = 'sidebar';
     $_module['author']      = 'instantCMS team';
@@ -33,6 +33,11 @@ function install_module_mod_cart()
 }
 
 function upgrade_module_mod_cart()
+{
+    return true;
+}
+
+function remove_module_mod_cart()
 {
     return true;
 }

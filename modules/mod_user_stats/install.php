@@ -36,3 +36,8 @@ function upgrade_module_mod_user_stats()
 {
     return true;
 }
+
+function remove_module_mod_user_stats()
+{
+    return true;
+}

@@ -12,7 +12,7 @@
 //                                                                            //
 /******************************************************************************/
 
-function info_module_mod_random_respect()
+function info_module_mod_respect()
 {
     $_module['title']       = 'Доска почета';
     $_module['name']        = 'Доска почета';
@@ -27,12 +27,17 @@ function info_module_mod_random_respect()
 
 }
 
-function install_module_mod_random_respect()
+function install_module_mod_respect()
 {
     return true;
 }
 
-function upgrade_module_mod_random_respect()
+function upgrade_module_mod_respect()
+{
+    return true;
+}
+
+function remove_module_mod_respect()
 {
     return true;
 }

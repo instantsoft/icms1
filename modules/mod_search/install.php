@@ -12,7 +12,7 @@
 //                                                                            //
 /******************************************************************************/
 
-function info_module_mod_random_search()
+function info_module_mod_search()
 {
     $_module['title']       = 'Поиск';
     $_module['name']        = 'Поиск';
@@ -27,12 +27,17 @@ function info_module_mod_random_search()
 
 }
 
-function install_module_mod_random_search()
+function install_module_mod_search()
 {
     return true;
 }
 
-function upgrade_module_mod_random_search()
+function upgrade_module_mod_search()
+{
+    return true;
+}
+
+function remove_module_mod_search()
 {
     return true;
 }

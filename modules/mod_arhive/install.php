@@ -36,3 +36,8 @@ function upgrade_module_mod_arhive()
 {
     return true;
 }
+
+function remove_module_mod_arhive()
+{
+    return true;
+}

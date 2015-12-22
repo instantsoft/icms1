@@ -12,7 +12,7 @@
 //                                                                            //
 /******************************************************************************/
 
-function info_module_mod_random_rss()
+function info_module_mod_rss()
 {
     $_module['title']       = 'RSS-ридер';
     $_module['name']        = 'RSS-ридер';
@@ -27,12 +27,17 @@ function info_module_mod_random_rss()
 
 }
 
-function install_module_mod_random_rss()
+function install_module_mod_rss()
 {
     return true;
 }
 
-function upgrade_module_mod_random_rss()
+function upgrade_module_mod_rss()
+{
+    return true;
+}
+
+function remove_module_mod_rss()
 {
     return true;
 }

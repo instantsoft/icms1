@@ -12,12 +12,12 @@
 //                                                                            //
 /******************************************************************************/
 
-function info_module_mod_random_uc()
+function info_module_mod_uc_random()
 {
     $_module['title']       = 'Случайное в каталоге';
     $_module['name']        = 'Случайное в каталоге';
-    $_module['description'] = 'Выводит на сайте случайную записи из универсального каталоге';
-    $_module['link']        = 'mod_random_uc';
+    $_module['description'] = 'Выводит на сайте случайные записи из универсального каталога';
+    $_module['link']        = 'mod_uc_random';
     $_module['position']    = 'maintop';
     $_module['author']      = 'instantCMS team';
     $_module['version']     = '1.10.7';
@@ -27,12 +27,17 @@ function info_module_mod_random_uc()
 
 }
 
-function install_module_mod_random_uc()
+function install_module_mod_uc_random()
 {
     return true;
 }
 
-function upgrade_module_mod_random_uc()
+function upgrade_module_mod_uc_random()
+{
+    return true;
+}
+
+function remove_module_mod_uc_random()
 {
     return true;
 }

@@ -36,3 +36,8 @@ function upgrade_module_mod_blogs()
 {
     return true;
 }
+
+function remove_module_mod_blogs()
+{
+    return true;
+}

@@ -16,7 +16,7 @@ function info_module_mod_uc()
 {
     $_module['title']       = 'Записи в каталоге';
     $_module['name']        = 'Записи в каталоге';
-    $_module['description'] = 'Выводит на сайте записи из универсального каталоге';
+    $_module['description'] = 'Выводит на сайте записи из универсального каталога';
     $_module['link']        = 'mod_uc';
     $_module['position']    = 'maintop';
     $_module['author']      = 'instantCMS team';
@@ -33,6 +33,11 @@ function install_module_mod_uc()
 }
 
 function upgrade_module_mod_uc()
+{
+    return true;
+}
+
+function remove_module_mod_uc()
 {
     return true;
 }

@@ -12,7 +12,7 @@
 //                                                                            //
 /******************************************************************************/
 
-function info_module_mod_random_template()
+function info_module_mod_template()
 {
     $_module['title']       = 'Выбор шаблона';
     $_module['name']        = 'Выбор шаблона';
@@ -27,12 +27,17 @@ function info_module_mod_random_template()
 
 }
 
-function install_module_mod_random_template()
+function install_module_mod_template()
 {
     return true;
 }
 
-function upgrade_module_mod_random_template()
+function upgrade_module_mod_template()
+{
+    return true;
+}
+
+function remove_module_mod_template()
 {
     return true;
 }

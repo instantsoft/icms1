@@ -14,7 +14,7 @@
 
 function info_module_mod_lastreg()
 {
-    $_module['title']       = 'Новые польщователи';
+    $_module['title']       = 'Новые пользователи';
     $_module['name']        = 'Последние регистрации';
     $_module['description'] = 'Выводит на сайте новых пользователей';
     $_module['link']        = 'mod_lastreg';
@@ -33,6 +33,11 @@ function install_module_mod_lastreg()
 }
 
 function upgrade_module_mod_lastreg()
+{
+    return true;
+}
+
+function remove_module_mod_lastreg()
 {
     return true;
 }
