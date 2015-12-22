@@ -110,3 +110,40 @@ $(function(){
 
     }
 }});
+
+function changeGeo(list, child_list_id){
+
+    $(list).parent().nextAll('.list').hide();
+    var id = $(list).val();
+    var child_list = $('select[name='+child_list_id+']');
+
+    if (id == 0) {
+        child_list.parent('.list').hide();
+        if (child_list_id=='regions'){
+            $('select[name=city_id]').parent('.list').hide();
+        }
+        return false;
+    }
+
+    $.post('/geo/get', {type: child_list_id, parent_id: id}, function(result){
+
+        if (result.error) { return false; }
+
+        child_list.html('');
+
+        for(var item_id in result.items){
+
+            var item_name = result.items[item_id];
+
+            child_list.append( '<option value="'+ item_id +'">' + item_name +'</option>' );
+
+        }
+
+        child_list.parent('.list').show();
+        if (child_list_id != 'cities'){
+            geo.changeParent(child_list, 'cities');
+        }
+
+    }, 'json');
+
+}

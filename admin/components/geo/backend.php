@@ -45,9 +45,13 @@ function getRegion($id){
     $opt = cmsCore::request('opt', 'str', 'countries');
     $cfg = $inCore->loadComponentConfig('geo');
 
+    $GLOBALS['cp_page_head'][] = '<script type="text/javascript" src="/components/geo/js/geo.js"></script>';
+
     $toolmenu[] = array('icon'=>'geo/country.png', 'title'=>$_LANG['AD_COUNTRIES'], 'link'=>'?view=components&do=config&id='.$id);
     $toolmenu[] = array('icon'=>'geo/region.png', 'title'=>$_LANG['AD_REGIONS'], 'link'=>'?view=components&do=config&id='.$id.'&opt=regions');
     $toolmenu[] = array('icon'=>'geo/city.png', 'title'=>$_LANG['AD_CITIES'], 'link'=>'?view=components&do=config&id='.$id.'&opt=cities');
+    $toolmenu[] = array('icon' => 'geo/metro.png', 'title'=>$_LANG['AD_DISTRICTS'], 'link'=>'?view=components&do=config&id='.$id.'&opt=districts');
+    $toolmenu[] = array('icon' => 'geo/metro_add.png', 'title'=>$_LANG['AD_DISTRICT_ADD'], 'link'=>'?view=components&do=config&id='.$id.'&opt=district_add');
     $toolmenu[] = array('icon'=>'new.gif', 'title'=>$_LANG['ADD'], 'link'=>'?view=components&do=config&id='.$id.'&opt=add');
     if ($opt == 'countries'){
         $toolmenu[] = array('icon'=>'reorder.gif', 'title'=>$_LANG['AD_SAVE_ORDER'], 'link'=>"javascript:checkSel('?view=components&do=config&id=$id&opt=saveorder');");
@@ -359,6 +363,209 @@ function getRegion($id){
             </p>
         </form><?php
 
+    }
+
+    /* ========================================================================== */
+    /* ======================== МЕТРО / РАЙОНЫ ГОРОДА =========================== */
+    /* ========================================================================== */
+
+    if ($opt == 'show_district'){
+        if (!cmsCore::inRequest('item')) {
+            if (cmsCore::inRequest('item_id')) {
+                dbShow('cms_geo_districts', cmsCore::request('item_id', 'int', 0));
+            }
+            echo '1'; exit;
+        } else {
+            dbShowList('cms_geo_districts', cmsCore::request('item', 'array_int', array()));
+            cmsCore::redirectBack();
+        }
+    }
+
+    if ($opt == 'hide_district'){
+        if (!cmsCore::inRequest('item')){
+            dbHide('cms_geo_districts', cmsCore::request('item_id', 'int', 0));
+            echo '1'; exit;
+        } else {
+            dbHideList('cms_geo_districts', cmsCore::request('item', 'array_int', array()));
+            cmsCore::redirectBack();
+        }
+    }
+
+    if ($opt == 'districts'){
+
+        cpAddPathway($_LANG['AD_DISTRICTS']);
+
+        $fields[] = array('title'=>'id', 'field'=>'id', 'width'=>'30');
+        $fields[] = array('title'=>$_LANG['TITLE'], 'field'=>'name', 'width'=>'', 'link'=>'?view=components&do=config&id='.$id.'&opt=district_edit&item_id=%id%');
+        $fields[] = array('title'=>$_LANG['AD_COUNTRY1'], 'field'=>'country_id', 'width'=>'120', 'prc'=>'cpGetCoutry');
+        $fields[] = array('title'=>$_LANG['AD_REGION'], 'field'=>'region_id', 'width'=>'120', 'prc'=>'cpGetRegion');
+        $fields[] = array('title'=>$_LANG['AD_CITY'], 'field'=>'city_id', 'width'=>'120', 'prc'=>'cpGetCity');
+
+        $fields[] = array('title'=>$_LANG['AD_ORDER'], 'field'=>'ordering', 'width'=>'80', 'do_suffix'=>'_department', 'do'=>'opt3');
+        $fields[] = array('title' => $_LANG['AD_SHOW'], 'field' => 'published', 'width' => '80', 'do' => 'opt', 'do_suffix' => '_district');
+
+        $actions[] = array('title'=>$_LANG['EDIT'], 'icon'=>'edit.gif', 'link'=>'?view=components&do=config&id='.$id.'&opt=district_edit&item_id=%id%');
+        $actions[] = array('title'=>$_LANG['DELETE'], 'icon'=>'delete.gif', 'confirm'=>$_LANG['AD_DISTRICT_DELETE'], 'link'=>'?view=components&do=config&id='.$id.'&opt=district_delete&item_id=%id%');
+
+        cpListTable('cms_geo_districts', $fields, $actions, '', 'ordering ASC');
+
+    }
+
+    $opt3 = cmsCore::request('opt3', 'str');
+    if ($opt3 == 'move_up'){
+        dbMoveUp('cms_geo_districts', cmsCore::request('item_id', 'int', 0), cmsCore::request('co', 'int', 0));
+        cmsCore::redirectBack();
+    }
+
+    if ($opt3 == 'move_down'){
+        dbMoveDown('cms_geo_districts', cmsCore::request('item_id', 'int', 0), cmsCore::request('co', 'int', 0));
+        cmsCore::redirectBack();
+    }
+
+    if($opt == 'district_submit' || $opt == 'district_update'){
+
+        if (!cmsUser::checkCsrfToken()) {
+            cmsCore::error404();
+        }
+
+        $item_id = cmsCore::request('item_id', 'int', 0);
+
+        $types = array(
+            'name'=>array('name', 'str', ''),
+            'ordering'=>array('ordering', 'int', 0),
+            'region_id'=>array('regions', 'int', 0),
+            'country_id'=>array('country_id', 'int', 0),
+            'city_id'=>array('cities', 'int', 0)
+        );
+
+        $items = cmsCore::getArrayFromRequest($types);
+
+        if($opt == 'district_submit'){
+            $inDB->insert('cms_geo_districts', $items);
+        } else {
+            $inDB->update('cms_geo_districts', $items, $item_id);
+        }
+
+        cmsCore::addSessionMessage($_LANG['AD_DO_SUCCESS'], 'success');
+        cmsCore::redirect('?view=components&do=config&id='.$id.'&opt=districts');
+
+    }
+
+    if($opt == 'district_delete'){
+
+        $item_id = cmsCore::request('item_id', 'int', 0);
+
+        if(!$item_id){
+            cmsCore::error404();
+        }
+
+        $inDB->delete('cms_geo_districts', "id='$item_id'", 1);
+
+        cmsCore::addSessionMessage($_LANG['AD_DO_SUCCESS'], 'success');
+        cmsCore::redirect('?view=components&do=config&id='.$id.'&opt=districts');
+
+    }
+
+    if($opt=='district_add' || $opt == 'district_edit'){
+
+        $item_id = cmsCore::request('item_id', 'int', 0);
+
+        if($item_id){
+            $item = $inDB->get_fields('cms_geo_districts', "id='$item_id'", '*');
+            if(!$item){
+                cmsCore::error404();
+            }
+            cpAddPathway($_LANG['AD_DISTRICT_EDIT']);
+        } else {
+            cpAddPathway($_LANG['AD_DISTRICT_ADD']);
+        }
+
+        ?>
+    <form action="index.php?view=components&amp;do=config&amp;id=<?php echo $id;?>" method="post" name="optform">
+        <input type="hidden" name="csrf_token" value="<?php echo cmsUser::getCsrfToken(); ?>" />
+        <table width="100%" border="0" cellpadding="10" cellspacing="0" class="proptable">
+            <tr>
+                <td width="150"><strong><?php echo $_LANG['AD_DISTRICT_TITLE']; ?></strong></td>
+                <td width="" valign="top">
+                    <input name="name" type="text" value="<?php echo htmlspecialchars(@$item['name']); ?>" style="width: 300px;" />
+                </td>
+            </tr>
+            <?php if(!isset($item['ordering'])){ $item['ordering'] = 1 + $inDB->get_field('cms_geo_districts', "1=1 ORDER BY ordering DESC", 'ordering'); } ?>
+            <tr>
+                <td><strong><?php echo $_LANG['AD_ORDER']; ?></strong></td>
+                <td width="" valign="top">
+                    <input name="ordering" type="text" value="<?php echo htmlspecialchars(@$item['ordering']); ?>" style="width: 300px;" />
+                </td>
+            </tr>
+            <tr>
+                <td><strong><?php echo $_LANG['AD_GEO']; ?></strong></td>
+                <td width="" valign="top">
+                    <div class="list">
+                        <select name="country_id" style="width: 300px;" onchange="changeGeo(this, 'regions')">
+                            <?php echo cmsCore::getListItems('cms_geo_countries', @$item['country_id'], 'name', 'ASC', '', 'id', 'name'); ?>
+                        </select>
+                    </div>
+
+                    <div class="list" <?php if(!$item['region_id']){ echo ' style="dispay:none;"'; } ?>>
+                        <select name="regions" style="width: 300px;" onchange="changeGeo(this, 'cities')">
+                            <?php echo cmsCore::getListItems('cms_geo_regions', @$item['region_id'], 'name', 'ASC', (@$item['country_id'] ? "country_id = '{$item['country_id']}'" : ''), 'id', 'name'); ?>
+                        </select>
+                    </div>
+
+                    <div class="list" <?php if(!$item['city_id']){ echo ' style="dispay:none;"'; } ?>>
+                        <select name="cities" style="width: 300px;">
+                            <?php echo cmsCore::getListItems('cms_geo_cities', @$item['city_id'], 'name', 'ASC', (@$item['region_id'] ? "region_id = '{$item['region_id']}'" : ''), 'id', 'name'); ?>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <p>
+            <input name="opt" type="hidden" value="<?php if ($opt=='district_add') { echo 'district_submit'; } else { echo 'district_update'; } ?>" />
+            <input name="item_id" type="hidden" value="<?php echo @$item['id']; ?>" />
+            <input name="save" type="submit" id="save" value="<?php echo $_LANG['SAVE']; ?>" />
+            <input name="back" type="button" id="back" value="<?php echo $_LANG['CANCEL']; ?>" onclick="window.location.href='index.php?view=components&amp;do=config&amp;id=<?php echo $id;?>';"/>
+        </p>
+        </form><?php
+
+    }
+
+    function cpGetCoutry($id){
+        if(isset($GLOBALS['COUTRY'][$id])){
+            $name = $GLOBALS['COUTRY'][$id];
+        } else {
+            $name = cmsDatabase::getInstance()->get_field('cms_geo_countries', "id = '$id'", 'name');
+            $GLOBALS['COUTRY'][$id] = $name;
+        }
+        if ($name) {
+            return $name;
+        } else {
+            return '--';
+        }
+    }
+
+    function cpGetRegion($id){
+        if(isset($GLOBALS['REGION'][$id])){
+            $name = $GLOBALS['REGION'][$id];
+        } else {
+            $name = cmsDatabase::getInstance()->get_field('cms_geo_regions', "id = '$id'", 'name');
+            $GLOBALS['REGION'][$id] = $name;
+        }
+        if ($name) {
+            return $name;
+        } else {
+            return '--';
+        }
+    }
+
+    function cpGetCity($id){
+        $name = cmsDatabase::getInstance()->get_field('cms_geo_cities', "id = '$id'", 'name');
+        if ($name) {
+            return $name;
+        } else {
+            return '--';
+        }
     }
 
 ?>

@@ -94,7 +94,7 @@ function cpHead(){
                 $GLOBALS['cp_page_title'].' - '.$_LANG['AD_ADMIN_PANEL'].' v '.CORE_VERSION :
                 $_LANG['AD_ADMIN_PANEL'];
 
-    array_unshift($inPage->page_head, '<script type="text/javascript" src="js/common.js"></script>');
+    array_unshift($inPage->page_head['js'], '<script type="text/javascript" src="js/common.js"></script>');
 
     $inPage->addHeadJsLang(array('AD_NO_SELECT_OBJECTS','AD_SWITCH_EDITOR','CANCEL','CONTINUE','CLOSE','ATTENTION'));
 
@@ -103,9 +103,9 @@ function cpHead(){
     $inPage->addHeadJsLang(array('CBOX_IMAGE','CBOX_FROM','CBOX_PREVIOUS','CBOX_NEXT','CBOX_CLOSE','CBOX_XHR_ERROR','CBOX_IMG_ERROR', 'CBOX_SLIDESHOWSTOP', 'CBOX_SLIDESHOWSTART'));
 
     if (!empty($GLOBALS['cp_jquery'])){
-        array_unshift($inPage->page_head, '<script type="text/javascript" src="'.$GLOBALS['cp_jquery'].'"></script>');
+        array_unshift($inPage->page_head['js'], '<script type="text/javascript" src="'.$GLOBALS['cp_jquery'].'"></script>');
     } else {
-        array_unshift($inPage->page_head, '<script type="text/javascript" src="/includes/jquery/jquery.js"></script>');
+        array_unshift($inPage->page_head['js'], '<script type="text/javascript" src="/includes/jquery/jquery.js"></script>');
     }
 
 	foreach($GLOBALS['cp_page_head'] as $key=>$value) {

@@ -304,9 +304,10 @@ class cmsCore {
 
                 if(isset($plugin->info['plugin_type'])){
                     if(in_array($plugin->info['plugin_type'], $inCore->single_run_plugins)){
-                            break;
-                        }
+                        $item = $result;
+                        break;
                     }
+                }
 
                     // если нужно вернуть для каждого плагина свой результат
                     if($is_all){

@@ -1,7 +1,8 @@
 <?php
+
 /******************************************************************************/
 //                                                                            //
-//                           InstantCMS v1.10.6                               //
+//                           InstantCMS v1.10.7                               //
 //                        http://www.instantcms.ru/                           //
 //                                                                            //
 //                   written by InstantCMS Team, 2007-2015                    //
@@ -10,6 +11,33 @@
 //                        LICENSED BY GNU/GPL v2                              //
 //                                                                            //
 /******************************************************************************/
-    function smarty_function_printHead($params, $template) {
-        cmsPage::getInstance()->printHead();
-	}
+
+function info_module_mod_user_rating()
+{
+    $_module['title']       = 'Рейтинг пользователей';
+    $_module['name']        = 'Рейтинг пользователей';
+    $_module['description'] = 'Выводит на сайте рейтинг пользователей';
+    $_module['link']        = 'mod_user_rating';
+    $_module['position']    = 'sidebar';
+    $_module['author']      = 'instantCMS team';
+    $_module['version']     = '1.10.7';
+    $_module['config']      = array();
+
+    return $_module;
+
+}
+
+function install_module_mod_user_rating()
+{
+    return true;
+}
+
+function upgrade_module_mod_user_rating()
+{
+    return true;
+}
+
+function remove_module_mod_user_rating()
+{
+    return true;
+}
