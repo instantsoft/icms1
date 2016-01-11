@@ -58,7 +58,8 @@ class p_ping extends cmsPlugin {
                 $pageURL = HOST .'/'. $item['seolink'] . '.html';
                 $feedURL = HOST . '/rss/content/all/feed.rss';
                 $this->ping($pageURL, $feedURL);
-
+            break;
+             
             case 'ADD_BOARD_DONE':
                 $pageURL = HOST . '/board/read'.$item['id'].'.html';
                 $feedURL = HOST . '/rss/board/all/feed.rss';
