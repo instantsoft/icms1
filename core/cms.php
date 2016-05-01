@@ -302,9 +302,9 @@ class cmsCore {
 
                     $result = $plugin->execute($event, $item);
 
-                if(isset($plugin->info['plugin_type'])){
-                    if(in_array($plugin->info['plugin_type'], $inCore->single_run_plugins)){
-                            break;
+                    if(isset($plugin->info['plugin_type'])){
+                        if(in_array($plugin->info['plugin_type'], $inCore->single_run_plugins)){
+                            $item = $result; break;
                         }
                     }
 
@@ -315,11 +315,11 @@ class cmsCore {
 
                             $plugins_list[] = array(
                                 'result' => $result,
-                                'info' => $plugin->info,
+                                'info'   => $plugin->info,
                                 'config' => $plugin->config
                             );
 
-                    }
+                        }
 
                     } else {
 

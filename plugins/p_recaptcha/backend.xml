@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backend>
+    <info>
+        <type>plugin</type>
+        <id>p_recaptcha</id>
+    </info>
+    <params>
+        <param type="string" name="public_key" default="" />
+        <param type="string" name="private_key" default="" />
+        <param type="list" name="theme" >
+            <option value="light" />
+            <option value="dark" />
+        </param>
+        <param type="list" name="size" >
+            <option value="normal" />
+            <option value="compact" />
+        </param>
+        <param type="list" name="lang" >
+            <option value="en" title="English" />
+            <option value="nl" title="Dutch" />
+            <option value="fr" title="French" />
+            <option value="de" title="German" />
+            <option value="ru" title="Русский" />
+            <option value="uk" title="Український" />
+            <option value="es" title="Spanish" />
+        </param>
+    </params>
+</backend>

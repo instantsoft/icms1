@@ -346,25 +346,36 @@ span.fast_cfg_link img{ border:none; }
 .mod_lp_details img{
 	width:15px;
 }
-input[type=button],
-input[type=submit]{
-    font-size:14px !important;
-	height: 27px;
-    line-height: 24px;
+input[type="button"],
+input[type="submit"]{
+    font-size:13px;
+	height: 25px;
+    line-height: 19px;
 	border: 0px;
-	margin: 5px;
 	background: #2980b9;
 	color: #fff !important;
 	text-shadow: -1px -1px 0px #346799;
 	cursor: pointer;
     transition: background 0.2s ease 0s, color 0.2s linear 0s;
     outline: none;
-    overflow: visible;
     white-space: nowrap;
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 0 10px;
 }
 input[type=button]:hover,
 input[type=submit]:hover{
 	background: #3498db;
+}
+input[type="text"], input[type="password"], textarea, select, .text-input {
+    outline: none;
+    box-sizing: border-box;
+    height: 25px;
+    line-height: 19px;
+    display: inline-block;
+    font-family: inherit;
+    font-size: inherit;
+    font-size:13px;
 }
 /*--------------------------- MODULE "POLLS" ---------------------------------*/
 .mod_poll_title {
@@ -537,7 +548,7 @@ ul.mod_cat_list li a.cat_minus {
 .lf_field{ margin-bottom: 10px; }
 
 .lf_field input {
-    width:250px; padding:3px; padding-left:20px; font-size:16px; border:solid 1px #4DA4CF; }
+    width:250px; padding:3px; padding-left:20px; border:solid 1px #4DA4CF; }
 
 .lf_field input:focus {
     border:solid 1px #FFD100;

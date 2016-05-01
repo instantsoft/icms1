@@ -237,7 +237,7 @@ if($bdo=='post'){
 	if (!$blog) { cmsCore::error404(); }
 
 	$club = $model->getClub($blog['user_id']);
-	if(!$club) { cmsCore::error404(); }
+	if(!$club || cmsCore::request('id', 'int', 0) != $club['id']) { cmsCore::error404(); }
 
 	// если блоги запрещены
 	if(!$club['enabled_blogs']){ cmsCore::error404(); }
