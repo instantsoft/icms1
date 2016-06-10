@@ -22,7 +22,7 @@
         {foreach key=pid item=post from=$posts}
             {if $post.thread_id != $last_thread_id}
             <tr>
-              <td colspan="2" class="darkBlue-LightBlue">{$LANG.THREAD}: <a  href="/forum/thread{$post.thread_id}.html" >{$post.thread_title}</a></td>
+              <td colspan="2" class="darkBlue-LightBlue">{$LANG.THREAD}: <a  href="/forum/thread{$post.thread_id}-1.html" >{$post.thread_title}</a></td>
             </tr>
             {/if}
             {$last_thread_id=$post.thread_id}

@@ -159,7 +159,7 @@ if ($do=='thread'){
         // не модератор ли текущий пользователь
         $is_forum_moder = $model->isForumModerator($pcat['moder_list']);
     }
-    $inPage->addPathway($thread['title'], '/forum/thread'.$thread['id'].'.html');
+    $inPage->addPathway($thread['title'], '/forum/thread'.$thread['id'].'-1.html');
 
     if(!$thread['is_mythread']){
         $inDB->setFlag('cms_forum_threads', $thread['id'], 'hits', $thread['hits']+1);
@@ -316,7 +316,7 @@ if (in_array($do, array('newthread','newpost','editpost'))){
             }
             $is_forum_moder = $model->isForumModerator($pcat['moder_list']);
         }
-        $inPage->addPathway($thread['title'], '/forum/thread'.$thread['id'].'.html');
+        $inPage->addPathway($thread['title'], '/forum/thread'.$thread['id'].'-1.html');
 
         $pagetitle = $_LANG['NEW_POST'];
 
@@ -354,7 +354,7 @@ if (in_array($do, array('newthread','newpost','editpost'))){
             }
             $is_forum_moder = $model->isForumModerator($pcat['moder_list']);
         }
-        $inPage->addPathway($thread['title'], '/forum/thread'.$thread['id'].'.html');
+        $inPage->addPathway($thread['title'], '/forum/thread'.$thread['id'].'-1.html');
 
         $end_min = $model->checkEditTime($last_post['pubdate']);
         $is_author_can_edit = (is_bool($end_min) ? $end_min : $end_min > 0) &&
@@ -527,7 +527,7 @@ if (in_array($do, array('newthread','newpost','editpost'))){
                         'object_url' => '/forum/thread'.$thread['id'].'-'.$total_pages.'.html#'.$post_id,
                         'object_id' => $post_id,
                         'target' => $thread['title'],
-                        'target_url' => '/forum/thread'.$thread['id'].'.html',
+                        'target_url' => '/forum/thread'.$thread['id'].'-1.html',
                         'target_id' => $thread['id'],
                         'description' => $message_post
                     ));
@@ -705,7 +705,7 @@ if(in_array($do, array('movethread','renamethread','deletethread','close','pin',
 
             if(!$is_forum_moder && !$inUser->is_admin){
                 cmsCore::addSessionMessage($_LANG['YOU_NO_THIS_FORUM_MODER'], 'error');
-                cmsCore::redirect('/forum/thread'.$thread['id'].'.html');
+                cmsCore::redirect('/forum/thread'.$thread['id'].'-1.html');
             }
 
             $inDB->query("UPDATE cms_forum_threads SET forum_id = '{$new_forum['id']}', is_hidden = '{$is_hidden}' WHERE id = '{$thread['id']}'") ;
@@ -722,7 +722,7 @@ if(in_array($do, array('movethread','renamethread','deletethread','close','pin',
 
             cmsCore::addSessionMessage($_LANG['THREAD_IS_MOVE'].'"'.$new_forum['title'].'"', 'success');
 
-            cmsCore::redirect('/forum/thread'.$thread['id'].'.html');
+            cmsCore::redirect('/forum/thread'.$thread['id'].'-1.html');
 
         }
 
@@ -871,7 +871,7 @@ if(in_array($do, array('movethread','renamethread','deletethread','close','pin',
             $total_pages = ceil($thread_post_count / $model->config['pp_thread']);
 
             cmsActions::updateLog('add_fpost', array('target' => $new_thread['title'],
-                                                     'target_url' => '/forum/thread'.$new_thread['id'].'.html',
+                                                     'target_url' => '/forum/thread'.$new_thread['id'].'-1.html',
                                                      'target_id'=>$new_thread['id'],
                                                      'object_url'=>'/forum/thread'.$new_thread['id'].'-'.$total_pages.'.html#'.$post_id,
                                                      'pubdate'=>date("Y-m-d H:i:s")), $post_id);

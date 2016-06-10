@@ -24,7 +24,7 @@
                 {/if}
             {/if}
             <td width="" class="{$class}" align="left">
-                <div class="thread_link"><a href="/forum/thread{$thread.id}.html">{$thread.title}</a>
+                <div class="thread_link"><a href="/forum/thread{$thread.id}-1.html">{$thread.title}</a>
                     {if $thread.pages>1}
                         <span class="thread_pagination" title="{$LANG.PAGES}"> (
                             {section name=foo start=1 loop=$thread.pages+1 step=1}

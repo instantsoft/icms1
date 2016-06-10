@@ -117,13 +117,13 @@
             <table cellpadding="5" cellspacing="0" border="0" align="left" style="margin-left:auto;margin-right:auto"><tr>
                 {if $prev_thread}
                     <td align="right" width="">
-                        <div>&larr; <a href="/forum/thread{$prev_thread.id}.html" title="{$LANG.PREVIOUS_THREAD}">{$prev_thread.title|truncate:30}</a></div>
+                        <div>&larr; <a href="/forum/thread{$prev_thread.id}-1.html" title="{$LANG.PREVIOUS_THREAD}">{$prev_thread.title|truncate:30}</a></div>
                     </td>
                 {/if}
                 {if $prev_thread && $next_thread}<td>|</td>{/if}
                 {if $next_thread}
                     <td align="left" width="">
-                        <div><a href="/forum/thread{$next_thread.id}.html" title="{$LANG.NEXT_THREAD}">{$next_thread.title|truncate:30}</a> &rarr;</div>
+                        <div><a href="/forum/thread{$next_thread.id}-1.html" title="{$LANG.NEXT_THREAD}">{$next_thread.title|truncate:30}</a> &rarr;</div>
                     </td>
                 {/if}
             </tr></table>
@@ -163,7 +163,7 @@
             {$smilies}
         {/if}
         <div class="forum_fast_form">
-            <form action="/forum/reply{$thread.id}.html" method="post" id="msgform">
+            <form action="/forum/reply{$thread.id}-1.html" method="post" id="msgform">
                 <input type="hidden" name="gosend" value="1" />
                 <input type="hidden" name="csrf_token" value="{csrf_token}" />
                 <div class="cm_editor">

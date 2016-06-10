@@ -38,6 +38,12 @@
                             'action'  => 'redirect-301'
                          );
 
+        $rules[] = array(
+                        'source'  => '/^forum\/thread([0-9]+).html$/i',
+                        'target'  => '/forum/thread{1}-1.html',
+                        'action'  => 'redirect-301'
+                     );
+
         //
         // Вход / Выход
         //
