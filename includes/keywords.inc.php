@@ -80,7 +80,7 @@ class autokeyword {
 	//phrase metakeys
 	var $phrase3WordLengthMin;
 
-	function autokeyword($params, $encoding)
+	function __construct($params, $encoding)
 	{
 		//get parameters
 		$this->encoding = $encoding;
@@ -250,4 +250,3 @@ class autokeyword {
 		return $c;
 	}
 }
-?>

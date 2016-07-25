@@ -362,6 +362,7 @@ input[type="submit"]{
     box-sizing: border-box;
     display: inline-block;
     padding: 0 10px;
+    border-radius: 2px;
 }
 input[type=button]:hover,
 input[type=submit]:hover{
@@ -4265,6 +4266,7 @@ span.ajax-loader {
     border: none !important;
     margin: 0;
     padding: 1px 0;
+    height: 19px  !important;
 }
 .img_64 {
     width: 64px;

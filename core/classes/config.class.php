@@ -24,7 +24,8 @@ class cmsConfig {
 
 		date_default_timezone_set(self::$config['timezone']);
 
-		setlocale(LC_ALL, "ru_RU.UTF-8");
+        setlocale(LC_ALL, 'ru_RU.UTF-8');
+        setlocale(LC_NUMERIC, 'POSIX');
 
         return true;
 

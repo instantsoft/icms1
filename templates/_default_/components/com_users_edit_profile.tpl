@@ -196,8 +196,10 @@
             </table>
         </div>
         <div style="margin-top: 12px;" id="submitform">
-            <input style="font-size:16px" name="save" type="submit" id="save" value="{$LANG.SAVE}" />
-            <input style="font-size:16px" name="delbtn2" type="button" id="delbtn2" value="{$LANG.DEL_PROFILE}" onclick="location.href='/users/{$usr.id}/delprofile.html';" />
+            <input name="save" type="submit" id="save" value="{$LANG.SAVE}" />
+            {if $is_can_delete_profile}
+                <input name="delbtn2" type="button" id="delbtn2" value="{$LANG.DEL_PROFILE}" onclick="location.href='/users/{$usr.id}/delprofile.html';" />
+            {/if}
         </div>
     </form>
     <div id="change_password">
@@ -222,7 +224,7 @@
                 </tr>
             </table>
             <div style="margin-top: 12px;">
-                <input style="font-size:16px" name="save2" type="submit" id="save2" value="{$LANG.CHANGE_PASSWORD}" />
+                <input name="save2" type="submit" id="save2" value="{$LANG.CHANGE_PASSWORD}" />
             </div>
         </form>
     </div>

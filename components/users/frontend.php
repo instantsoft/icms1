@@ -218,9 +218,22 @@ if ($do=='editprofile'){
 			}
 		}
 
+		// могут ли администраторы удалять чужой профиль
+        $is_can_delete_profile = true;
+        if($inUser->is_admin){
+            if (!cmsUser::isAdminCan('admin/users', cmsUser::getAdminAccess()) && $inUser->id != $id) {
+                $is_can_delete_profile = false;
+            }
+            // администратор сам себя не удалит
+            if ($inUser->id == $usr['id']){
+                $is_can_delete_profile = false;
+            }
+        }
+
 		cmsPage::initTemplate('components', 'com_users_edit_profile')->
                 assign('opt', $opt)->
                 assign('usr', $usr)->
+                assign('is_can_delete_profile', $is_can_delete_profile)->
                 assign('private_forms', $private_forms)->
                 assign('cfg_forum', $inCore->loadComponentConfig('forum'))->
                 assign('cfg', $model->config)->

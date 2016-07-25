@@ -122,7 +122,7 @@ CREATE TABLE `#__banners` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO `#__banners` (`id`, `position`, `typeimg`, `fileurl`, `hits`, `clicks`, `maxhits`, `maxuser`, `user_id`, `pubdate`, `title`, `link`, `published`) VALUES
-(4, 'banner1', 'image', 'banner468x60v1.gif', 0, 0, 0, 0, 1, '2014-06-06 19:43:53', 'InstantCMS - Free Content Management Systems', 'http://www.instantcms.ru/', 1);
+(4, 'banner1', 'image', 'banner468x60v1.gif', 0, 0, 0, 0, 1, CURRENT_TIMESTAMP, 'InstantCMS - Free Content Management Systems', 'http://www.instantcms.ru/', 1);
 
 DROP TABLE IF EXISTS `#__banner_hits`;
 CREATE TABLE `#__banner_hits` (
@@ -256,10 +256,10 @@ CREATE TABLE `#__board_cats` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO `#__board_cats` (`id`, `parent_id`, `ordering`, `NSLeft`, `NSRight`, `NSDiffer`, `NSIgnore`, `NSLevel`, `title`, `description`, `published`, `orderform`, `showdate`, `pubdate`, `orderby`, `orderto`, `public`, `perpage`, `maxcols`, `thumb1`, `thumb2`, `thumbsqr`, `uplimit`, `is_photos`, `icon`, `obtypes`) VALUES
-(1, 0, 1, 1, 8, '', 0, 0, '-- root category --', '', 1, 1, 1, '2014-06-06 13:39:32', 'pubdate', 'desc', 0, 15, 1, 64, 400, 0, 10, 1, 'folder_grey.png', ''),
-(10, 1, 21, 2, 3, '', 0, 1, 'Services', '', 1, 1, 1, '2014-06-06 14:30:29', 'pubdate', 'desc', -1, 20, 1, 64, 400, 0, 10, 1, 'folder_grey.png', 'Offered\r\nRequires'),
-(9, 1, 23, 6, 7, '', 0, 1, 'Cars', '', 1, 1, 1, '2014-06-06 14:30:23', 'pubdate', 'desc', -1, 20, 1, 64, 400, 0, 10, 1, 'folder_grey.png', 'Buy\r\nSell\r\nExchange'),
-(8, 1, 22, 4, 5, '', 0, 1, 'Real estate', '', 1, 1, 1, '2014-06-06 14:30:00', 'pubdate', 'desc', -1, 20, 1, 64, 400, 0, 10, 1, 'folder_grey.png', 'Buy\r\nSell\r\nExchange\r\nRent\r\nWill rent');
+(1, 0, 1, 1, 8, '', 0, 0, '-- root category --', '', 1, 1, 1, '2016-06-06 13:39:32', 'pubdate', 'desc', 0, 15, 1, 64, 400, 0, 10, 1, 'folder_grey.png', ''),
+(10, 1, 21, 2, 3, '', 0, 1, 'Services', '', 1, 1, 1, '2016-06-06 14:30:29', 'pubdate', 'desc', -1, 20, 1, 64, 400, 0, 10, 1, 'folder_grey.png', 'Offered\r\nRequires'),
+(9, 1, 23, 6, 7, '', 0, 1, 'Cars', '', 1, 1, 1, '2016-06-06 14:30:23', 'pubdate', 'desc', -1, 20, 1, 64, 400, 0, 10, 1, 'folder_grey.png', 'Buy\r\nSell\r\nExchange'),
+(8, 1, 22, 4, 5, '', 0, 1, 'Real estate', '', 1, 1, 1, '2016-06-06 14:30:00', 'pubdate', 'desc', -1, 20, 1, 64, 400, 0, 10, 1, 'folder_grey.png', 'Buy\r\nSell\r\nExchange\r\nRent\r\nWill rent');
 
 DROP TABLE IF EXISTS `#__board_items`;
 CREATE TABLE `#__board_items` (
@@ -531,16 +531,16 @@ CREATE TABLE `#__cron_jobs` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO `#__cron_jobs` (`id`, `job_name`, `job_interval`, `job_run_date`, `component`, `model_method`, `custom_file`, `is_enabled`, `is_new`, `comment`, `class_name`, `class_method`) VALUES
-(1, 'photos_clear', 24, '2014-06-06 12:10:08', 'users', 'clearUploadedPhotos', '', 1, 1, 'Delete unused personal photos', '', ''),
-(2, 'optimize_tables', 24, '2014-06-06 12:10:08', '', '', '', 1, 1, 'Optimization of the database tables', 'db|cmsDatabase', 'optimizeTables'),
-(3, 'drop_inactive_users', 48, '2014-06-06 12:10:08', 'users', 'deleteInactiveUsers', '', 1, 1, 'Delete inactive users', '', ''),
-(4, 'remove_old_log', 48, '2014-06-06 12:10:08', '', '', '', 1, 1, 'Deletes old items of activity feed', 'actions|cmsActions', 'removeOldLog'),
-(5, 'give_invites', 24, '2014-06-06 12:10:08', 'users', 'giveInvitesCron', '', 1, 1, 'Issuance invites for users', '', ''),
-(6, 'clear_invites', 24, '2014-06-06 12:10:08', 'users', 'clearInvites', '', 1, 1, 'Removing the used invites', '', ''),
-(7, 'deleteOldResults', 24, '2014-06-06 12:10:08', 'search', 'deleteOldResults', '', 1, 1, 'Deletes entries in the search cache older than 1 day.', '', ''),
-(8, 'deleteOldNotification', 48, '2014-06-06 23:19:42', 'users', 'deleteOldNotification', '', 1, 1, 'Deletes update service messages and mailing messages older 1 month', '', ''),
-(9, 'moveArticlesToArchive', 24, '2014-06-06 18:25:10', 'content', 'moveArticlesToArchive', '', 1, 0, 'Moves overdue article to the archive', '', ''),
-(10, 'clearOnlineUsers', 0, '2014-06-06 17:30:01', '', '', '', 1, 0, 'Delete expired data about online users', 'user|cmsUser', 'clearOnlineUsers');
+(1, 'photos_clear', 24, '2016-06-06 12:10:08', 'users', 'clearUploadedPhotos', '', 1, 1, 'Delete unused personal photos', '', ''),
+(2, 'optimize_tables', 24, '2016-06-06 12:10:08', '', '', '', 1, 1, 'Optimization of the database tables', 'db|cmsDatabase', 'optimizeTables'),
+(3, 'drop_inactive_users', 48, '2016-06-06 12:10:08', 'users', 'deleteInactiveUsers', '', 1, 1, 'Delete inactive users', '', ''),
+(4, 'remove_old_log', 48, '2016-06-06 12:10:08', '', '', '', 1, 1, 'Deletes old items of activity feed', 'actions|cmsActions', 'removeOldLog'),
+(5, 'give_invites', 24, '2016-06-06 12:10:08', 'users', 'giveInvitesCron', '', 1, 1, 'Issuance invites for users', '', ''),
+(6, 'clear_invites', 24, '2016-06-06 12:10:08', 'users', 'clearInvites', '', 1, 1, 'Removing the used invites', '', ''),
+(7, 'deleteOldResults', 24, '2016-06-06 12:10:08', 'search', 'deleteOldResults', '', 1, 1, 'Deletes entries in the search cache older than 1 day.', '', ''),
+(8, 'deleteOldNotification', 48, '2016-06-06 23:19:42', 'users', 'deleteOldNotification', '', 1, 1, 'Deletes update service messages and mailing messages older 1 month', '', ''),
+(9, 'moveArticlesToArchive', 24, '2016-06-06 18:25:10', 'content', 'moveArticlesToArchive', '', 1, 0, 'Moves overdue article to the archive', '', ''),
+(10, 'clearOnlineUsers', 0, '2016-06-06 17:30:01', '', '', '', 1, 0, 'Delete expired data about online users', 'user|cmsUser', 'clearOnlineUsers');
 
 DROP TABLE IF EXISTS `#__downloads`;
 CREATE TABLE `#__downloads` (
@@ -1052,7 +1052,7 @@ CREATE TABLE `#__photo_albums` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO `#__photo_albums` (`id`, `parent_id`, `ordering`, `NSLeft`, `NSRight`, `NSDiffer`, `NSIgnore`, `NSLevel`, `title`, `description`, `published`, `showdate`, `iconurl`, `pubdate`, `orderby`, `orderto`, `public`, `perpage`, `cssprefix`, `thumb1`, `thumb2`, `thumbsqr`, `showtype`, `nav`, `uplimit`, `maxcols`, `orderform`, `showtags`, `bbcode`, `user_id`, `is_comments`) VALUES
-(100, 0, 1, 1, 2, '', 0, 0, '-- root album --', '', 1, 1, '', '2014-05-30 12:03:07', 'title', 'asc', 0, 15, '', 96, 480, 1, 'lightbox', 1, 0, 4, 1, 1, 1, 1, 0);
+(100, 0, 1, 1, 2, '', 0, 0, '-- root album --', '', 1, 1, '', CURRENT_TIMESTAMP, 'title', 'asc', 0, 15, '', 96, 480, 1, 'lightbox', 1, 0, 4, 1, 1, 1, 1, 0);
 
 DROP TABLE IF EXISTS `#__photo_files`;
 CREATE TABLE `#__photo_files` (
@@ -1404,7 +1404,7 @@ CREATE TABLE `#__users` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 INSERT INTO `#__users` (`id`, `group_id`, `login`, `nickname`, `password`, `email`, `icq`, `regdate`, `logdate`, `birthdate`, `is_locked`, `is_deleted`, `rating`, `points`, `last_ip`, `status`, `status_date`, `invited_by`, `invdate`) VALUES
-(1, 2, 'admin', 'Administrator', '', 'admin@cms.ru', '100200300', '2014-06-06 12:41:57', '2014-06-06 13:20:33', '1980-10-23', 0, 0, 32, 0, '127.0.0.1', 'InstantVideo and InstantMaps this is the best that can be', '2014-06-06 02:06:53', 0, '2014-06-06 23:25:59');
+(1, 2, 'admin', 'Administrator', '', 'admin@cms.ru', '100200300', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1980-10-23', 0, 0, 32, 0, '127.0.0.1', 'InstantVideo and InstantMaps this is the best that can be', CURRENT_TIMESTAMP, 0, CURRENT_TIMESTAMP);
 
 DROP TABLE IF EXISTS `#__users_activate`;
 CREATE TABLE `#__users_activate` (

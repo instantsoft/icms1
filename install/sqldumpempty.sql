@@ -122,7 +122,7 @@ CREATE TABLE `#__banners` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO `#__banners` (`id`, `position`, `typeimg`, `fileurl`, `hits`, `clicks`, `maxhits`, `maxuser`, `user_id`, `pubdate`, `title`, `link`, `published`) VALUES
-(4, 'banner1', 'image', 'banner468x60v1.gif', 0, 0, 0, 0, 1, '2013-09-04 19:43:53', 'InstantCMS - Бесплатная система управления сайтом', 'http://www.instantcms.ru/', 1);
+(4, 'banner1', 'image', 'banner468x60v1.gif', 0, 0, 0, 0, 1, CURRENT_TIMESTAMP, 'InstantCMS - Бесплатная система управления сайтом', 'http://www.instantcms.ru/', 1);
 
 DROP TABLE IF EXISTS `#__banner_hits`;
 CREATE TABLE `#__banner_hits` (
@@ -256,10 +256,10 @@ CREATE TABLE `#__board_cats` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO `#__board_cats` (`id`, `parent_id`, `ordering`, `NSLeft`, `NSRight`, `NSDiffer`, `NSIgnore`, `NSLevel`, `title`, `description`, `published`, `orderform`, `showdate`, `pubdate`, `orderby`, `orderto`, `public`, `perpage`, `maxcols`, `thumb1`, `thumb2`, `thumbsqr`, `uplimit`, `is_photos`, `icon`, `obtypes`) VALUES
-(1, 0, 1, 1, 8, '', 0, 0, '-- Корневая рубрика --', '', 1, 1, 1, '2013-09-22 13:39:32', 'pubdate', 'desc', 0, 15, 1, 64, 400, 0, 10, 1, 'folder_grey.png', ''),
-(10, 1, 21, 2, 3, '', 0, 1, 'Услуги', '', 1, 1, 1, '2013-09-22 14:30:29', 'pubdate', 'desc', -1, 20, 1, 64, 400, 0, 10, 1, 'folder_grey.png', 'Предлагаю\r\nТребуется'),
-(9, 1, 23, 6, 7, '', 0, 1, 'Автомобили', '', 1, 1, 1, '2013-09-22 14:30:23', 'pubdate', 'desc', -1, 20, 1, 64, 400, 0, 10, 1, 'folder_grey.png', 'Куплю\r\nПродам\r\nОбменяю'),
-(8, 1, 22, 4, 5, '', 0, 1, 'Недвижимость', '', 1, 1, 1, '2013-09-22 14:30:00', 'pubdate', 'desc', -1, 20, 1, 64, 400, 0, 10, 1, 'folder_grey.png', 'Продам\r\nКуплю\r\nОбменяю\r\nСдам\r\nСниму');
+(1, 0, 1, 1, 8, '', 0, 0, '-- Корневая рубрика --', '', 1, 1, 1, '2016-09-22 13:39:32', 'pubdate', 'desc', 0, 15, 1, 64, 400, 0, 10, 1, 'folder_grey.png', ''),
+(10, 1, 21, 2, 3, '', 0, 1, 'Услуги', '', 1, 1, 1, '2016-09-22 14:30:29', 'pubdate', 'desc', -1, 20, 1, 64, 400, 0, 10, 1, 'folder_grey.png', 'Предлагаю\r\nТребуется'),
+(9, 1, 23, 6, 7, '', 0, 1, 'Автомобили', '', 1, 1, 1, '2016-09-22 14:30:23', 'pubdate', 'desc', -1, 20, 1, 64, 400, 0, 10, 1, 'folder_grey.png', 'Куплю\r\nПродам\r\nОбменяю'),
+(8, 1, 22, 4, 5, '', 0, 1, 'Недвижимость', '', 1, 1, 1, '2016-09-22 14:30:00', 'pubdate', 'desc', -1, 20, 1, 64, 400, 0, 10, 1, 'folder_grey.png', 'Продам\r\nКуплю\r\nОбменяю\r\nСдам\r\nСниму');
 
 DROP TABLE IF EXISTS `#__board_items`;
 CREATE TABLE `#__board_items` (
@@ -531,16 +531,16 @@ CREATE TABLE `#__cron_jobs` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO `#__cron_jobs` (`id`, `job_name`, `job_interval`, `job_run_date`, `component`, `model_method`, `custom_file`, `is_enabled`, `is_new`, `comment`, `class_name`, `class_method`) VALUES
-(1, 'photos_clear', 24, '2013-09-07 12:10:08', 'users', 'clearUploadedPhotos', '', 1, 1, 'Удаление неиспользуемых личных фотографий', '', ''),
-(2, 'optimize_tables', 24, '2013-09-07 12:10:08', '', '', '', 1, 1, 'Оптимизация таблиц БД', 'db|cmsDatabase', 'optimizeTables'),
-(3, 'drop_inactive_users', 48, '2013-09-07 12:10:08', 'users', 'deleteInactiveUsers', '', 1, 1, 'Удаление неактивных пользователей (см. настройки компонента "Профили пользователей")', '', ''),
-(4, 'remove_old_log', 48, '2013-09-07 12:10:08', '', '', '', 1, 1, 'Удаляет старые записи ленты событий', 'actions|cmsActions', 'removeOldLog'),
-(5, 'give_invites', 24, '2013-09-07 12:10:08', 'users', 'giveInvitesCron', '', 1, 1, 'Выдача инвайтов пользователям', '', ''),
-(6, 'clear_invites', 24, '2013-09-07 12:10:08', 'users', 'clearInvites', '', 1, 1, 'Удаление использованных инвайтов', '', ''),
-(7, 'deleteOldResults', 24, '2013-09-07 12:10:08', 'search', 'deleteOldResults', '', 1, 1, 'Удаляет записи в кеше поиска старее 1 дня.', '', ''),
-(8, 'deleteOldNotification', 48, '2013-09-31 23:19:42', 'users', 'deleteOldNotification', '', 1, 1, 'Удаляет сообщения службы обновлений и рассылки старее 1 месяца', '', ''),
-(9, 'moveArticlesToArchive', 24, '2013-09-29 18:25:10', 'content', 'moveArticlesToArchive', '', 1, 0, 'Переносит просроченные статьи в архив', '', ''),
-(10, 'clearOnlineUsers', 0, '2013-09-21 17:30:01', '', '', '', 1, 0, 'Удаляет просроченные данные об online пользователях', 'user|cmsUser', 'clearOnlineUsers');
+(1, 'photos_clear', 24, '2016-09-07 12:10:08', 'users', 'clearUploadedPhotos', '', 1, 1, 'Удаление неиспользуемых личных фотографий', '', ''),
+(2, 'optimize_tables', 24, '2016-09-07 12:10:08', '', '', '', 1, 1, 'Оптимизация таблиц БД', 'db|cmsDatabase', 'optimizeTables'),
+(3, 'drop_inactive_users', 48, '2016-09-07 12:10:08', 'users', 'deleteInactiveUsers', '', 1, 1, 'Удаление неактивных пользователей (см. настройки компонента "Профили пользователей")', '', ''),
+(4, 'remove_old_log', 48, '2016-09-07 12:10:08', '', '', '', 1, 1, 'Удаляет старые записи ленты событий', 'actions|cmsActions', 'removeOldLog'),
+(5, 'give_invites', 24, '2016-09-07 12:10:08', 'users', 'giveInvitesCron', '', 1, 1, 'Выдача инвайтов пользователям', '', ''),
+(6, 'clear_invites', 24, '2016-09-07 12:10:08', 'users', 'clearInvites', '', 1, 1, 'Удаление использованных инвайтов', '', ''),
+(7, 'deleteOldResults', 24, '2016-09-07 12:10:08', 'search', 'deleteOldResults', '', 1, 1, 'Удаляет записи в кеше поиска старее 1 дня.', '', ''),
+(8, 'deleteOldNotification', 48, '2016-09-31 23:19:42', 'users', 'deleteOldNotification', '', 1, 1, 'Удаляет сообщения службы обновлений и рассылки старее 1 месяца', '', ''),
+(9, 'moveArticlesToArchive', 24, '2016-09-29 18:25:10', 'content', 'moveArticlesToArchive', '', 1, 0, 'Переносит просроченные статьи в архив', '', ''),
+(10, 'clearOnlineUsers', 0, '2016-09-21 17:30:01', '', '', '', 1, 0, 'Удаляет просроченные данные об online пользователях', 'user|cmsUser', 'clearOnlineUsers');
 
 DROP TABLE IF EXISTS `#__downloads`;
 CREATE TABLE `#__downloads` (
@@ -1098,7 +1098,7 @@ CREATE TABLE `#__plugins` (
 
 INSERT INTO `#__plugins` (`id`, `plugin`, `title`, `description`, `author`, `version`, `plugin_type`, `published`, `config`) VALUES
 (6, 'p_usertab', 'Demo Profile Plugin', 'Пример плагина - Добавляет вкладку "Статьи" в профили всех пользователей', 'InstantCMS Team', '1.10.3', 'plugin', 0, '---\nPU_LIMIT: 10\n'),
-(3, 'p_ckeditor', 'CKEditor', 'Визуальный редактор', 'InstantCMS Team', '4.4.5', 'wysiwyg', 1, '---\niswatermark: 0\nphoto_width: 600\nphoto_height: 600\nis_compatible: 1\nentermode: CKEDITOR.ENTER_P\nskin: moono\nupload_for_groups:\n  - 2\n'),
+(3, 'p_ckeditor', 'CKEditor', 'Визуальный редактор', 'InstantCMS Team', '4.4.6', 'wysiwyg', 1, '---\niswatermark: 0\nphoto_width: 600\nphoto_height: 600\nis_compatible: 1\nentermode: CKEDITOR.ENTER_P\nskin: moono\nupload_for_groups:\n  - 2\n'),
 (5, 'p_demo', 'Demo Plugin', 'Пример плагина - Добавляет текст в конец каждой статьи на сайте', 'InstantCMS Team', '1.0', 'plugin', 0, '---\ntext: Added By Plugin From Parameter\ncolor: blue\ncounter: 1\n'),
 (8, 'p_ping', 'Пинг поисковых систем', 'Пингует Яндекс и Гугл при добавлении статей, объявлений и постов в блоги', 'InstantCMS Team', '1.10', 'plugin', 1, '---\nYandex HOST: ping.blogs.yandex.ru\nYandex PATH: /RPC2\nGoogle HOST: blogsearch.google.com\nGoogle PATH: /ping/RPC2\n'),
 (15, 'p_morecontent', 'Похожие статьи', 'Добавляет в конец каждой статьи список похожих статей.', 'Maximov & InstantCMS Team', '1.10.4', 'plugin', 0, '---\nP_LIMIT: 5\nP_UNSORT: 1\n'),
@@ -1107,7 +1107,8 @@ INSERT INTO `#__plugins` (`id`, `plugin`, `title`, `description`, `author`, `ver
 (17, 'p_auto_forum', 'Автофорум', 'Создает тему на форуме для обсуждения статьи', 'InstantCMS Team', '1.10.4', '', 1, '---\nAF_DELETE_THREAD: 1\nAF_LINK_TREAD: 1\nAF_ADDTREADFORUM_ID: 1\nAF_NOCREATETREAD: 0\n'),
 (21, 'p_new_msg', 'Анимация при новом сообщении', 'Анимация при новом сообщении', 'InstantCMS Team', '1.0', '', 1, '---\n'),
 (33, 'p_kcaptcha', 'Капча kCaptcha', 'Выводит капчу в форме', 'InstantCMS Team', '1.0', '', 1, '---\n'),
-(35, 'p_related_posts', 'Похожие записи в блогах', 'Добавляет в конец каждого поста список похожих записей', 'Pasha && InstantCMS Team', '1.0', '', 1, '---\ntags_mode: 1\nadd_mode: 1\nsearch_mode: 1\nlimit: 4\ntruncate: 200\ncash_time: 1\nblank_photo: no_image.png\n');
+(35, 'p_related_posts', 'Похожие записи в блогах', 'Добавляет в конец каждого поста список похожих записей', 'Pasha && InstantCMS Team', '1.0', '', 1, '---\ntags_mode: 1\nadd_mode: 1\nsearch_mode: 1\nlimit: 4\ntruncate: 200\ncash_time: 1\nblank_photo: no_image.png\n'),
+(36, 'p_recaptcha', 'Капча Recaptcha', 'Современная защита от спама. <a href="https://www.google.com/recaptcha/admin" target="_blank">Получить ключ</a>', 'InstantCMS Team', '1.0', 'captcha', 0, '---\npublic_key: 0\nprivate_key:\ntheme: light\nsize: normal\nlang: ru\n');
 
 DROP TABLE IF EXISTS `#__polls`;
 CREATE TABLE `#__polls` (
@@ -1406,7 +1407,7 @@ CREATE TABLE `#__users` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 INSERT INTO `#__users` (`id`, `group_id`, `login`, `nickname`, `password`, `email`, `icq`, `regdate`, `logdate`, `birthdate`, `is_locked`, `is_deleted`, `rating`, `points`, `last_ip`, `status`, `status_date`, `invited_by`, `invdate`) VALUES
-(1, 2, 'admin', 'Администратор', '', 'admin@cms.ru', '100200300', '2013-09-23 12:41:57', '2013-09-15 13:20:33', '1980-10-23', 0, 0, 32, 0, '127.0.0.1', 'Самый длинный статус из всех что существуют в этом прекрасном мире', '2013-09-21 02:06:53', 0, '2013-09-09 23:25:59');
+(1, 2, 'admin', 'Администратор', '', 'admin@cms.ru', '100200300', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1980-10-23', 0, 0, 32, 0, '127.0.0.1', 'Самый длинный статус из всех что существуют в этом прекрасном мире', CURRENT_TIMESTAMP, 0, CURRENT_TIMESTAMP);
 
 DROP TABLE IF EXISTS `#__users_activate`;
 CREATE TABLE `#__users_activate` (

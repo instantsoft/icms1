@@ -1,10 +1,10 @@
 <?php
 /******************************************************************************/
 //                                                                            //
-//                           InstantCMS v1.10.6                               //
+//                           InstantCMS v1.10.7                               //
 //                        http://www.instantcms.ru/                           //
 //                                                                            //
-//                   written by InstantCMS Team, 2007-2015                    //
+//                   written by InstantCMS Team, 2007-2016                    //
 //                produced by InstantSoft, (www.instantsoft.ru)               //
 //                                                                            //
 //                        LICENSED BY GNU/GPL v2                              //
@@ -13,8 +13,8 @@
 
 define('CORE_VERSION', 		'1.10.7');
 define('CORE_BUILD', 		'1');
-define('CORE_VERSION_DATE', '2014-12-31');
-define('CORE_BUILD_DATE', 	'2015-03-09');
+define('CORE_VERSION_DATE', '2016-07-26');
+define('CORE_BUILD_DATE', 	'2016-07-26');
 
 class cmsCore {
 
