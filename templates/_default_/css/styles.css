@@ -4343,6 +4343,20 @@ span.ajax-loader {
     overflow: hidden;
     font-size: 14px;
 }
+.ratings_control a {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+.ratings_control .fa {
+    display: none;
+}
+.ratings_control .color_green {
+    background: url('../images/icons/karma_up.png') no-repeat center center;
+}
+.ratings_control .color_red {
+    background: url('../images/icons/karma_down.png') no-repeat center center;
+}
 #karmapoints {
     font-size:24px;
 }
@@ -4488,7 +4502,7 @@ ul.rig li:hover div > p {
 .p70 {
     width: 69%;
 }
-.fa:after {
+/*.fa:after {
     padding-right: 5px;
     content: '';
-}
+}*/
