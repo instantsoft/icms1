@@ -163,7 +163,7 @@
             {$smilies}
         {/if}
         <div class="forum_fast_form">
-            <form action="/forum/reply{$thread.id}-1.html" method="post" id="msgform">
+            <form action="/forum/reply{$thread.id}.html" method="post" id="msgform">
                 <input type="hidden" name="gosend" value="1" />
                 <input type="hidden" name="csrf_token" value="{csrf_token}" />
                 <div class="cm_editor">
