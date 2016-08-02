@@ -84,11 +84,7 @@ $errorCode = $_FILES['Filedata']['error'];
 if ($inCore->moveUploadedFile($source, $uploadphoto, $errorCode)) {
 
     @img_resize($uploadphoto, $small, 96, 96, true);
-    @img_resize($uploadphoto, $medium, 600, 600, false, false);
-
-    if ($model->config['watermark']) {
-        @img_add_watermark($uploadthumb['medium']);
-    }
+    @img_resize($uploadphoto, $medium, 600, 600, false, $model->config['watermark']);
 
     @unlink($uploadphoto);
 
