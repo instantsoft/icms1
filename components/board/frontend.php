@@ -118,7 +118,7 @@ if ($do=='view'){
             }
         }
         $pagekeys = implode(',', $keys);
-    } elseif(!$cats) {
+    } elseif(!$cats && !$pagekeys) {
         $pagekeys = $category['title'];
     }
     // если не указано описание, формируем из текущих объявлений
